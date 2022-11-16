@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="coach"
+            type="com.example.coachme.Coach" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:paddingTop="10dp"
+            android:paddingBottom="4dp">
+
+            <LinearLayout
+                android:layout_width="230sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/profile_image"
+                    android:layout_width="78sp"
+                    android:layout_height="78sp"
+                    android:src="@{coach.image}"
+                    />
+<!--                android:src="@tools:sample/avatars"-->
+<!--                android:src="@{coach.image}"-->
+
+                <TextView
+                    android:id="@+id/student_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:text="@{coach.name}" />
+<!--                android:text="@{coach.name}"-->
+
+            </LinearLayout>
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:padding="3dp"
+                android:gravity="center">
+
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="9dp">
+
+                    <ImageView
+                        android:id="@+id/exp_icon"
+                        android:layout_width="20dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/dumbbell" />
+
+                    <TextView
+                        android:id="@+id/exp_student"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:fontFamily="@font/inter"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:text="@{coach.experience}"
+                        />
+<!--                    android:text="10 years"-->
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="9dp">
+
+                    <ImageView
+                        android:id="@+id/qualification_icon"
+                        android:layout_width="18dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/qualification_coach"
+                        />
+
+
+                    <TextView
+                        android:id="@+id/qualifications"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="8"
+                        android:fontFamily="@font/inter"
+                        android:textColor="@color/black"
+                        android:textSize="13sp"
+                        android:text="@{coach.qualification}"
+                        />
+<!--                    android:text="Former Strongman Champion, IFBB Pro"-->
+
+                </TableRow>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="3dp">
+
+                    <ImageView
+                        android:id="@+id/rating_icon"
+                        android:layout_width="20dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/star" />
+
+                    <TextView
+                        android:id="@+id/rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:text="@{coach.rating}"
+                        android:fontFamily="@font/inter"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+<!--                    android:text="4.1"-->
+
+                    <ImageView
+                        android:id="@+id/bookmark_icon"
+                        android:layout_width="20dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/bookmark"
+                        />
+
+                    <TextView
+                        android:id="@+id/bookmark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:fontFamily="@font/inter"
+                        android:gravity="center_vertical"
+                        android:text="@{coach.bookmark}"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+<!--                    android:text="1.2k"-->
+
+                    <ImageButton
+                        android:id="@+id/coach_info_Button"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_weight="1"
+                        app:srcCompat="@drawable/info"
+                        android:background="@color/white" />
+                </LinearLayout>
+            </TableLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.85dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="#BFBFBF" />
+    </LinearLayout>
+</layout>

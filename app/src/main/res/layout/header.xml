@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100sp"
+    android:background="@drawable/header_gradient"
+    >
+
+
+    <ImageButton
+        android:id="@+id/header_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="#00FFFFFF"
+        app:srcCompat="@drawable/menu"
+        android:layout_marginLeft="14sp"
+        android:layout_marginBottom="6sp"
+
+        />
+
+    <TextView
+        android:id="@+id/header_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/lexend"
+        android:text="Sam"
+        android:layout_toLeftOf="@id/profile_image"
+        android:layout_alignParentBottom="true"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:layout_marginRight="12sp"
+        android:layout_marginBottom="18sp"/>
+
+
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="50sp"
+        android:layout_height="50sp"
+        android:src="@drawable/student1"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="26sp"
+        android:layout_marginBottom="7sp"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#61ffff"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+</RelativeLayout>
