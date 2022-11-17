@@ -1,4 +1,4 @@
-package com.example.comp3330project
+package com.example.coachme
 
 import android.content.Intent
 import android.graphics.Color

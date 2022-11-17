@@ -1,4 +1,4 @@
-package com.example.comp3330project
+package com.example.coachme
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -7,7 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageButton
 
-class MainActivity : AppCompatActivity() {
+class Landing_page : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_landing)

@@ -1,4 +1,4 @@
-package com.example.comp3330project
+package com.example.coachme
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
