@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Coach_reg1">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_layout"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#61ffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:background="#61FFFF"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_launcher_back_foreground" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/Description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="Tell us a bit more about yourself. We will look for the best students for you"
+        android:textColor="#355FF5"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_layout" />
+
+
+    <!--    <RadioGroup android:layout_width="wrap_content" android:layout_weight="1" android:layout_height="0dp">-->
+    <!--        <RadioButton android:button="@drawable/radiobutton_selector" android:text="Custom RadioButton 1"-->
+    <!--            android:layout_height="wrap_content" android:layout_width="wrap_content"></RadioButton>-->
+    <!--        <RadioButton android:button="@drawable/radiobutton_selector" android:text="Custom RadioButton 2"-->
+    <!--            android:layout_height="wrap_content" android:layout_width="wrap_content"></RadioButton>-->
+    <!--        <RadioButton android:button="@drawable/radiobutton_selector" android:text="Custom RadioButton 3"-->
+    <!--            android:layout_height="wrap_content" android:layout_width="wrap_content"></RadioButton>-->
+    <!--    </RadioGroup>-->
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/male"
+        android:layout_width="130dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/male_female"
+        android:text="Male"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/female"
+        android:layout_width="130dp"
+        android:layout_height="41dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginTop="120dp"
+        android:background="@drawable/male_female"
+        android:text="Female"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/Age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:text="Age"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/male" />
+
+    <!--    <EditText-->
+    <!--        android:id="@+id/AgeInput"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:ems="10"-->
+    <!--        android:inputType="textPersonName"-->
+    <!--        android:text=""-->
+    <!--        android:minWidth="50dp"-->
+    <!--        android:minHeight="50dp"-->
+    <!--        android:hint="18"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/Age"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/Age" />-->
+
+
+    <TextView
+        android:id="@+id/Experience"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Experience"
+        app:layout_constraintStart_toStartOf="@+id/Age"
+        app:layout_constraintTop_toBottomOf="@+id/AgeInput" />
+
+    <EditText
+        android:id="@+id/ExperienceInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Beginner"
+        android:inputType="textPostalAddress"
+        android:minWidth="50dp"
+        android:minHeight="50dp"
+        app:layout_constraintStart_toStartOf="@+id/Experience"
+        app:layout_constraintTop_toBottomOf="@+id/Experience" />
+
+
+    <TextView
+        android:id="@+id/Expertise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Expertise"
+        app:layout_constraintStart_toStartOf="@+id/Experience"
+        app:layout_constraintTop_toBottomOf="@+id/ExperienceInput" />
+
+    <EditText
+        android:id="@+id/ExpertiseInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Powerlifting"
+        android:inputType="textPostalAddress"
+        android:minWidth="50dp"
+        android:minHeight="50dp"
+        app:layout_constraintStart_toStartOf="@+id/Expertise"
+        app:layout_constraintTop_toBottomOf="@+id/Expertise" />
+
+    <Button
+        android:id="@+id/contd"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="#42B0EE"
+        android:shadowColor="#355FF5"
+        android:text="Continue >"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="414dp"
+        android:layout_height="377dp"
+        android:layout_marginBottom="-80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/gym_student" />
+
+    <TextView
+        android:id="@+id/AgeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:textSize="16dp"
+        app:layout_constraintBottom_toBottomOf="@id/Age"
+        app:layout_constraintStart_toEndOf="@id/Age" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/AgeInput"
+        android:layout_width="329dp"
+        android:layout_height="wrap_content"
+        android:valueFrom="0"
+        android:stepSize="1"
+        android:valueTo="100"
+        android:minWidth="300dp"
+        app:layout_constraintStart_toStartOf="@+id/Age"
+        app:layout_constraintTop_toBottomOf="@+id/Age" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
