@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".main_coach">
+    tools:context=".News1">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_layout"
@@ -19,7 +19,7 @@
             android:id="@+id/back_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="5dp"
+            android:layout_marginStart="4dp"
             android:background="#61FFFF"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
