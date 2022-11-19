@@ -4,10 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 
 class General_reg : AppCompatActivity() {
     private var first_name: String? = null
@@ -33,12 +30,31 @@ class General_reg : AppCompatActivity() {
                 R.anim.slide_out_right);
         })
 
+        val spinner = findViewById<Spinner>(R.id.AddressInput)
+        val addressInput = findViewById<TextView>(R.id.Address)
+        val options = arrayOf("Kowloon", "HK Island", "New Territories")
+        val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, options)
+
+        spinner.adapter = arrayAdapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+                addressInput.text = "Address selected:  ${options.get(p2).toString()}"
+                address = options.get(p2).toString()
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+                addressInput.text = "Please select address"
+            }
+
+        }
+
         var con: Button = findViewById(R.id.contd)
         con.setOnClickListener(View.OnClickListener() {
             first_name = findViewById<EditText>(R.id.FirstNameInput)!!.text.toString()
             last_name = findViewById<EditText>(R.id.LastNameInput)!!.text.toString()
             username = findViewById<EditText>(R.id.UsernameInput)!!.text.toString()
-            address = findViewById<EditText>(R.id.AddressInput)!!.text.toString()
+//            address = findViewById<EditText>(R.id.AddressInput)!!.text.toString()
             var intent = Intent(this, Coach_reg1::class.java)
             if (first_name!!.isNotEmpty() && last_name!!.isNotEmpty() && username!!.isNotEmpty() && address!!.isNotEmpty()) {
                 if (id.equals("trainer")) {
