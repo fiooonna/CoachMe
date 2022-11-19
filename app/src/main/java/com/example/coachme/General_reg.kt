@@ -29,6 +29,8 @@ class General_reg : AppCompatActivity() {
         back.setOnClickListener(View.OnClickListener() {
             val intent = Intent(this, Sign_up::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         })
 
         var con: Button = findViewById(R.id.contd)
@@ -37,10 +39,9 @@ class General_reg : AppCompatActivity() {
             last_name = findViewById<EditText>(R.id.LastNameInput)!!.text.toString()
             username = findViewById<EditText>(R.id.UsernameInput)!!.text.toString()
             address = findViewById<EditText>(R.id.AddressInput)!!.text.toString()
-
+            var intent = Intent(this, Coach_reg1::class.java)
             if (first_name!!.isNotEmpty() && last_name!!.isNotEmpty() && username!!.isNotEmpty() && address!!.isNotEmpty()) {
                 if (id.equals("trainer")) {
-                    var intent = Intent(this, Coach_reg1::class.java)
                     intent.putExtra("email", email)
                     intent.putExtra("pw", pw)
                     intent.putExtra("firm_pw", firm_pw)

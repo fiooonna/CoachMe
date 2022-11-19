@@ -17,20 +17,26 @@ class Sign_in : AppCompatActivity() {
 
         var back = findViewById<ImageButton>(R.id.back_btn)
         back.setOnClickListener(View.OnClickListener() {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Landing_page::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         })
 
         var sign_in: Button = findViewById(R.id.button5)
         sign_in.setOnClickListener {
             val intent = Intent(this, main_coach::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         }
 
         var sign_up_now: Button = findViewById(R.id.button6)
         sign_up_now.setOnClickListener {
             val intent = Intent(this, Sign_up::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         }
     }
 

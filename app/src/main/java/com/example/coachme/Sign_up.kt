@@ -41,12 +41,16 @@ class Sign_up : AppCompatActivity() {
         back.setOnClickListener(View.OnClickListener() {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         })
 
         var sign_in: Button = findViewById(R.id.button6)
         sign_in.setOnClickListener {
             val intent = Intent(this, Sign_in::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         }
 
         var con: Button = findViewById(R.id.sign_up)
@@ -54,15 +58,17 @@ class Sign_up : AppCompatActivity() {
             email = findViewById<EditText>(R.id.textView)!!.text.toString()
             pw = findViewById<EditText>(R.id.textView2)!!.text.toString()
             firm_pw = findViewById<EditText>(R.id.textView3)!!.text.toString()
-
             val intent = Intent(this, General_reg::class.java)
             if (email!!.isNotEmpty() && id!!.isNotEmpty() && email!!.contains("@")) {
                 if (pw.equals(firm_pw) && pw!!.length >= 8 && firm_pw!!.length>=8) {
+
                     intent.putExtra("email", email)
                     intent.putExtra("pw", pw)
                     intent.putExtra("firm_pw", firm_pw)
                     intent.putExtra("id", id)
                     startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
                 } else{
                     Toast.makeText(this@Sign_up, "Password didn't match or is less than 8 letters. Please check.", Toast.LENGTH_SHORT).show()
                 }

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -37,20 +38,21 @@ class Coach_reg1 : AppCompatActivity() {
             startActivity(intent)
         })
 
-        var male: Button = findViewById(R.id.male)
-        var female: Button = findViewById(R.id.female)
+        var male: Button = findViewById(R.id.MaleButton)
+        var female: Button = findViewById(R.id.FemaleButton)
+
         male.setOnClickListener {
             gender = "male"
-            male.setBackgroundResource(R.drawable.male_female_selected)
+            male.setBackgroundResource(R.drawable.radio_selected)
             male.setTextColor(Color.parseColor("#ffffff"))
-            female.setBackgroundResource(R.drawable.male_female)
+            female.setBackgroundResource(R.drawable.radio_selector)
             female.setTextColor(Color.parseColor("#000000"))
         }
         female.setOnClickListener {
             gender = "female"
-            female.setBackgroundResource(R.drawable.male_female_selected)
+            female.setBackgroundResource(R.drawable.radio_selected)
             female.setTextColor(Color.parseColor("#ffffff"))
-            male.setBackgroundResource(R.drawable.male_female)
+            male.setBackgroundResource(R.drawable.radio_selector)
             male.setTextColor(Color.parseColor("#000000"))
         }
 
@@ -59,9 +61,8 @@ class Coach_reg1 : AppCompatActivity() {
             age = findViewById<Slider>(R.id.AgeInput).value.toString()
             exp = findViewById<EditText>(R.id.ExperienceInput)!!.text.toString()
             expertise = findViewById<EditText>(R.id.ExpertiseInput)!!.text.toString()
-
+            var intent = Intent(this, Coach_reg2::class.java)
             if (gender!!.isNotEmpty() && age!!.isNotEmpty() && exp!!.isNotEmpty() && expertise!!.isNotEmpty()) {
-                var intent = Intent(this, Coach_reg2::class.java)
                 intent.putExtra("email", email)
                 intent.putExtra("pw", pw)
                 intent.putExtra("firm_pw", firm_pw)
