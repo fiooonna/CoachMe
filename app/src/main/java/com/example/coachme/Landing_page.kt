@@ -46,7 +46,7 @@ class Landing_page : AppCompatActivity() {
         news.setOnClickListener(View.OnClickListener() {
             val intent = Intent(this, News::class.java)
 
-            val email: String? = "2@"
+            /*val email: String? = "2@"
             val pw: String? = "12345678"
             val firm_pw: String? = "12345678"
             val id: String? = "124"
@@ -61,7 +61,8 @@ class Landing_page : AppCompatActivity() {
             val intro: String? = "intro"
             val qua: String? = "qrqfw"
             sendInfo("http://10.0.2.2:5000/project?email=$email&pw=$pw&id=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&expertise=$expertise&intro=$intro&qua=$qua")
-            startActivity(intent)
+            sendInfo("http://192.168.31.127:5000/project?email=$email&pw=$pw&id=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&expertise=$expertise&intro=$intro&qua=$qua")
+            */startActivity(intent)
         })
 
         var partners = findViewById<ImageButton>(R.id.partners)
@@ -76,10 +77,11 @@ class Landing_page : AppCompatActivity() {
             startActivity(intent)
         })
     }
+
     fun sendInfo(url: String) {
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
-        Response.Listener { response ->
+            Response.Listener { response ->
                 println("added")
             },
             Response.ErrorListener { error ->

@@ -14,7 +14,7 @@ class Partners : AppCompatActivity() {
 
         var back = findViewById<ImageButton>(R.id.back_btn)
         back.setOnClickListener(View.OnClickListener() {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Landing_page::class.java)
             startActivity(intent)
         })
 
