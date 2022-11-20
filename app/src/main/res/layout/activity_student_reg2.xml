@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Student_reg2">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/top_layout"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:background="#61ffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/back_btn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:background="#61FFFF"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/ic_launcher_back_foreground" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/Description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="left"
+        android:text="Please also fillin your expectation to let our trainers know!"
+        android:textColor="#355FF5"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_layout" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:text="Number Of Lessons per Week"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Description" />
+
+    <Spinner
+        android:id="@+id/weekInput"
+        android:layout_width="200dp"
+        android:layout_height="30dp"
+        android:tooltipText="Please Select"
+        android:elevation="4dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+
+
+    <Button
+        android:id="@+id/contd"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="40dp"
+        android:backgroundTint="#42B0EE"
+        android:shadowColor="#355FF5"
+        android:text="Continue >"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+
+    <EditText
+        android:id="@+id/RemarkText"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:hint="Type here"
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView15" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="414dp"
+        android:layout_height="377dp"
+        android:layout_marginBottom="-80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/gym_student" />
+
+    <com.jaygoo.widget.RangeSeekBar
+        android:id="@+id/range_seekbar_pay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView14"
+        app:rsb_gravity="top"
+        app:rsb_indicator_background_color="#00F3D8"
+        app:rsb_indicator_height="23dp"
+        app:rsb_indicator_radius="5dp"
+        app:rsb_indicator_show_mode="alwaysShow"
+        app:rsb_indicator_text_color="@color/white"
+        app:rsb_indicator_width="40dp"
+        app:rsb_max="1000"
+        app:rsb_min="0"
+        app:rsb_min_interval="200"
+        app:rsb_mode="range"
+        app:rsb_progress_color="#61ffff"
+        app:rsb_step_auto_bonding="true"
+        app:rsb_step_height="10dp"
+        app:rsb_step_width="5dp" />
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="10dp"
+        android:text="Expected Pay Per Hour"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekInput" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:text="Remarks For Our Trainer"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/range_seekbar_pay" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

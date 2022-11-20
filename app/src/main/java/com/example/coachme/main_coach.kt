@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 
 class main_coach : AppCompatActivity() {
@@ -32,6 +33,11 @@ class main_coach : AppCompatActivity() {
         var name = findViewById<Button>(R.id.name)
         name.setText("$username")
 
-
+        var button_find_student = findViewById<ImageButton>(R.id.button_find_students)
+        button_find_student.setOnClickListener(View.OnClickListener() {
+            val intent =  Intent(this, CoachPoolActivity::class.java)
+            startActivity(intent)
+        })
     }
+
 }

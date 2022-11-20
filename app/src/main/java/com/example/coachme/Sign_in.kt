@@ -86,22 +86,48 @@ class Sign_in : AppCompatActivity() {
 
         for (i in 0..usernames.length() - 1){
             if (usernames.get(i).toString().equals(username) && pws.get(i).toString().equals(pw)) {
-                val intent = Intent(this, main_coach::class.java)
-                intent.putExtra("username", username)
-                intent.putExtra("pw", pw)
-                intent.putExtra("email", email.get(i).toString())
-                intent.putExtra("id", id.get(i).toString())
-                intent.putExtra("first_name", first_name.get(i).toString())
-                intent.putExtra("last_name", last_name.get(i).toString())
-                intent.putExtra("address", address.get(i).toString())
-                intent.putExtra("gender", gender.get(i).toString())
-                intent.putExtra("age", age.get(i).toString())
-                intent.putExtra("exp", exp.get(i).toString())
-                intent.putExtra("expertise", expertise.get(i).toString())
-                intent.putExtra("intro", intro.get(i).toString())
-                intent.putExtra("qua", qua.get(i).toString())
+                if (id.get(i).toString().equals("trainer")) {
+                    val intent = Intent(this, main_coach::class.java)
+                    intent.putExtra("username", username)
+                    intent.putExtra("pw", pw)
+                    intent.putExtra("email", email.get(i).toString())
+                    intent.putExtra("id", id.get(i).toString())
+                    intent.putExtra("first_name", first_name.get(i).toString())
+                    intent.putExtra("last_name", last_name.get(i).toString())
+                    intent.putExtra("address", address.get(i).toString())
+                    intent.putExtra("gender", gender.get(i).toString())
+                    intent.putExtra("age", age.get(i).toString())
+                    intent.putExtra("exp", exp.get(i).toString())
+                    intent.putExtra("expertise", expertise.get(i).toString())
+                    intent.putExtra("intro", intro.get(i).toString())
+                    intent.putExtra("qua", qua.get(i).toString())
 
-                startActivity(intent)
+                    startActivity(intent)
+                }
+                else if (id.get(i).toString().equals("student")) {
+                    val intent = Intent(this, main_student::class.java)
+                    intent.putExtra("username", username)
+                    intent.putExtra("pw", pw)
+                    intent.putExtra("email", email.get(i).toString())
+                    intent.putExtra("id", id.get(i).toString())
+                    intent.putExtra("first_name", first_name.get(i).toString())
+                    intent.putExtra("last_name", last_name.get(i).toString())
+                    intent.putExtra("address", address.get(i).toString())
+                    intent.putExtra("gender", gender.get(i).toString())
+                    intent.putExtra("age", age.get(i).toString())
+                    intent.putExtra("exp", exp.get(i).toString())
+                    intent.putExtra("expertise", expertise.get(i).toString())
+                    intent.putExtra("intro", intro.get(i).toString())
+                    intent.putExtra("qua", qua.get(i).toString())
+
+                    startActivity(intent)
+                }
+
+                else {
+                    Toast.makeText(this@Sign_in, "The account is neither student or coach.", Toast.LENGTH_SHORT).show()
+                    return
+                }
+
                 return
             }
         }

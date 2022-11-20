@@ -6,18 +6,19 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.coachme.databinding.ActivityMainBinding
+
+import com.example.coachme.databinding.ActivityStudentpoolBinding
 
 
-class MainActivity : AppCompatActivity() {
+class studentpoolActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityStudentpoolBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
 //        binding and setting the content of student pool page, assuming the main_activity is the pool page
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_studentpool)
 
         val recyclerViewStudents = binding.rvStudent
         val dummyStudent1 = Student(image = getDrawable(R.drawable.coach1),name = "Freda",location = "Lai Chi Kok",goals = "Reduce Weight",experience = "Intermediate",price = "$100/hr")

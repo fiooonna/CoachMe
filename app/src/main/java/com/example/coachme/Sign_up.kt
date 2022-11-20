@@ -19,7 +19,7 @@ class Sign_up : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
-
+        id = null
         var student: Button = findViewById(R.id.student)
         var trainer: Button = findViewById(R.id.trainer)
         student.setOnClickListener {
@@ -39,7 +39,7 @@ class Sign_up : AppCompatActivity() {
 
         var back = findViewById<ImageButton>(R.id.back_btn)
         back.setOnClickListener(View.OnClickListener() {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, Landing_page::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
