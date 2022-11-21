@@ -13,7 +13,7 @@ import android.widget.Toast
 import com.google.android.material.slider.Slider
 
 class Coach_reg1 : AppCompatActivity() {
-    private var gender: String? = null
+    private var gender: String = ""
     private var age: String? = null
     private var exp: String? = null
     private var expertise: String? = null
