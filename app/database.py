@@ -26,19 +26,19 @@ con.execute("""CREATE TABLE IF NOT EXISTS Users (
 );""")
 
 con.execute("""CREATE TABLE IF NOT EXISTS Student (
-    student_id varchar(255) PRIMARY KEY,
+    user_id varchar(255) PRIMARY KEY,
     goal varchar(255),
     level varchar(255),
     prefer_price_range varchar(255),
     lesson_num varchar(255),
-    FOREIGN KEY(id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION
+    FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION
 );""")
 
 con.execute("""CREATE TABLE IF NOT EXISTS Coach (
-    student_id varchar(255) PRIMARY KEY,
+    user_id varchar(255) PRIMARY KEY,
     yearExp varchar(255),
     price varchar(255),
-    FOREIGN KEY(id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION
+    FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION
 );""")
 
 con.close()
