@@ -32,7 +32,7 @@ tools:context=".main_coach">
         android:layout_height="58dp"
         android:layout_marginStart="326dp"
         android:layout_marginTop="52dp"
-        android:src="@drawable/dumpbell"
+        android:src="@drawable/student1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -63,11 +63,10 @@ tools:context=".main_coach">
             android:ems="10"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
-            android:text="$"
+            android:text="$400"
             android:textAlignment="center"
             android:textColor="#000000"
             android:textSize="56sp"
-            android:textStyle="italic"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent" />
 

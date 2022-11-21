@@ -26,7 +26,7 @@ def project():
 
     if len(email) > 0:
         insertQuery = "INSERT INTO Users (id, email, pw, first_name, last_name, username, address, gender, age, exp, expertise, intro, qua) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
-        con.execute(insertQuery, (ids, email, pw, ids, first_name, last_name, username, address, gender, age, exp, expertise, intro, qua))
+        con.execute(insertQuery, (ids, email, pw, first_name, last_name, username, address, gender, age, exp, expertise, intro, qua))
         con.commit()
 
     cursor = con.execute("SELECT * from Users;")

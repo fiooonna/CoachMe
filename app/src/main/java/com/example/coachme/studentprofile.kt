@@ -25,7 +25,12 @@ class studentprofile : AppCompatActivity() {
         }
 
         sendbutton.setOnClickListener{
-            Toast.makeText(getApplicationContext(),"Request Sent to Bob", Toast.LENGTH_SHORT).show();
+
+            val intent = Intent(this, studentpoolActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(getApplicationContext(),"Request Sent to Tina", Toast.LENGTH_SHORT).show();
+            overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         }
     }
 }

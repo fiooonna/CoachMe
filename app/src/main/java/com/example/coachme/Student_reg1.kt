@@ -7,12 +7,14 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import com.google.android.material.slider.Slider
+import com.jaygoo.widget.RangeSeekBar
 
 class Student_reg1 : AppCompatActivity() {
-    private var gender: String? = null
+    private var gender: String = ""
     private var age: String? = null
     private var exp: String? = null
     private var target: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_reg1)
@@ -26,7 +28,6 @@ class Student_reg1 : AppCompatActivity() {
         val last_name: String? = intent.getStringExtra("last_name")
         val username: String? = intent.getStringExtra("username")
         val address: String? = intent.getStringExtra("address")
-
 
         var back = findViewById<ImageButton>(R.id.back_btn)
         back.setOnClickListener(View.OnClickListener() {
@@ -52,6 +53,8 @@ class Student_reg1 : AppCompatActivity() {
             male.setTextColor(Color.parseColor("#000000"))
         }
 
+        // var exp_seekbar = findViewById<RangeSeekBar>(R.id.range_seekbar_experience)
+
         val spinner = findViewById<Spinner>(R.id.TargetInput)
         val TargetInput = findViewById<TextView>(R.id.Target)
         val options = arrayListOf("Toning", "Endurance", "Mobility", "Strength")
@@ -64,24 +67,18 @@ class Student_reg1 : AppCompatActivity() {
                 TargetInput.text = "Target selected:  ${options.get(p2).toString()}"
                 target = options.get(p2).toString()
             }
-
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 TargetInput.text = "Please select address"
                 target = null
             }
-
         }
 
         var con: Button = findViewById(R.id.contd)
         con.setOnClickListener(View.OnClickListener() {
-            var intent = Intent(this, Student_reg2::class.java)
-            startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
-        })
-/*        con.setOnClickListener(View.OnClickListener() {
             age = findViewById<Slider>(R.id.AgeInput).value.toString()
-            exp = findViewById<EditText>(R.id.ExperienceInput)!!.text.toString()
+            // exp = findViewById<RangeSeekBar>(R.id.range_seekbar_experience).?.toString()
+            exp = "Beginner"
+
             var intent = Intent(this, Student_reg2::class.java)
             if (gender!!.isNotEmpty() && age!!.isNotEmpty() && exp!!.isNotEmpty() && target!!.isNotEmpty()) {
                 intent.putExtra("email", email)
@@ -96,11 +93,15 @@ class Student_reg1 : AppCompatActivity() {
                 intent.putExtra("age", age)
                 intent.putExtra("exp", exp)
                 intent.putExtra("target", target)
+
+                //Toast.makeText(this@Student_reg1, "$gender$age$exp$target", Toast.LENGTH_SHORT).show()
                 startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right,
+                    R.anim.slide_out_left);
             } else {
                 Toast.makeText(this@Student_reg1, "Something is not completed. Please check", Toast.LENGTH_SHORT).show()
             }
-        })*/
+        })
 
     }
 }

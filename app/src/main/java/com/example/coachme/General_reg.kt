@@ -54,10 +54,10 @@ class General_reg : AppCompatActivity() {
             first_name = findViewById<EditText>(R.id.FirstNameInput)!!.text.toString()
             last_name = findViewById<EditText>(R.id.LastNameInput)!!.text.toString()
             username = findViewById<EditText>(R.id.UsernameInput)!!.text.toString()
-//            address = findViewById<EditText>(R.id.AddressInput)!!.text.toString()
-            var intent = Intent(this, Coach_reg1::class.java)
+
             if (first_name!!.isNotEmpty() && last_name!!.isNotEmpty() && username!!.isNotEmpty() && address!!.isNotEmpty()) {
                 if (id.equals("trainer")) {
+                    val intent = Intent(this, Coach_reg1::class.java)
                     intent.putExtra("email", email)
                     intent.putExtra("pw", pw)
                     intent.putExtra("firm_pw", firm_pw)
@@ -70,20 +70,19 @@ class General_reg : AppCompatActivity() {
                     overridePendingTransition(R.anim.slide_in_right,
                         R.anim.slide_out_left);
                 } else if (id.equals("student")) {
-                        val intent = Intent(this, Student_reg1::class.java)
-                        intent.putExtra("email", email)
-                        intent.putExtra("pw", pw)
-                        intent.putExtra("firm_pw", firm_pw)
-                        intent.putExtra("id", id)
-                        intent.putExtra("first_name", first_name)
-                        intent.putExtra("last_name", last_name)
-                        intent.putExtra("username", username)
-                        intent.putExtra("address", address)
-                        startActivity(intent)
-                        overridePendingTransition(R.anim.slide_in_right,
-                            R.anim.slide_out_left);
-                    }
-                else {
+                    val intent = Intent(this, Student_reg1::class.java)
+                    intent.putExtra("email", email)
+                    intent.putExtra("pw", pw)
+                    intent.putExtra("firm_pw", firm_pw)
+                    intent.putExtra("id", id)
+                    intent.putExtra("first_name", first_name)
+                    intent.putExtra("last_name", last_name)
+                    intent.putExtra("username", username)
+                    intent.putExtra("address", address)
+                    startActivity(intent)
+                    overridePendingTransition(R.anim.slide_in_right,
+                        R.anim.slide_out_left);
+                } else {
                     Toast.makeText(this@General_reg, "Unexpected error occured", Toast.LENGTH_SHORT).show()
                     System.exit(0);
                 }

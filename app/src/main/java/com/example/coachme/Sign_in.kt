@@ -70,6 +70,7 @@ class Sign_in : AppCompatActivity() {
     }
 
     fun switchActivity(jsonObj: JSONObject, username: String, pw: String?){
+        val user_ids: JSONArray = jsonObj.get("user_id") as JSONArray
         val usernames: JSONArray = jsonObj.get("username") as JSONArray
         val pws: JSONArray = jsonObj.get("pw") as JSONArray
         val email: JSONArray = jsonObj.get("email") as JSONArray
@@ -85,6 +86,8 @@ class Sign_in : AppCompatActivity() {
         val qua: JSONArray = jsonObj.get("qua") as JSONArray
 
         for (i in 0..usernames.length() - 1){
+            Log.d("username", usernames.get(i).toString())
+            Log.d("pw", pws.get(i).toString())
             if (usernames.get(i).toString().equals(username) && pws.get(i).toString().equals(pw)) {
                 if (id.get(i).toString().equals("trainer")) {
                     val intent = Intent(this, main_coach::class.java)
