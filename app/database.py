@@ -5,10 +5,13 @@ import sqlite3
 con = sqlite3.connect('my-db.db')
 
 # Creates table
+
+# need to delete exp, expertise, qua in User entity
+# didnt make disjoint relationship, assuming user will only belong to either Student or Coach
 con.execute("""CREATE TABLE IF NOT EXISTS Users (
+    id varchar(255) not null PRIMARY KEY,
     email varchar(255),
     pw varchar(255),
-    id varchar(255),
     first_name varchar(255),
     last_name varchar(255),
     username varchar(255),
@@ -19,6 +22,22 @@ con.execute("""CREATE TABLE IF NOT EXISTS Users (
     expertise varchar(255),
     intro varchar(255),
     qua varchar(255)
+);""")
+
+con.execute("""CREATE TABLE IF NOT EXISTS Student (
+    id varchar(255) PRIMARY KEY,
+    goal varchar(255),
+    level varchar(255),
+    prefer_price_range varchar(255),
+    lesson_num varchar(255),
+    FOREIGN KEY(id) REFERENCES User(id) ON DELETE CASCADE ON UPDATE NO ACTION
+);""")
+
+con.execute("""CREATE TABLE IF NOT EXISTS Coach (
+    id varchar(255) PRIMARY KEY,
+    yearExp varchar(255),
+    price varchar(255),
+    FOREIGN KEY(id) REFERENCES User(id) ON DELETE CASCADE ON UPDATE NO ACTION
 );""")
 
 con.close()
