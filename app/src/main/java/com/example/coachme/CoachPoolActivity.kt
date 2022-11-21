@@ -2,6 +2,8 @@ package com.example.coachme
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -29,6 +31,11 @@ class CoachPoolActivity : AppCompatActivity() {
         recyclerViewCoaches.layoutManager = LinearLayoutManager(this)
         recyclerViewCoaches.setHasFixedSize(true)
 
+        val coachInfoButton = findViewById<ImageButton>(R.id.coach_info_Button)
+        coachInfoButton.setOnClickListener {
+            val coachInfoIntent = Intent(this, coachprofile::class.java)
+            startActivity(coachInfoIntent)
+        }
 
     }
 

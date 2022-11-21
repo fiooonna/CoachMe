@@ -3,6 +3,7 @@ package com.example.coachme
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,6 +42,12 @@ class studentpoolActivity : AppCompatActivity() {
         sortButton.setOnClickListener {
             val sortIntent = Intent(this, CoachPoolActivity::class.java)
             startActivity(sortIntent)
+        }
+
+        val studentInfoButton = findViewById<ImageButton>(R.id.student_info_Button)
+        studentInfoButton.setOnClickListener {
+            val studentInfoIntent = Intent(this, studentprofile::class.java)
+            startActivity(studentInfoIntent)
         }
 
     }
