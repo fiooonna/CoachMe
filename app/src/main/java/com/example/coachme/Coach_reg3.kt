@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
@@ -18,10 +15,25 @@ import org.json.JSONObject
 
 class Coach_reg3 : AppCompatActivity() {
     private var qua: String? = null
+    private lateinit var button: Button
+    private lateinit var imageView: ImageView
+
+    companion object {
+        val IMAGE_REQUEST_CODE = 100
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coach_reg3)
+
+        button = findViewById(R.id.UploadButton)
+        imageView = findViewById(R.id.UploadProof)
+
+        button.setOnClickListener{
+            pickImageGallery()
+        }
+
+
 
         var intent: Intent = getIntent()
         val email: String? = intent.getStringExtra("email")
@@ -57,6 +69,19 @@ class Coach_reg3 : AppCompatActivity() {
                 Toast.makeText(this@Coach_reg3, "Something is not completed. Please check", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    private fun pickImageGallery() {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        startActivityForResult(intent, IMAGE_REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == IMAGE_REQUEST_CODE && resultCode == RESULT_OK) {
+            imageView.setImageURI(data?.data)
+        }
     }
 
     fun sendInfo(url: String) {

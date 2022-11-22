@@ -78,30 +78,56 @@
         app:layout_constraintStart_toStartOf="@+id/Qualification"
         app:layout_constraintTop_toBottomOf="@+id/SelectQualification" />
 
-    <EditText
+
+    <ImageView
         android:id="@+id/UploadProof"
-        android:layout_width="170dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:hint="Browse your device"
-        android:inputType="textPersonName"
-        android:minWidth="50dp"
-        android:minHeight="50dp"
-        android:text=""
+        android:layout_width="144dp"
+        android:layout_height="140dp"
         app:layout_constraintStart_toStartOf="@+id/Proof"
-        app:layout_constraintTop_toBottomOf="@+id/Proof" />
+        app:layout_constraintTop_toBottomOf="@+id/Proof"
+        app:srcCompat="@drawable/icon1" />
 
     <Button
         android:id="@+id/UploadButton"
         android:layout_width="99dp"
         android:layout_height="50dp"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="292dp"
         android:backgroundTint="#42B0EE"
         android:shadowColor="#355FF5"
         android:text="Upload"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/UploadProof"
-        app:layout_constraintStart_toEndOf="@+id/UploadProof" />
+        app:layout_constraintStart_toEndOf="@+id/UploadProof"
+        app:layout_constraintTop_toTopOf="parent" />
+
+<!--    <EditText-->
+<!--        android:id="@+id/UploadProof"-->
+<!--        android:layout_width="170dp"-->
+<!--        android:layout_height="48dp"-->
+<!--        android:ems="10"-->
+<!--        android:hint="Browse your device"-->
+<!--        android:inputType="textPersonName"-->
+<!--        android:minWidth="50dp"-->
+<!--        android:minHeight="50dp"-->
+<!--        android:text=""-->
+<!--        app:layout_constraintStart_toStartOf="@+id/Proof"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/Proof" />-->
+
+
+<!--    <Button-->
+<!--        android:id="@+id/UploadButton"-->
+<!--        android:layout_width="99dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginStart="50dp"-->
+<!--        android:layout_marginTop="292dp"-->
+<!--        android:backgroundTint="#42B0EE"-->
+<!--        android:shadowColor="#355FF5"-->
+<!--        android:text="Upload"-->
+<!--        android:textColor="@color/black"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/UploadProof"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/UploadProof"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
 
     <Button
         android:id="@+id/contd"
@@ -125,5 +151,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/gym_student" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
