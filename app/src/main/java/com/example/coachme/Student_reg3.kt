@@ -14,7 +14,6 @@ class Student_reg3 : AppCompatActivity() {
         setContentView(R.layout.activity_student_reg3)
 
         val return_home = findViewById<Button>(R.id.return_home)
-
         return_home.setOnClickListener(View.OnClickListener() {
             var intent = Intent(this, Sign_in::class.java)
             startActivity(intent)

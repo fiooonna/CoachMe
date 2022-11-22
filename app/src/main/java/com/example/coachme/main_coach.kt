@@ -35,8 +35,10 @@ class main_coach : AppCompatActivity() {
 
         var button_find_student = findViewById<ImageButton>(R.id.button_find_students)
         button_find_student.setOnClickListener(View.OnClickListener() {
-            val intent =  Intent(this, CoachPoolActivity::class.java)
+            val intent =  Intent(this, studentpoolActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
         })
     }
 

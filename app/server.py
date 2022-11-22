@@ -9,6 +9,7 @@ app = flask.Flask(__name__)
 def project():
     con = sqlite3.connect('my-db.db')
 
+    
     email = request.args.get('email', '')
     pw = request.args.get('pw', '')
     ids = request.args.get('ids', '')
@@ -24,33 +25,35 @@ def project():
     qua = request.args.get('qua', '')
 
     if len(email) > 0:
-        insertQuery = "INSERT INTO Users (email, pw, id, first_name, last_name, username, address, gender, age, exp, expertise, intro, qua) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
-        con.execute(insertQuery, (email, pw, ids, first_name, last_name, username, address, gender, age, exp, expertise, intro, qua))
+        insertQuery = "INSERT INTO Users (id, email, pw, first_name, last_name, username, address, gender, age, exp, expertise, intro, qua) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+        con.execute(insertQuery, (ids, email, pw, first_name, last_name, username, address, gender, age, exp, expertise, intro, qua))
         con.commit()
 
     cursor = con.execute("SELECT * from Users;")
     print(cursor)
 
-    email, pw, ids, first_name, last_name, username, address, gender, age, exp, expertise, intro, qua = [], [], [], [], [], [], [], [], [], [], [], [], []
+    user_ids, ids, email, pw, first_name, last_name, username, address, gender, age, exp, expertise, intro, qua = [], [], [], [], [], [], [], [], [], [], [], [], [], []
     
     for row in cursor:
-        email.append(row[0])
-        pw.append(row[1])
-        ids.append(row[2])
-        first_name.append(row[3])
-        last_name.append(row[4])
-        username.append(row[5])
-        address.append(row[6])
-        gender.append(row[7])
-        age.append(row[8])
-        exp.append(row[9])
-        expertise.append(row[10])
-        intro.append(row[11])
-        qua.append(row[12])
+        user_ids.append(row[0])
+        ids.append(row[1])  
+        email.append(row[2])
+        pw.append(row[3])
+        first_name.append(row[4])
+        last_name.append(row[5])
+        username.append(row[6])
+        address.append(row[7])
+        gender.append(row[8])
+        age.append(row[9])
+        exp.append(row[10])
+        expertise.append(row[11])
+        intro.append(row[12])
+        qua.append(row[13])
         
     con.close()
     
     data = {
+        "user_id": user_ids,
         "email": email,
         "pw": pw,
         "id": ids,

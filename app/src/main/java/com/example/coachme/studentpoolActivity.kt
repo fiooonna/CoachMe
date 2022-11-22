@@ -3,6 +3,7 @@ package com.example.coachme
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,9 +23,14 @@ class studentpoolActivity : AppCompatActivity() {
 
         val recyclerViewStudents = binding.rvStudent
         val dummyStudent1 = Student(image = getDrawable(R.drawable.coach1),name = "Freda",location = "Lai Chi Kok",goals = "Reduce Weight",experience = "Intermediate",price = "$100/hr")
-        val dummyStudent2 = Student(image = getDrawable(R.drawable.coach2),name = "Alex",location = "Tsuen Wan",goals = "Gain Weight",experience = "Beginner",price = "$170/hr")
+        val dummyStudent2 = Student(image = getDrawable(R.drawable.coach2),name = "Tina",location = "Mong Kok",goals = "Build Muscles, Loss Fat",experience = "Beginner",price = "$300/hr")
         val students = listOf(dummyStudent1,dummyStudent2)
-        val studentsAdapter = StudentPoolAdaptor(students)
+        val studentsAdapter = StudentPoolAdaptor(students, StudentPoolAdaptor.OnClickListener {
+            val intent = Intent(this, studentprofile::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_right,
+                R.anim.slide_out_left);
+        })
         recyclerViewStudents.adapter = studentsAdapter
         recyclerViewStudents.layoutManager = LinearLayoutManager(this)
         recyclerViewStudents.setHasFixedSize(true)
@@ -42,6 +48,7 @@ class studentpoolActivity : AppCompatActivity() {
             val sortIntent = Intent(this, CoachPoolActivity::class.java)
             startActivity(sortIntent)
         }
+
 
     }
 
