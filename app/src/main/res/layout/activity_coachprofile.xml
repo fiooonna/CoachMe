@@ -95,7 +95,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
 
-            android:src="@drawable/coach1"
+            android:src="@drawable/coach9"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -200,7 +200,7 @@
         android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bob"
+        android:text="Timmy"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
