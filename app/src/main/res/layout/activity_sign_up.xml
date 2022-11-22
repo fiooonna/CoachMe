@@ -61,6 +61,7 @@
         android:layout_marginLeft="44dp"
         android:layout_marginTop="212dp"
         android:hint="Password"
+        android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -71,6 +72,7 @@
         android:layout_marginLeft="44dp"
         android:layout_marginTop="260dp"
         android:hint="Confirm Password"
+        android:inputType="textPassword"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

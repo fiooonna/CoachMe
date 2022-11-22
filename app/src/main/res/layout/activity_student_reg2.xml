@@ -117,6 +117,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textView14"
         app:rsb_gravity="top"
+        app:rsb_steps="100"
         app:rsb_indicator_background_color="#00F3D8"
         app:rsb_indicator_height="23dp"
         app:rsb_indicator_radius="5dp"
@@ -129,8 +130,8 @@
         app:rsb_mode="range"
         app:rsb_progress_color="#61ffff"
         app:rsb_step_auto_bonding="true"
-        app:rsb_step_height="10dp"
-        app:rsb_step_width="5dp" />
+        app:rsb_step_height="0dp"
+        app:rsb_step_width="0dp" />
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"

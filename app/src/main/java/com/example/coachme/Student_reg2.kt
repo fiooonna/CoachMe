@@ -41,32 +41,37 @@ class Student_reg2 : AppCompatActivity() {
             startActivity(intent)
         })
 
+        val range_seekbar_pay = findViewById<RangeSeekBar>(R.id.range_seekbar_pay)
+        range_seekbar_pay.setIndicatorTextDecimalFormat("0");
+
+
+
+
         val spinner = findViewById<Spinner>(R.id.weekInput)
         val options = arrayListOf("1", "2", "3", "4", "5 or more")
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, options)
 
         spinner.adapter = arrayAdapter
 
-        /*spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 numperweek = options.get(p2).toString()
             }
             override fun onNothingSelected(p0: AdapterView<*>?) {
                 numperweek = null
             }
-        }*/
-        numperweek = "1"
+        }
 
         val con = findViewById<Button>(R.id.contd)
         con.setOnClickListener(View.OnClickListener() {
             remarks = findViewById<EditText>(R.id.RemarkText)!!.text.toString()
-            /*var min_pay = findViewById<RangeSeekBar>(R.id.range_seekbar_pay)!!.?.toInt()
-            var max_pay = findViewById<RangeSeekBar>(R.id.range_seekbar_pay)!!.?.toInt()
-            expect_pay = intArrayOf(min_pay, max_pay)*/
-            expect_pay = intArrayOf(0, 200)
+            var min_pay = range_seekbar_pay.leftSeekBar.progress.toInt()
+            var max_pay = range_seekbar_pay.leftSeekBar.progress.toInt()
+            expect_pay = intArrayOf(min_pay, max_pay)
+
 
             var intent = Intent(this, Student_reg3::class.java)
-            sendInfo("http://10.0.2.2:5000/project?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&target=$target&numperweek=$numperweek&expect_pay=$expect_pay&remarks=$remarks")
+            sendInfo("http://10.0.2.2:5000/student?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&target=$target&numperweek=$numperweek&min_pay=$min_pay&max_pay=$max_pay&remarks=$remarks")
             /*sendInfo("http://192.168.31.127:5000/project?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&target=$target&numperweek=$numperweek&expect_pay=$expect_pay&remarks=$remarks")*/
 
             Toast.makeText(this@Student_reg2, "$numperweek$expect_pay$remarks", Toast.LENGTH_LONG).show()

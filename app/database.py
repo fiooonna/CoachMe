@@ -29,8 +29,10 @@ con.execute("""CREATE TABLE IF NOT EXISTS Student (
     user_id varchar(255) PRIMARY KEY,
     goal varchar(255),
     level varchar(255),
-    prefer_price_range varchar(255),
+    min_pay varchar(255),
+    max_pay varchar(255),
     lesson_num varchar(255),
+    remark varchar(255),
     FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION
 );""")
 

@@ -4,6 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import com.google.android.material.slider.Slider
@@ -15,9 +16,11 @@ class Student_reg1 : AppCompatActivity() {
     private var exp: String? = null
     private var target: String? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_student_reg1)
+
 
         var intent: Intent = getIntent()
         val email: String? = intent.getStringExtra("email")
@@ -74,10 +77,15 @@ class Student_reg1 : AppCompatActivity() {
         }
 
         var con: Button = findViewById(R.id.contd)
+
         con.setOnClickListener(View.OnClickListener() {
-            age = findViewById<Slider>(R.id.AgeInput).value.toString()
-            // exp = findViewById<RangeSeekBar>(R.id.range_seekbar_experience).?.toString()
-            exp = "Beginner"
+            age = findViewById<Slider>(R.id.AgeInput).value.toInt().toString()
+            val ExpseekBar = findViewById<RangeSeekBar>(R.id.range_seekbar_experience)
+            val exp_int = ExpseekBar.leftSeekBar.progress.toInt()
+
+            var exp_array = arrayOf("Beginner","Intermediate","advanced")
+            exp = exp_array.elementAt(exp_int).toString()
+            Log.d("LOG VALUE", exp!!)
 
             var intent = Intent(this, Student_reg2::class.java)
             if (gender!!.isNotEmpty() && age!!.isNotEmpty() && exp!!.isNotEmpty() && target!!.isNotEmpty()) {
