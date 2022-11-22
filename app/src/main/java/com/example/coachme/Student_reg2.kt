@@ -14,7 +14,6 @@ import com.jaygoo.widget.RangeSeekBar
 
 class Student_reg2 : AppCompatActivity() {
     private var numperweek: String? = null
-    private lateinit var expect_pay: IntArray
     private var remarks: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,15 +65,13 @@ class Student_reg2 : AppCompatActivity() {
         con.setOnClickListener(View.OnClickListener() {
             remarks = findViewById<EditText>(R.id.RemarkText)!!.text.toString()
             var min_pay = range_seekbar_pay.leftSeekBar.progress.toInt()
-            var max_pay = range_seekbar_pay.leftSeekBar.progress.toInt()
-            expect_pay = intArrayOf(min_pay, max_pay)
+            var max_pay = range_seekbar_pay.rightSeekBar.progress.toInt()
 
-
+            Log.d("VARIABLE", min_pay.toString())
             var intent = Intent(this, Student_reg3::class.java)
             sendInfo("http://10.0.2.2:5000/student?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&target=$target&numperweek=$numperweek&min_pay=$min_pay&max_pay=$max_pay&remarks=$remarks")
             /*sendInfo("http://192.168.31.127:5000/project?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&target=$target&numperweek=$numperweek&expect_pay=$expect_pay&remarks=$remarks")*/
 
-            Toast.makeText(this@Student_reg2, "$numperweek$expect_pay$remarks", Toast.LENGTH_LONG).show()
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_left

@@ -5,9 +5,12 @@ import sqlite3
 con = sqlite3.connect('my-db.db')
 
 # Creates table
-
+con.execute("""DROP TABLE IF EXISTS Users""")
+con.execute("""DROP TABLE IF EXISTS Student""")
+con.execute("""DROP TABLE IF EXISTS Coach""")
 # need to delete exp, expertise, qua in User entity
 # didnt make disjoint relationship, assuming user will only belong to either Student or Coach
+
 con.execute("""CREATE TABLE IF NOT EXISTS Users (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
     id varchar(255),
@@ -22,25 +25,30 @@ con.execute("""CREATE TABLE IF NOT EXISTS Users (
     exp varchar(255),
     expertise varchar(255),
     intro varchar(255),
-    qua varchar(255)
+    qua varchar(255),
+    UNIQUE(username, user_id)
 );""")
 
 con.execute("""CREATE TABLE IF NOT EXISTS Student (
-    user_id varchar(255) PRIMARY KEY,
+    student_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username varchar(255),
     goal varchar(255),
     level varchar(255),
     min_pay varchar(255),
     max_pay varchar(255),
     lesson_num varchar(255),
     remark varchar(255),
-    FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION
+    UNIQUE(username, student_id)
 );""")
 
 con.execute("""CREATE TABLE IF NOT EXISTS Coach (
-    user_id varchar(255) PRIMARY KEY,
+    coach_id INTEGER PRIMARY KEY AUTOINCREMENT,
     yearExp varchar(255),
     price varchar(255),
-    FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION
+    username varchar(255),
+    UNIQUE(username, coach_id)
 );""")
+
+#FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION,
 
 con.close()

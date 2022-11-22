@@ -3,14 +3,23 @@ package com.example.coachme
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.JsonObjectRequest
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import org.json.JSONArray
+import java.net.URL
 
 class General_reg : AppCompatActivity() {
     private var first_name: String? = null
     private var last_name: String? = null
     private var username: String? = null
     private var address: String? = null
+    private lateinit var exist_username: ArrayList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,12 +58,47 @@ class General_reg : AppCompatActivity() {
 
         }
 
+        exist_username = ArrayList<String>()
+        val url = "http://10.0.2.2:5000/get_student"
+        val queue = Volley.newRequestQueue(this)
+        val reques = StringRequest(Request.Method.GET, url,
+            Response.Listener { response ->
+                val data = response.toString()
+                var jArray = JSONArray(data)
+                for (i in 0.. jArray.length() - 1) {
+                    var jobject = jArray.getJSONObject(i)
+                    var usernames = jobject.getJSONArray("username")
+                    for (j in 0 .. usernames.length() - 1){
+                        Log.d("username", usernames.get(j).toString())
+                        exist_username.add(usernames.get(j).toString())
+                    }
+
+                    Log.e("Jobject", jobject.toString())
+                }
+                Log.e("VARIABLE", jArray.toString())
+
+            }, Response.ErrorListener {  })
+
+
+        queue.add(reques)
+
+
         var con: Button = findViewById(R.id.contd)
         con.setOnClickListener(View.OnClickListener() {
             first_name = findViewById<EditText>(R.id.FirstNameInput)!!.text.toString()
             last_name = findViewById<EditText>(R.id.LastNameInput)!!.text.toString()
             username = findViewById<EditText>(R.id.UsernameInput)!!.text.toString()
 
+
+
+            if (exist_username.contains(username)) {
+                Log.d("Error", "username exist")
+                Toast.makeText(this@General_reg, "The username is used, please use another username", Toast.LENGTH_SHORT).show()
+
+            }
+            //val response = URL(url).readText()
+            else {
+            //Log.d("response", response)
             if (first_name!!.isNotEmpty() && last_name!!.isNotEmpty() && username!!.isNotEmpty() && address!!.isNotEmpty()) {
                 if (id.equals("trainer")) {
                     val intent = Intent(this, Coach_reg1::class.java)
@@ -88,8 +132,10 @@ class General_reg : AppCompatActivity() {
                 }
             } else {
                 Toast.makeText(this@General_reg, "Something is not completed. Please check", Toast.LENGTH_SHORT).show()
-            }
+            }}
         })
 
+
     }
+
 }
