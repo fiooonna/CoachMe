@@ -12,6 +12,7 @@ import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
 import org.json.JSONArray
+import org.json.JSONObject
 import java.net.URL
 
 class General_reg : AppCompatActivity() {
@@ -58,24 +59,29 @@ class General_reg : AppCompatActivity() {
 
         }
 
-        exist_username = ArrayList<String>()
-        val url = "http://10.0.2.2:5000/get_student"
+        var exist_username = ArrayList<String>()
+        val url = "http://10.0.2.2:5000/get_user"
         val queue = Volley.newRequestQueue(this)
         val reques = StringRequest(Request.Method.GET, url,
             Response.Listener { response ->
                 val data = response.toString()
-                var jArray = JSONArray(data)
-                for (i in 0.. jArray.length() - 1) {
+                var jsonObj = JSONObject(data)
+                Log.d("Response", jsonObj.toString())
+                val username = jsonObj.get("username") as JSONArray
+                for (i in 0..username.length() - 1) {
+                    exist_username.add(username.get(i).toString())
+                }
+                /*for (i in 0.. jArray.length() - 1) {
                     var jobject = jArray.getJSONObject(i)
                     var usernames = jobject.getJSONArray("username")
                     for (j in 0 .. usernames.length() - 1){
                         Log.d("username", usernames.get(j).toString())
                         exist_username.add(usernames.get(j).toString())
-                    }
+                    } */
 
-                    Log.e("Jobject", jobject.toString())
-                }
-                Log.e("VARIABLE", jArray.toString())
+                    //Log.e("Jobject", jobject.toString())
+
+                //Log.e("VARIABLE", jArray.toString())
 
             }, Response.ErrorListener {  })
 
@@ -137,5 +143,6 @@ class General_reg : AppCompatActivity() {
 
 
     }
+
 
 }

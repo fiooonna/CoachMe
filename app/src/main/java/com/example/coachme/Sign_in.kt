@@ -39,7 +39,7 @@ class Sign_in : AppCompatActivity() {
             pw = findViewById<EditText>(R.id.Password)!!.text.toString()
             human = findViewById<CheckBox>(R.id.checkBox)!!.isChecked().toString()
 
-            val url:String = "http://10.0.2.2:5000/project"
+            val url:String = "http://10.0.2.2:5000/get_user"
             /*val url:String = "http://192.168.31.127:5000/project"*/
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, url, null,
@@ -80,10 +80,6 @@ class Sign_in : AppCompatActivity() {
         val address: JSONArray = jsonObj.get("address") as JSONArray
         val gender: JSONArray = jsonObj.get("gender") as JSONArray
         val age: JSONArray = jsonObj.get("age") as JSONArray
-        val exp: JSONArray = jsonObj.get("exp") as JSONArray
-        val expertise: JSONArray = jsonObj.get("expertise") as JSONArray
-        val intro: JSONArray = jsonObj.get("intro") as JSONArray
-        val qua: JSONArray = jsonObj.get("qua") as JSONArray
 
         for (i in 0..usernames.length() - 1){
             Log.d("username", usernames.get(i).toString())
@@ -100,10 +96,6 @@ class Sign_in : AppCompatActivity() {
                     intent.putExtra("address", address.get(i).toString())
                     intent.putExtra("gender", gender.get(i).toString())
                     intent.putExtra("age", age.get(i).toString())
-                    intent.putExtra("exp", exp.get(i).toString())
-                    intent.putExtra("expertise", expertise.get(i).toString())
-                    intent.putExtra("intro", intro.get(i).toString())
-                    intent.putExtra("qua", qua.get(i).toString())
 
                     startActivity(intent)
                 }
@@ -118,10 +110,6 @@ class Sign_in : AppCompatActivity() {
                     intent.putExtra("address", address.get(i).toString())
                     intent.putExtra("gender", gender.get(i).toString())
                     intent.putExtra("age", age.get(i).toString())
-                    intent.putExtra("exp", exp.get(i).toString())
-                    intent.putExtra("expertise", expertise.get(i).toString())
-                    intent.putExtra("intro", intro.get(i).toString())
-                    intent.putExtra("qua", qua.get(i).toString())
 
                     startActivity(intent)
                 }

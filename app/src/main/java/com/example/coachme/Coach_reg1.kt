@@ -58,7 +58,7 @@ class Coach_reg1 : AppCompatActivity() {
 
         var con: Button = findViewById(R.id.contd)
         con.setOnClickListener(View.OnClickListener() {
-            age = findViewById<Slider>(R.id.AgeInput).value.toString()
+            age = findViewById<Slider>(R.id.AgeInput).value.toInt().toString()
             exp = findViewById<EditText>(R.id.ExperienceInput)!!.text.toString()
             expertise = findViewById<EditText>(R.id.ExpertiseInput)!!.text.toString()
             var intent = Intent(this, Coach_reg2::class.java)

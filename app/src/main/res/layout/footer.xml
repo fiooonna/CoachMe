@@ -8,6 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/customborder"
+        android:id="@+id/footer_border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -45,7 +46,7 @@
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:srcCompat="@drawable/account1" />
+            app:srcCompat="@drawable/account" />
 
         <TextView
             android:id="@+id/textView3"

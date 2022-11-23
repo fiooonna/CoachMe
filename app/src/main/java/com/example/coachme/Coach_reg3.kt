@@ -62,7 +62,7 @@ class Coach_reg3 : AppCompatActivity() {
 
             if (qua!!.isNotEmpty() ) {
                 var intent = Intent(this, Coach_reg4::class.java)
-                sendInfo("http://10.0.2.2:5000/project?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&expertise=$expertise&intro=$intro&qua=$qua")
+                sendInfo("http://10.0.2.2:5000/coach?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&expertise=$expertise&intro=$intro&qua=$qua")
                 /*sendInfo("http://192.168.31.127:5000/project?email=$email&pw=$pw&id=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&expertise=$expertise&intro=$intro&qua=$qua")*/
                 startActivity(intent)
             } else {

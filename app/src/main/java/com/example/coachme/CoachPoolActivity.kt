@@ -4,10 +4,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coachme.databinding.CoachpoolBinding
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class CoachPoolActivity : AppCompatActivity() {
@@ -19,6 +21,10 @@ class CoachPoolActivity : AppCompatActivity() {
 
 //        binding and setting the content of coach pool page
         binding = DataBindingUtil.setContentView(this, R.layout.coachpool)
+        val profile_image = findViewById<CircleImageView>(R.id.profile_image)
+        val header_name = findViewById<TextView>(R.id.header_name)
+        profile_image.setImageResource(R.drawable.student2)
+        header_name.setText("Tina")
 
         val recyclerViewCoaches = binding.rvCoach
         val dummyCoach1 = Coach(image = getDrawable(R.drawable.coach9),name = "Timmy",experience = "10 years",

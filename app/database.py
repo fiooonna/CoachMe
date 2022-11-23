@@ -22,10 +22,6 @@ con.execute("""CREATE TABLE IF NOT EXISTS Users (
     address varchar(255),
     gender varchar(255),
     age varchar(255),
-    exp varchar(255),
-    expertise varchar(255),
-    intro varchar(255),
-    qua varchar(255),
     UNIQUE(username, user_id)
 );""")
 
@@ -43,9 +39,12 @@ con.execute("""CREATE TABLE IF NOT EXISTS Student (
 
 con.execute("""CREATE TABLE IF NOT EXISTS Coach (
     coach_id INTEGER PRIMARY KEY AUTOINCREMENT,
+
     yearExp varchar(255),
-    price varchar(255),
     username varchar(255),
+    expertise varchar(255),
+    intro varchar(255),
+    qua varchar(255),
     UNIQUE(username, coach_id)
 );""")
 
