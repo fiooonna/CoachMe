@@ -124,8 +124,14 @@ def student():
 @app.route('/get_student', methods=['GET'])
 def get_student():
     con = sqlite3.connect('my-db.db')
-
-    cursor = con.execute("SELECT * from Users INNER JOIN Student ON Users.username == Student.username;")
+    request_username = request.args.get('username', '')
+    if len(request_username) > 0:
+        SelectQuery = "SELECT * from Users INNER JOIN Student ON Users.username == Student.username Where Users.username == :username ;"
+        cursor = con.execute(SelectQuery, {"username": request_username})
+        con.commit()
+    else:
+        cursor = con.execute("SELECT * from Users INNER JOIN Student ON Users.username == Student.username;")
+        con.commit()
     print(cursor)
 
     user_ids, ids, email, pw, first_name, last_name, username, address, gender, age = [], [], [], [], [], [], [], [], [], []
@@ -142,20 +148,20 @@ def get_student():
         address.append(row[7])
         gender.append(row[8])
         age.append(row[9])
-        student_ids.append(row[14])
-        usernames.append(row[15])
-        goals.append(row[16])
-        levels.append(row[17])
-        min_pays.append(row[18])
-        max_pays.append(row[19])
-        numperweeks.append(row[20])
-        remarkss.append(row[21])
+        student_ids.append(row[10])
+        usernames.append(row[11])
+        goals.append(row[12])
+        levels.append(row[13])
+        min_pays.append(row[14])
+        max_pays.append(row[15])
+        numperweeks.append(row[16])
+        remarkss.append(row[17])
 
 
 
     con.close()
     
-    data =[{
+    data ={
         "user_id": user_ids,
         "email": email,
         "pw": pw,
@@ -172,7 +178,7 @@ def get_student():
         "max_pay": max_pays,
         "numperweek": numperweeks,
         "remarks": remarkss,
-    }]
+    }
     return jsonify(data)
 
 
@@ -182,7 +188,6 @@ def get_coach():
     con = sqlite3.connect('my-db.db')
 
     cursor = con.execute("SELECT * from Users INNER JOIN Coach ON Users.username == Coach.username;")
-    print(cursor)
 
     user_ids, ids, email, pw, first_name, last_name, username, address, gender, age = [], [], [], [], [], [], [], [], [], []
     coach_ids, yearExps, usernames, expertises, intros, quas = [], [], [], [], [], []
@@ -199,20 +204,13 @@ def get_coach():
         address.append(row[7])
         gender.append(row[8])
         age.append(row[9])
+        coach_ids.append(row[10])
+        yearExps.append(row[11])
+        usernames.append(row[12])
+        expertises.append(row[13])
+        intros.append(row[14])
+        quas.append(row[15])
 
-
-    cursor = con.execute("SELECT * from Student;")
-    print(cursor)
-
-    targets, exps, min_pays, max_pays, numperweeks, remarkss = [],[],[],[],[],[]
-    
-    for row in cursor:
-        targets.append(row[0])
-        exps.append(row[1])
-        min_pays.append(row[2])
-        max_pays.append(row[3])
-        numperweeks.append(row[4])
-        remarkss.append(row[5])
     con.close()
     
     data = {
@@ -226,12 +224,11 @@ def get_coach():
         "address": address,
         "gender": gender,
         "age": age,
-        "exp": exps,
-        "target": targets,
-        "min_pay": min_pays,
-        "max_pay": max_pays,
-        "numperweek": numperweeks,
-        "remarks": remarkss,
+        "coach_id":coach_ids,
+        "yearExp": yearExps,
+        "expertise": expertises,
+        "intro": intros,
+        "qua": quas,
     }
     return jsonify(data)
 

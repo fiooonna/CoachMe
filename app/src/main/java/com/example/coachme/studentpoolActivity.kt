@@ -29,7 +29,7 @@ class studentpoolActivity : AppCompatActivity() {
         val dummyStudent3 = Student(image = getDrawable(R.drawable.student5),name = "Roy",location = "Shum Shui Po",goals = "Participate in IFBB Pro",experience = "Advanced",price = "$500/hr")
         val dummyStudent4 = Student(image = getDrawable(R.drawable.student6),name = "Jack",location = "HKU",goals = "Slimmer Body",experience = "Beginner",price = "$300/hr")
         val dummyStudent5 = Student(image = getDrawable(R.drawable.student7),name = "Lucas",location = "Causeway Bay",goals = "Reduce Weight",experience = "Intermediate",price = "$100/hr")
-        val dummyStudent6 = Student(image = getDrawable(R.drawable.student8),name = "Ryan",location = "Central",goals = "Build Muscles, Loss Fat",experience = "Beginner",price = "$300/hr")
+        val dummyStudent6 = Student(image = getDrawable(R.drawable.student1),name = "Ryan",location = "Central",goals = "Build Muscles, Loss Fat",experience = "Beginner",price = "$300/hr")
         val students = listOf(dummyStudent1,dummyStudent2,dummyStudent3,dummyStudent4,dummyStudent5,dummyStudent6)
         val studentsAdapter = StudentPoolAdaptor(students, StudentPoolAdaptor.OnClickListener {
             val intent = Intent(this, studentprofile::class.java)

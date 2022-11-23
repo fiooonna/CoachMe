@@ -32,7 +32,7 @@ tools:context=".main_coach">
         android:layout_height="58dp"
         android:layout_marginStart="326dp"
         android:layout_marginTop="52dp"
-        android:src="@drawable/student1"
+        android:src="@drawable/coach7"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
