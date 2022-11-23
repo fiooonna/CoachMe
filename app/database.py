@@ -4,12 +4,11 @@ import sqlite3
 # The .db file is created automatically if it does not exist
 con = sqlite3.connect('my-db.db')
 
-# Creates table
-con.execute("""DROP TABLE IF EXISTS Users""")
-con.execute("""DROP TABLE IF EXISTS Student""")
-con.execute("""DROP TABLE IF EXISTS Coach""")
-# need to delete exp, expertise, qua in User entity
-# didnt make disjoint relationship, assuming user will only belong to either Student or Coach
+
+con.execute("""DROP TABLE Users;""")
+con.execute("""DROP TABLE Student;""")
+con.execute("""DROP TABLE Coach;""")
+
 
 con.execute("""CREATE TABLE IF NOT EXISTS Users (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -46,6 +45,12 @@ con.execute("""CREATE TABLE IF NOT EXISTS Coach (
     intro varchar(255),
     qua varchar(255),
     UNIQUE(username, coach_id)
+);""")
+
+con.execute("""CREATE TABLE IF NOT EXISTS Match (
+    match_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    student_id INTEGER,
+    coach_id INTEGER
 );""")
 
 #FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION,

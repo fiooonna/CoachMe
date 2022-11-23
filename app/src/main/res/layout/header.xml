@@ -39,7 +39,7 @@
         android:id="@+id/profile_image"
         android:layout_width="50sp"
         android:layout_height="50sp"
-        android:src="@drawable/student1"
+        android:src="@drawable/coach7"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="26sp"

@@ -23,6 +23,7 @@ class CoachPoolAdaptor(private var coachesList: List<Coach>, private val onClick
         Log.i("onBindViewHolder", coach.toString())
         holder.itemView.setOnClickListener{
             onClickListener.onClick(coach)
+
         }
         holder.bind(coach)
     }

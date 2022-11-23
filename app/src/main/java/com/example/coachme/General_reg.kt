@@ -42,7 +42,8 @@ class General_reg : AppCompatActivity() {
 
         val spinner = findViewById<Spinner>(R.id.AddressInput)
         val addressInput = findViewById<TextView>(R.id.Address)
-        val options = arrayOf("Kowloon", "HK Island", "New Territories")
+        //val options = arrayOf("Kowloon", "HK Island", "New Territories")
+        val options = getResources().getStringArray(R.array.District)
         val arrayAdapter = ArrayAdapter(this, android.R.layout.simple_spinner_dropdown_item, options)
 
         spinner.adapter = arrayAdapter
