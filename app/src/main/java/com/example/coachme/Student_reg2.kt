@@ -11,6 +11,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.coachme.Coach_reg3.Companion.FLASK_URL
 import com.jaygoo.widget.RangeSeekBar
 
 class Student_reg2 : AppCompatActivity() {
@@ -72,7 +73,7 @@ class Student_reg2 : AppCompatActivity() {
             var max_pay = range_seekbar_pay.rightSeekBar.progress.toInt()
 
             var intent = Intent(this, Student_reg3::class.java)
-            sendInfo("http://10.0.2.2:5000/student?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&target=$target&numperweek=$numperweek&min_pay=$min_pay&max_pay=$max_pay&remarks=$remarks")
+            sendInfo(FLASK_URL+"student?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&target=$target&numperweek=$numperweek&min_pay=$min_pay&max_pay=$max_pay&remarks=$remarks")
             /*sendInfo("http://192.168.31.127:5000/project?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&target=$target&numperweek=$numperweek&expect_pay=$expect_pay&remarks=$remarks")*/
 
             startActivity(intent)
