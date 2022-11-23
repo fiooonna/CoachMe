@@ -17,10 +17,8 @@ class coachprofile : AppCompatActivity() {
         //this send button text is tengible to change, if the student has matched with the coach, it is a rating button,
         //else, it is send request
         sendbutton.setOnClickListener {
-            sendbutton.text = "Rate"
             val rateintent = Intent(this, rating::class.java)
             startActivity(rateintent)
-
         }
 
         dumbbellhome.setOnClickListener {
