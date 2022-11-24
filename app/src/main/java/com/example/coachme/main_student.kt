@@ -56,9 +56,9 @@ class main_student : AppCompatActivity() {
         Volley.newRequestQueue(this).add(jsonObjectRequest)
 
         var hello_name = findViewById<TextView>(R.id.hello_name)
-        hello_name.setText("Hello! $first_name")
+        hello_name.text = "Hello! $first_name"
         var name = findViewById<Button>(R.id.name)
-        name.setText("Tina")
+        name.text = "$first_name $last_name"
 
         var button_find_coaches = findViewById<ImageButton>(R.id.button_find_coaches)
         button_find_coaches.setOnClickListener(View.OnClickListener() {

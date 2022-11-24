@@ -28,6 +28,7 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+<!--                TODO: either set default image here or in the database-->
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profile_image"
                     android:layout_width="78sp"
@@ -81,7 +82,7 @@
                         android:fontFamily="@font/inter"
                         android:textColor="@color/black"
                         android:textSize="13sp"
-                        android:text="@{coach.experience}"
+                        android:text="@{coach.yearExp}"
                         />
 <!--                    android:text="10 years"-->
 

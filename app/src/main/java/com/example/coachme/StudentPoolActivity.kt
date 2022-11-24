@@ -68,6 +68,7 @@ class studentpoolActivity : AppCompatActivity() {
 //        val students_ = listOf(dummyStudent1,dummyStudent2,dummyStudent3,dummyStudent4,dummyStudent5,dummyStudent6)
 
         Log.i("students list", students.toString())
+        //TODO: send the selected student id/info to the profile page and add extra intent
         val studentsAdapter = StudentPoolAdaptor(students, StudentPoolAdaptor.OnClickListener {
             val intentStudentProfile = Intent(this, studentprofile::class.java)
 //            intent_studentProfile.putExtra("userID", userID)
