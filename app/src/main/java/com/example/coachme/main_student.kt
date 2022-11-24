@@ -56,7 +56,7 @@ class main_student : AppCompatActivity() {
         Volley.newRequestQueue(this).add(jsonObjectRequest)
 
         var hello_name = findViewById<TextView>(R.id.hello_name)
-        hello_name.setText("Hello! Tina")
+        hello_name.setText("Hello! $first_name")
         var name = findViewById<Button>(R.id.name)
         name.setText("Tina")
 
@@ -66,6 +66,7 @@ class main_student : AppCompatActivity() {
             intent.putExtra("user_id", user_id)
             intent.putExtra("student_id", student_id)
             intent.putExtra("username", username)
+            intent.putExtra("first_name", first_name)
 
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right,

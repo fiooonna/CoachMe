@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlinx-serialization'
 }
 
 android {
@@ -49,4 +50,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 }

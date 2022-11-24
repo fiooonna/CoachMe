@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coachme.databinding.ItemStudentpoolBinding
 
-class StudentPoolAdaptor (private var studentsList: List<Student>, private val onClickListener: OnClickListener) :
+class StudentPoolAdaptor (private var studentsList: ArrayList<Student>, private val onClickListener: OnClickListener) :
     RecyclerView.Adapter<StudentPoolViewHolder>() {
     private lateinit var binding: ItemStudentpoolBinding
 
