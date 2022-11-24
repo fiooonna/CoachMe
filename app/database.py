@@ -47,10 +47,14 @@ con.execute("""CREATE TABLE IF NOT EXISTS Coach (
     UNIQUE(username, coach_id)
 );""")
 
+# For the Invited, -1 means Coach invite Student, 1 means Student invited Coach, but invited
+# doesn't mean matched, need the other side to confirm (0 = not yet matched, 1 = matched)
 con.execute("""CREATE TABLE IF NOT EXISTS Match (
     match_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INTEGER,
-    coach_id INTEGER
+    coach_id INTEGER,
+    Matched INTEGER,
+    Invited INTEGER
 );""")
 
 #FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION,
