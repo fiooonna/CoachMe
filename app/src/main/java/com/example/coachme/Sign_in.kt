@@ -13,6 +13,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.coachme.Coach_reg3.Companion.FLASK_URL
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -30,7 +31,7 @@ class Sign_in : AppCompatActivity() {
             val intent = Intent(this, Landing_page::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left,
-                R.anim.slide_out_right);
+                R.anim.slide_out_right)
         })
 
         var sign_in: Button = findViewById(R.id.button5)
@@ -39,25 +40,25 @@ class Sign_in : AppCompatActivity() {
             pw = findViewById<EditText>(R.id.Password)!!.text.toString()
             human = findViewById<CheckBox>(R.id.checkBox)!!.isChecked().toString()
 
-            val url:String = "http://10.0.2.2:5000/get_user"
+            val url:String = FLASK_URL+"get_user"
             /*val url:String = "http://192.168.31.127:5000/project"*/
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, url, null,
-                Response.Listener { response ->
+                { response ->
                     if (human.equals("true")) {
                         switchActivity(response, username, pw)
                     } else {
                         Toast.makeText(this@Sign_in, "Please confirm that you are not a robot.", Toast.LENGTH_SHORT).show()
                     }
                 },
-                Response.ErrorListener { error ->
+                { error ->
                     Log.e("MyActivity",error.toString())
                 }
             )
             Volley.newRequestQueue(this).add(jsonObjectRequest)
 
             overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
+                R.anim.slide_out_left)
         }
 
         var sign_up_now: Button = findViewById(R.id.button6)

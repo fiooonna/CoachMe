@@ -2,6 +2,9 @@ import flask
 import sqlite3
 from flask import request
 from flask import jsonify
+import collections
+import json
+
 
 app = flask.Flask(__name__)
 #app.config["DEBUG"] = True # Enable debug mode to enable hot-reloader.
@@ -119,6 +122,28 @@ def student():
     }
     return data
 
+#Get students and return a key-value object map
+@app.route('/get_objects_student', methods=['GET'])
+def get_objects_student():
+    con = sqlite3.connect('my-db.db')
+    cursor = con.execute("SELECT * from Users INNER JOIN Student ON Users.username == Student.username;")
+    print("get student objects is executed")
+    con.commit()
+    rows = cursor.fetchall()
+
+    objects_list = []
+    for row in rows:
+        d = collections.OrderedDict()
+        d['userId'] = row[0]
+        d['name'] = row[4]
+        d['location'] = row[7]
+        d['goals'] = row[12]
+        d['experience'] = row[13]
+        d['min_pay'] = row[14]
+        d['max_pay'] = row[15]
+        objects_list.append(d)
+    con.close()
+    return jsonify(objects_list)
 
 
 @app.route('/get_student', methods=['GET'])
@@ -139,7 +164,7 @@ def get_student():
     for row in cursor:
         print(row)
         user_ids.append(row[0])
-        ids.append(row[1])  
+        ids.append(row[1])
         email.append(row[2])
         pw.append(row[3])
         first_name.append(row[4])
@@ -174,14 +199,33 @@ def get_student():
         "age": age,
         "min_pay": min_pays,
         "student_id": student_ids,
-
         "max_pay": max_pays,
         "numperweek": numperweeks,
         "remarks": remarkss,
     }
     return jsonify(data)
 
+#Get coaches and return a key-value object map
+@app.route('/get_objects_coach', methods=['GET'])
+def get_objects_coach():
+    con = sqlite3.connect('my-db.db')
+    cursor = con.execute("SELECT * from Users INNER JOIN Coach ON Users.username == Coach.username;")
+    con.commit()
+    rows = cursor.fetchall()
 
+    objects_list = []
+    for row in rows:
+        d = collections.OrderedDict()
+        d['userId'] = row[0]
+        d['coach_id'] = row[10]
+        d['name'] = row[4]
+        d['qualification'] = row[15]
+        d['yearExp'] = row[11]
+        d['rating'] = row[16]
+        d['bookmark'] = row[17]
+        objects_list.append(d)
+    con.close()
+    return jsonify(objects_list)
 
 @app.route('/get_coach', methods=['GET'])
 def get_coach():
@@ -190,7 +234,7 @@ def get_coach():
     cursor = con.execute("SELECT * from Users INNER JOIN Coach ON Users.username == Coach.username;")
 
     user_ids, ids, email, pw, first_name, last_name, username, address, gender, age = [], [], [], [], [], [], [], [], [], []
-    coach_ids, yearExps, usernames, expertises, intros, quas = [], [], [], [], [], []
+    coach_ids, yearExps, usernames, expertises, intros, quas, rating, bookmark = [], [], [], [], [], [], [], []
     
     for row in cursor:
         print(row)
@@ -210,6 +254,9 @@ def get_coach():
         expertises.append(row[13])
         intros.append(row[14])
         quas.append(row[15])
+        rating.append(row[16])
+        bookmark.append(row[17])
+
 
     con.close()
     
@@ -229,6 +276,8 @@ def get_coach():
         "expertise": expertises,
         "intro": intros,
         "qua": quas,
+        "rating": rating,
+        "bookmark": bookmark
     }
     return jsonify(data)
 

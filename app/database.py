@@ -17,7 +17,7 @@ con.execute("""CREATE TABLE IF NOT EXISTS Users (
     pw varchar(255),
     first_name varchar(255),
     last_name varchar(255),
-    username varchar(255),
+    username varchar(255) UNIQUE,
     address varchar(255),
     gender varchar(255),
     age varchar(255),
@@ -26,7 +26,7 @@ con.execute("""CREATE TABLE IF NOT EXISTS Users (
 
 con.execute("""CREATE TABLE IF NOT EXISTS Student (
     student_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username varchar(255),
+    username varchar(255) UNIQUE,
     goal varchar(255),
     level varchar(255),
     min_pay varchar(255),
@@ -38,12 +38,13 @@ con.execute("""CREATE TABLE IF NOT EXISTS Student (
 
 con.execute("""CREATE TABLE IF NOT EXISTS Coach (
     coach_id INTEGER PRIMARY KEY AUTOINCREMENT,
-
     yearExp varchar(255),
-    username varchar(255),
+    username varchar(255) UNIQUE,
     expertise varchar(255),
     intro varchar(255),
     qua varchar(255),
+    rating REAL DEFAULT 0,
+    bookmark INT DEFAULT 0,
     UNIQUE(username, coach_id)
 );""")
 

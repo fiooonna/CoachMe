@@ -2,10 +2,9 @@ package com.example.coachme
 
 import android.graphics.drawable.Drawable
 
-
 data class Student(
     var name: String,
-    var image: Drawable?,
+    var image: Drawable? = null,
     var location: String,
     var goals: String,
     var experience: String,

@@ -28,13 +28,14 @@
                 android:gravity="center"
                 android:orientation="vertical">
 
+<!--                TODO: find and set default image-->
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                     android:id="@+id/profile_image"
                     android:layout_width="78sp"
                     android:layout_height="78sp"
-                    android:src="@{student.image}"
+                    android:src = '@{student.image != null ? student.image : @drawable/coach1}'
                     />
-                <!--            @tools:sample/avatars-->
+<!--                &lt;!&ndash;            @tools:sample/avatars&ndash;&gt;-->
                 <TextView
                     android:id="@+id/student_name"
                     android:layout_width="match_parent"

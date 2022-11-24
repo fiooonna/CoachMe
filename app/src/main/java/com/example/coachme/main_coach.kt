@@ -29,13 +29,15 @@ class main_coach : AppCompatActivity() {
         val qua: String? = intent.getStringExtra("qua")
 
         var hello_name = findViewById<TextView>(R.id.hello_name)
-        hello_name.setText("Hello! $username")
+        hello_name.text = "Hello! $first_name"
         var name = findViewById<Button>(R.id.name)
-        name.setText("$username")
+        name.text = "$first_name $last_name"
 
         var button_find_student = findViewById<ImageButton>(R.id.button_find_students)
         button_find_student.setOnClickListener(View.OnClickListener() {
             val intent =  Intent(this, studentpoolActivity::class.java)
+            intent.putExtra("username", username)
+            intent.putExtra("first_name", first_name)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_left);
