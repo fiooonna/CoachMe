@@ -33,7 +33,7 @@
         android:scaleY="0.5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+        app:layout_constraintTop_toBottomOf="@+id/gender" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/top_layout"
@@ -185,19 +185,19 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
-        android:id="@+id/imageView6"
+        android:id="@+id/gender"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        app:layout_constraintTop_toBottomOf="@+id/coach_name"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/male" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/coach_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Timmy"
@@ -270,7 +270,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2">
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/qualification_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
 
@@ -286,17 +286,17 @@
 
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/yearExp_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:height="30dp"
         android:text="10 years"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/imageView14"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/age_text" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/age_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -324,13 +324,13 @@
         app:layout_constraintEnd_toEndOf="parent
 "
         app:layout_constraintStart_toEndOf="@+id/imageView13"
-        app:layout_constraintTop_toBottomOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/yearExp_text"
         app:layout_constraintVertical_bias="0.0">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/intro_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
@@ -348,10 +348,10 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+    <ImageButton
+        android:id="@+id/Bookmark_button"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
         android:layout_marginTop="22dp"
         android:layout_marginEnd="22dp"
         app:layout_constraintEnd_toEndOf="parent"

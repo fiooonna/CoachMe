@@ -8,7 +8,7 @@ con = sqlite3.connect('my-db.db')
 con.execute("""DROP TABLE Users;""")
 con.execute("""DROP TABLE Student;""")
 con.execute("""DROP TABLE Coach;""")
-
+con.execute("""DROP TABLE Match;""")
 
 con.execute("""CREATE TABLE IF NOT EXISTS Users (
     user_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,6 +36,10 @@ con.execute("""CREATE TABLE IF NOT EXISTS Student (
     UNIQUE(username, student_id)
 );""")
 
+
+# rating is the accumulated rating, rated_ppl is number of students rated the coach
+# on runtime when building the Coach Object, we calculate it on runtime
+# and declare it in CoachPoolActivites
 con.execute("""CREATE TABLE IF NOT EXISTS Coach (
     coach_id INTEGER PRIMARY KEY AUTOINCREMENT,
     yearExp varchar(255),
@@ -43,8 +47,9 @@ con.execute("""CREATE TABLE IF NOT EXISTS Coach (
     expertise varchar(255),
     intro varchar(255),
     qua varchar(255),
-    rating REAL DEFAULT 0,
+    rating INT DEFAULT 0,
     bookmark INT DEFAULT 0,
+    rated_ppl INT DEFAULT 0,
     UNIQUE(username, coach_id)
 );""")
 
@@ -55,7 +60,8 @@ con.execute("""CREATE TABLE IF NOT EXISTS Match (
     student_id INTEGER,
     coach_id INTEGER,
     Matched INTEGER,
-    Invited INTEGER
+    Invited INTEGER,
+    Rating INTEGER
 );""")
 
 #FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION,

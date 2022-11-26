@@ -20,7 +20,7 @@ class Coach_reg3 : AppCompatActivity() {
 
     companion object {
         val IMAGE_REQUEST_CODE = 100
-        val FLASK_URL: String = "http://10.68.60.19:5000/"
+        val FLASK_URL: String = "http://10.0.2.2:5000/"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

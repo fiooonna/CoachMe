@@ -4,10 +4,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coachme.databinding.ItemStudentpoolBinding
 
-class StudentPoolAdaptor (private var studentsList: ArrayList<Student>, private val onClickListener: OnClickListener) :
+class StudentPoolAdaptor (private var studentsList: ArrayList<Student>, private val onSelect: (Student?) -> Unit) :
     RecyclerView.Adapter<StudentPoolViewHolder>() {
     private lateinit var binding: ItemStudentpoolBinding
 
@@ -20,10 +21,7 @@ class StudentPoolAdaptor (private var studentsList: ArrayList<Student>, private 
     override fun onBindViewHolder(holder: StudentPoolViewHolder, position: Int) {
         val student = studentsList[position]
         Log.i("onBindViewHolder", student.toString())
-        holder.itemView.setOnClickListener {
-            onClickListener.onClick(student)
-        }
-        holder.bind(student)
+        holder.bind(student, onSelect)
     }
 
 //    override fun getItemCount(): Int = studentsList.size
@@ -34,6 +32,7 @@ class StudentPoolAdaptor (private var studentsList: ArrayList<Student>, private 
 
     class OnClickListener(val clickListener: (student: Student) -> Unit) {
         fun onClick(student: Student) = clickListener(student)
+
     }
 
 

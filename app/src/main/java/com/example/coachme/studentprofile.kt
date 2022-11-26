@@ -26,9 +26,9 @@ class studentprofile : AppCompatActivity() {
 
         sendbutton.setOnClickListener{
 
-            val intent = Intent(this, studentpoolActivity::class.java)
-            startActivity(intent)
-            Toast.makeText(getApplicationContext(),"Request Sent to Tina", Toast.LENGTH_SHORT).show();
+            /* val intent = Intent(this, studentpoolActivity::class.java)
+            startActivity(intent) */
+            Toast.makeText(getApplicationContext(),"Great! You have sent the Request", Toast.LENGTH_SHORT).show();
             overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_left);
         }

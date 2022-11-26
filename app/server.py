@@ -133,10 +133,12 @@ def get_objects_student():
 
     objects_list = []
     for row in rows:
+        print(row)
         d = collections.OrderedDict()
-        d['userId'] = row[0]
+        d['user_id'] = row[0]
         d['name'] = row[4]
         d['location'] = row[7]
+        d['student_id'] = row[10]
         d['goals'] = row[12]
         d['experience'] = row[13]
         d['min_pay'] = row[14]
@@ -150,9 +152,14 @@ def get_objects_student():
 def get_student():
     con = sqlite3.connect('my-db.db')
     request_username = request.args.get('username', '')
+    request_user_id = request.args.get('user_id', '')
     if len(request_username) > 0:
         SelectQuery = "SELECT * from Users INNER JOIN Student ON Users.username == Student.username Where Users.username == :username ;"
         cursor = con.execute(SelectQuery, {"username": request_username})
+        con.commit()
+    elif len(request_user_id):
+        SelectQuery = "SELECT * from Users INNER JOIN Student ON Users.username == Student.username Where Users.user_id == :user_id ;"
+        cursor = con.execute(SelectQuery, {"user_id": request_user_id})
         con.commit()
     else:
         cursor = con.execute("SELECT * from Users INNER JOIN Student ON Users.username == Student.username;")
@@ -216,13 +223,14 @@ def get_objects_coach():
     objects_list = []
     for row in rows:
         d = collections.OrderedDict()
-        d['userId'] = row[0]
+        d['user_id'] = row[0]
         d['coach_id'] = row[10]
         d['name'] = row[4]
         d['qualification'] = row[15]
         d['yearExp'] = row[11]
         d['rating'] = row[16]
         d['bookmark'] = row[17]
+        d['rated_ppl'] = row[18]
         objects_list.append(d)
     con.close()
     return jsonify(objects_list)
@@ -230,11 +238,21 @@ def get_objects_coach():
 @app.route('/get_coach', methods=['GET'])
 def get_coach():
     con = sqlite3.connect('my-db.db')
-
-    cursor = con.execute("SELECT * from Users INNER JOIN Coach ON Users.username == Coach.username;")
+    request_username = request.args.get('username', '')
+    request_user_id = request.args.get('user_id', '')
+    if len(request_username) > 0:
+        SelectQuery = "SELECT * from Users INNER JOIN Coach ON Users.username == Coach.username Where Users.username == :username ;"
+        cursor = con.execute(SelectQuery, {"username": request_username})
+        con.commit()
+    elif len(request_user_id) > 0:
+        SelectQuery = "SELECT * from Users INNER JOIN Coach ON Users.username == Coach.username Where Users.user_id == :user_id;"
+        cursor = con.execute(SelectQuery, {"user_id": request_user_id})
+        con.commit()
+    else:
+        cursor = con.execute("SELECT * from Users INNER JOIN Coach ON Users.username == Coach.username;")
 
     user_ids, ids, email, pw, first_name, last_name, username, address, gender, age = [], [], [], [], [], [], [], [], [], []
-    coach_ids, yearExps, usernames, expertises, intros, quas, rating, bookmark = [], [], [], [], [], [], [], []
+    coach_ids, yearExps, usernames, expertises, intros, quas, rating, bookmark, rated_ppls = [], [], [], [], [], [], [], [], []
     
     for row in cursor:
         print(row)
@@ -256,6 +274,7 @@ def get_coach():
         quas.append(row[15])
         rating.append(row[16])
         bookmark.append(row[17])
+        rated_ppls.append(row[18])
 
 
     con.close()
@@ -277,7 +296,8 @@ def get_coach():
         "intro": intros,
         "qua": quas,
         "rating": rating,
-        "bookmark": bookmark
+        "bookmark": bookmark,
+        "rated_ppl": rated_ppls
     }
     return jsonify(data)
 
@@ -318,8 +338,15 @@ def get_user():
         "age": age
     }
 
-    
     return jsonify(data)
+
+@app.route('/get_matched', methods=['GET'])
+def matched():
+    con = sqlite3.connect('my-db.db')
+    
+    con.close()
+    return 
+
 
 # adds host="0.0.0.0" to make the server publicly available
 app.run(host="0.0.0.0")
