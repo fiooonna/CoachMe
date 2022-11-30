@@ -16,6 +16,13 @@ class CoachPoolFilter : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coach_pool_filter)
+        val user_id = intent.getIntExtra("student_user_id", -1)
+        val student_id = intent.getIntExtra("student_id", -1)
+        val student_first_name = intent.getStringExtra("student_first_name")
+        val student_username = intent.getIntExtra("student_username", -1)
+
+        Log.d("received extra", "$user_id, $student_id, $student_first_name, $student_username")
+
         val YearExp_input = findViewById<RangeSeekBar>(R.id.YearExp_input)
         val Address_multispinner = findViewById<MultiSpinnerSearch>(R.id.location_spinner)
         val filter_button = findViewById<ImageButton>(R.id.filter_button)
@@ -135,8 +142,23 @@ class CoachPoolFilter : AppCompatActivity() {
 
         filter_button.setOnClickListener{
             var YearExp = -1
+            val quali_array: Array<String> = quali.map {it.toString()}.toTypedArray()
+            val district_array: Array<String> = district.map {it.toString()}.toTypedArray()
+            val expertise_array: Array<String> = expertise.map {it.toString()}.toTypedArray()
+
             YearExp = YearExp_input.leftSeekBar.progress.toInt()
-            Log.d("filter info", "$YearExp, $gender, $quali, $expertise, $district")
+            Log.d("filter info", "$YearExp, $gender, ${quali_array}, ${expertise_array.toString()}, ${district_array.toString()}")
+            Log.d("ready to send extra", "$user_id, $student_id, $student_first_name, $student_username")
+            intent.putExtra("YearExp", YearExp)
+            intent.putExtra("gender", gender)
+            intent.putExtra("quali", quali_array)
+            intent.putExtra("expertise", expertise_array)
+            intent.putExtra("district", districtArray)
+            intent.putExtra("user_id", user_id)
+            intent.putExtra("student_id", student_id)
+            intent.putExtra("first_name", student_first_name)
+            intent.putExtra("student_username", student_username)
+
             val intent = Intent(this, CoachPoolActivity::class.java)
             startActivity(intent)
 

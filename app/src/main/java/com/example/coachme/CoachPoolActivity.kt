@@ -56,6 +56,8 @@ class CoachPoolActivity : AppCompatActivity() {
         val user_id: Int? = intent.getIntExtra("user_id", 0)
         val student_id: Int? = intent.getIntExtra("student_id", 0)
         val username: String? = intent.getStringExtra("username")
+        val currentUserFirstName = intent.getStringExtra("first_name")
+        Log.d("received extra coach pool", "$currentUserFirstName, $user_id, $student_id")
 
 //        binding and setting the content of coach pool page
         binding = DataBindingUtil.setContentView(this, R.layout.coachpool)
@@ -63,7 +65,7 @@ class CoachPoolActivity : AppCompatActivity() {
         val profile_image = findViewById<CircleImageView>(R.id.profile_image)
         val header_name = findViewById<TextView>(R.id.header_name)
         var intent: Intent = intent
-        val currentUserFirstName = intent.getStringExtra("first_name")
+
         header_name.text = currentUserFirstName.toString()
         Log.i("set the header name!", currentUserFirstName.toString())
         //TODO: set dynamic profile pic
@@ -133,6 +135,10 @@ class CoachPoolActivity : AppCompatActivity() {
         val filter_button = findViewById<Button>(R.id.filter_button)
         filter_button.setOnClickListener {
             val intent = Intent(this, CoachPoolFilter::class.java)
+            intent.putExtra("student_user_id", user_id)
+            intent.putExtra("student_id", student_id)
+            intent.putExtra("student_first_name", currentUserFirstName)
+            intent.putExtra("student_username", username)
             startActivity(intent)
         }
 
