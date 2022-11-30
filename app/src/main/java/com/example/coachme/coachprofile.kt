@@ -14,6 +14,7 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.coachme.Coach_reg3.Companion.FLASK_URL
 import org.json.JSONArray
 import org.w3c.dom.Text
 
@@ -48,6 +49,26 @@ class coachprofile : AppCompatActivity() {
             studentintent.putExtra("user_id", student_user_id)
             studentintent.putExtra("student_id", student_id)
             startActivity(studentintent) */
+
+            var match_id: Int = 0
+
+            val url:String = FLASK_URL+"matched"
+            val jsonObjectRequest = JsonObjectRequest(
+                Request.Method.GET, url, null,
+                { response ->
+                    val match_ids: JSONArray = response.get("match_id") as JSONArray
+                    match_id = match_ids.get(match_ids.length() - 1).toString().toInt() + 1
+                },
+                { error ->
+                    Log.e("MyActivity",error.toString())
+                }
+            )
+            Volley.newRequestQueue(this).add(jsonObjectRequest)
+
+            var Matched: Int = 0
+            var Invited: Int = 1
+            sendInfo(FLASK_URL +"match?match_id=$match_id&student_id=$student_id&coach_id=$coach_id&Matched=$Matched&Invited=$Invited&Rating=$rating")
+
             overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
             Toast.makeText(this@coachprofile, "Great, You have submitted the request!", Toast.LENGTH_SHORT).show()
@@ -103,7 +124,7 @@ class coachprofile : AppCompatActivity() {
                 intro_text.text = intro
                 qua_text.text = qua
                 if (gender.equals("female")) {
-                        gender_view.setImageResource(R.drawable.female)
+                    gender_view.setImageResource(R.drawable.female)
                 } else if (gender.equals("male")) {
                     gender_view.setImageResource(R.drawable.male)
                 }
@@ -120,5 +141,18 @@ class coachprofile : AppCompatActivity() {
         Volley.newRequestQueue(this).add(jsonObjRequest)
     }
 
+
+    fun sendInfo(url: String) {
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                println("send request")
+            },
+            { error ->
+                Log.e("MyActivity",error.toString())
+            }
+        )
+        Volley.newRequestQueue(this).add(jsonObjectRequest)
+    }
 
 }
