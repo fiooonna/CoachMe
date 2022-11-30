@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
@@ -19,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 class CoachPoolActivity : AppCompatActivity() {
 
     private lateinit var binding: CoachpoolBinding
-
+    private lateinit var coachesAdapter :CoachPoolAdaptor
     override fun onCreate(savedInstanceState: Bundle?) {
         var coaches: ArrayList<Coach> = ArrayList()
         val url:String = Coach_reg3.FLASK_URL +"get_objects_coach"
@@ -44,6 +45,7 @@ class CoachPoolActivity : AppCompatActivity() {
 
                 }
                 Log.d("coaches list extracted", coaches.toString())
+                coachesAdapter.notifyDataSetChanged();
             },
             { error ->
                 //Handle error
@@ -61,7 +63,7 @@ class CoachPoolActivity : AppCompatActivity() {
 
 //        binding and setting the content of coach pool page
         binding = DataBindingUtil.setContentView(this, R.layout.coachpool)
-
+        postponeEnterTransition()
         val profile_image = findViewById<CircleImageView>(R.id.profile_image)
         val header_name = findViewById<TextView>(R.id.header_name)
         var intent: Intent = intent
@@ -72,6 +74,9 @@ class CoachPoolActivity : AppCompatActivity() {
         profile_image.setImageResource(R.drawable.student2)
 
         val recyclerViewCoaches = binding.rvCoach
+        recyclerViewCoaches.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
         //val dummyCoach1 = Coach(
           //  coach_id = 100, user_id = 100,
             //image = getDrawable(R.drawable.coach1),
@@ -101,7 +106,7 @@ class CoachPoolActivity : AppCompatActivity() {
                 R.anim.slide_out_left);
         }) */
 
-        val coachesAdapter = CoachPoolAdaptor(coaches) {
+        coachesAdapter = CoachPoolAdaptor(coaches) {
             Coach ->
             Log.d("Chosen Coach", Coach!!.name)
             Log.d("Chosen Coach ID", Coach!!.coach_id.toString())

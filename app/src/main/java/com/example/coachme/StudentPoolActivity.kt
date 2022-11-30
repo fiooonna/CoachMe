@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
@@ -17,7 +18,7 @@ import com.example.coachme.databinding.ActivityStudentpoolBinding
 class studentpoolActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityStudentpoolBinding
-
+    private lateinit var studentsAdapter: StudentPoolAdaptor
     override fun onCreate(savedInstanceState: Bundle?) {
         var students: ArrayList<Student> = ArrayList()
         val url:String = Coach_reg3.FLASK_URL +"get_objects_student"
@@ -36,11 +37,12 @@ class studentpoolActivity : AppCompatActivity() {
                     val minPay = respObj.getString("min_pay")
                     val maxPay = respObj.getString("max_pay")
                     val price = "$minPay - $maxPay/Hr"
-//                    //adding data to the list
+                    //adding data to the list
                     students.add(Student(user_id, student_id,name,getDrawable(R.drawable.student2),location,goals,experience,price))
 
                 }
                 Log.d("students list extracted", students.toString())
+                studentsAdapter.notifyDataSetChanged();
             },
             { error ->
                 //Handle error
@@ -51,7 +53,11 @@ class studentpoolActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 //        binding and setting the content of student pool page, assuming the main_activity is the pool page
         binding = DataBindingUtil.setContentView(this, R.layout.activity_studentpool)
+        postponeEnterTransition()
         val recyclerViewStudents = binding.rvStudent
+        recyclerViewStudents.doOnPreDraw {
+            startPostponedEnterTransition()
+        }
         val header_name = findViewById<TextView>(R.id.header_name)
         //TODO: ADD DYNAMIC PROFILE PIC!!!!
         //get the extras set up during login, to retrieve the current user info
@@ -76,7 +82,7 @@ class studentpoolActivity : AppCompatActivity() {
         //students.add(dummyStudent1)
         Log.i("students list", students.toString())
         //TODO: send the selected student id/info to the profile page and add extra intent
-        val studentsAdapter = StudentPoolAdaptor(students) {
+        studentsAdapter = StudentPoolAdaptor(students) {
             Student ->
             Log.d("Chosen Student", Student!!.name)
             val intent = Intent(this, studentprofile::class.java)
@@ -94,6 +100,7 @@ class studentpoolActivity : AppCompatActivity() {
         recyclerViewStudents.layoutManager = LinearLayoutManager(this)
         recyclerViewStudents.setHasFixedSize(true)
 
+        //send current filter information
         // set filter button onClickListener, onClick go to studentpool_filter layout
         val filterButton = findViewById<Button>(R.id.filterbutton_studentpool)
         filterButton.setOnClickListener {
@@ -101,7 +108,7 @@ class studentpoolActivity : AppCompatActivity() {
             startActivity(filterIntent)
         }
 
-    // ASSUME SORT button onClickListener, onClick goes to coachpool layout!!!!!
+    // TODO: Implement sort! now ASSUME SORT button onClickListener, onClick goes to coachpool layout!!!!!
         val sortButton = findViewById<Button>(R.id.sortbutton_studentpool)
         sortButton.setOnClickListener {
             val sortIntent = Intent(this, CoachPoolActivity::class.java)
