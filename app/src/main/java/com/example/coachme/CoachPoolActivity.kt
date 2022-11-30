@@ -3,6 +3,8 @@ package com.example.coachme
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
@@ -54,6 +56,7 @@ class CoachPoolActivity : AppCompatActivity() {
         val user_id: Int? = intent.getIntExtra("user_id", 0)
         val student_id: Int? = intent.getIntExtra("student_id", 0)
         val username: String? = intent.getStringExtra("username")
+
 //        binding and setting the content of coach pool page
         binding = DataBindingUtil.setContentView(this, R.layout.coachpool)
 
@@ -126,6 +129,12 @@ class CoachPoolActivity : AppCompatActivity() {
         recyclerViewCoaches.adapter = coachesAdapter
         recyclerViewCoaches.layoutManager = LinearLayoutManager(this)
         recyclerViewCoaches.setHasFixedSize(true)
+
+        val filter_button = findViewById<Button>(R.id.filter_button)
+        filter_button.setOnClickListener {
+            val intent = Intent(this, CoachPoolFilter::class.java)
+            startActivity(intent)
+        }
 
 //        val coachInfoButton = findViewById<ImageButton>(R.id.coach_info_Button)
 //        coachInfoButton.setOnClickListener {

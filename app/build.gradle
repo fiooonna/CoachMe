@@ -51,4 +51,5 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.github.Jay-Goo:RangeSeekBar:v3.0.0'
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    implementation 'com.github.pratikbutani:MultiSelectSpinner:1.0.1'
 }

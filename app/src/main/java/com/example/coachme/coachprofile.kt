@@ -21,6 +21,7 @@ class coachprofile : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coachprofile)
+        R.layout.activity_coach_pool_filter
         val student_user_id: Int? = intent.getIntExtra("student_user_id", 0)
         val student_first_name: Int? = intent.getIntExtra("student_first_name", 0)
         val coach_user_id: Int? = intent.getIntExtra("coach_user_id", 0)

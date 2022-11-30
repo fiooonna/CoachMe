@@ -62,7 +62,7 @@
                     app:strokeWidth="1px" />
 
                 <Button
-                    android:id="@+id/button2"
+                    android:id="@+id/filter_button"
                     android:layout_width="64dp"
                     android:layout_height="40dp"
                     android:layout_marginLeft="3dp"
