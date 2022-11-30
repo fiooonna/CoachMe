@@ -1,16 +1,12 @@
 package com.example.coachme
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
-import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.coachme.Coach_reg3.Companion.FLASK_URL
@@ -97,7 +93,12 @@ class Sign_in : AppCompatActivity() {
                     intent.putExtra("address", address.get(i).toString())
                     intent.putExtra("gender", gender.get(i).toString())
                     intent.putExtra("age", age.get(i).toString())
-
+                    val userSharedPreference = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
+                    userSharedPreference.edit()
+                        .putString("USERNAME", username)
+                        .putString("first_name", first_name.get(i).toString())
+                        .putString("last_name", last_name.get(i).toString())
+                        .commit()
                     startActivity(intent)
                 }
                 else if (id.get(i).toString().equals("student")) {

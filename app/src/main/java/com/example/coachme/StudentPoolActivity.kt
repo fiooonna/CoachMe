@@ -15,8 +15,7 @@ import com.android.volley.toolbox.Volley
 import com.example.coachme.databinding.ActivityStudentpoolBinding
 
 
-class studentpoolActivity : AppCompatActivity() {
-
+class StudentPoolActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStudentpoolBinding
     private lateinit var studentsAdapter: StudentPoolAdaptor
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,16 +61,17 @@ class studentpoolActivity : AppCompatActivity() {
         //TODO: ADD DYNAMIC PROFILE PIC!!!!
         //get the extras set up during login, to retrieve the current user info
         var intent: Intent = intent
-        val currentUserFirstName = intent.getStringExtra("first_name")
+        val currentUserFirstName = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
+            .getString("first_name", "")
         val user_id: Int? = intent.getIntExtra("user_id", 0)
         val coach_id: Int? = intent.getIntExtra("coach_id", 0)
         val username: String? = intent.getStringExtra("username")
 
-
+        val filter_gender: ArrayList<String>? = intent.getStringArrayListExtra("filter_gender")
 
         header_name.text = currentUserFirstName.toString()
         Log.i("set the header name!", currentUserFirstName.toString())
-
+        Log.i("got gender filter",filter_gender.toString())
         //val dummyStudent1 = Student(image = getDrawable(R.drawable.student3),name = "Freda",location = "Lai Chi Kok",goals = "Reduce Weight",experience = "Intermediate",price = "$100/hr",  user_id = 100, student_id = 100)
 //        val dummyStudent2 = Student(image = getDrawable(R.drawable.student4),name = "Tina",location = "Mong Kok",goals = "Build Muscles, Loss Fat",experience = "Beginner",price = "$300/hr")
 //        val dummyStudent3 = Student(image = getDrawable(R.drawable.student5),name = "Roy",location = "Shum Shui Po",goals = "Participate in IFBB Pro",experience = "Advanced",price = "$500/hr")
