@@ -136,6 +136,7 @@ def get_objects_student():
         print(row)
         d = collections.OrderedDict()
         d['user_id'] = row[0]
+        d['gender'] = row[8]
         d['name'] = row[4]
         d['location'] = row[7]
         d['student_id'] = row[10]

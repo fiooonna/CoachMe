@@ -36,7 +36,7 @@ class coachprofile : AppCompatActivity() {
         val rated_ppl: Int? = intent.getIntExtra("rated_ppl", 0)
         var current_coach: Coach
 
-
+// TODO: display bookmark button according to the user history, and update both the coach and student database
         val sendbutton = findViewById<Button>(R.id.send_button)
         val dumbbellhome = findViewById<ImageButton>(R.id.dumbbell_button)
 

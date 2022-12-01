@@ -2,140 +2,165 @@ package com.example.coachme
 
 import android.content.Intent
 import android.graphics.Color
-import android.os.Bundle;
+import android.os.Bundle
 import android.util.Log
 import android.widget.Button
-import android.widget.Filter
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.androidbuts.multispinnerfilter.KeyPairBoolData
+import com.androidbuts.multispinnerfilter.MultiSpinnerListener
 import com.androidbuts.multispinnerfilter.MultiSpinnerSearch
 import com.jaygoo.widget.RangeSeekBar
 
 
-// TO-DO: set up the RangeSeekBar, e.g. turn float into integer
-
 class StudentPoolFilterActivity : AppCompatActivity()  {
-    /** Called when the activity is first created. */
+
+    private var genders: ArrayList<String> = arrayListOf()
+    private var locations: ArrayList<String> = arrayListOf()
+    private var goals: ArrayList<String> = arrayListOf()
+    private lateinit var districtsArrayList: ArrayList<KeyPairBoolData>
+    private lateinit var goalsArrayList: ArrayList<KeyPairBoolData>
+    var femaleCheck = 1
+    var maleCheck = 1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // TODO: Pass in extra using sharedPreference
         setContentView(R.layout.studentpool_filter)
+        var maleButton: Button = findViewById(R.id.male_button)
+        var femaleButton: Button = findViewById(R.id.female_button)
+        val locationSpinner = findViewById<MultiSpinnerSearch>(R.id.location_spinner)
+        val goalSpinner = findViewById<MultiSpinnerSearch>(R.id.goal_spinner)
+        val experienceRangeSeekBar = findViewById<RangeSeekBar>(R.id.range_seekbar_experience)
+        val payRangeSeekBar = findViewById<RangeSeekBar>(R.id.range_seekbar_pay)
+        val filterButton: ImageButton = findViewById(R.id.filter_button)
+        val header_name = findViewById<TextView>(R.id.header_name)
 
-        val location_spinner =
-            findViewById<MultiSpinnerSearch>(R.id.location_spinner)
-        val goal_spinner =
-            findViewById<MultiSpinnerSearch>(R.id.goal_spinner)
+        // Pass true If you want searchView above the list. Otherwise false. default = true.
+        locationSpinner.isSearchEnabled = true;
 
-        location_spinner.setSearchEnabled(true);
-        location_spinner.setSearchHint("Select the qualification");
-        location_spinner.setEmptyTitle("Not Data Found!");
-        location_spinner.setShowSelectAllButton(true);
-        location_spinner.setClearText("Close & Clear")
+        // A text that will display in search hint.
+        locationSpinner.setSearchHint("Search districts");
 
-        goal_spinner.setSearchEnabled(true);
-        goal_spinner.setSearchHint("Select the expertise");
-        goal_spinner.setEmptyTitle("Not Data Found!");
-        goal_spinner.setShowSelectAllButton(true);
-        goal_spinner.setClearText("Close & Clear");
+        // Set text that will display when search result not found...
+        locationSpinner.setEmptyTitle("No District Found!");
 
-        val Exp_array = arrayOf<String>("Beginner", "Intermediate", "Advanced")
-        val goalArray = arrayOf<String>("Toning", "Endurance", "Mobility", "Strength")
-        val districtArray = arrayOf<String>("Central and Western", "Eastern", "Southern", "Wan Chai", "Kowloon City", "Kwun Tong",
-            "Sham Shui Po", "Wong Tai Sin", "Yau Tsim Mong", "Islands", "Kwai Tsing", "North", "Sai Kung",
-            "Sha Tin", "Tai Po", "Tsuen Wan", "Tuen Mun", "Yuen Long")
+        // If you will set the limit, this button will not display automatically.
+        locationSpinner.isShowSelectAllButton = true;
 
-        val goalArrayMutable: MutableList<KeyPairBoolData> = ArrayList()
-        for (i in 0 until goalArray.size) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = goalArray.get(i)
-            h.isSelected = false
-            goalArrayMutable.add(h)
+
+        val location_options = resources.getStringArray(R.array.District)
+        districtsArrayList = ArrayList<KeyPairBoolData>()
+        for (i in location_options.indices) {
+            val keyPairBoolData = KeyPairBoolData()
+            keyPairBoolData.id = (i + 1).toLong()
+            keyPairBoolData.name = location_options[i]
+            keyPairBoolData.isSelected = false
+            districtsArrayList.add(keyPairBoolData)
         }
 
-        val DistrictArrayMutable: MutableList<KeyPairBoolData> = ArrayList()
-        for (i in 0 until districtArray.size) {
-            val h = KeyPairBoolData()
-            h.id = (i + 1).toLong()
-            h.name = districtArray.get(i)
-            h.isSelected = false
-            DistrictArrayMutable.add(h)
+
+        locationSpinner.setItems(districtsArrayList,
+            MultiSpinnerListener { items ->
+                for (i in items.indices) {
+                    if (items[i].isSelected) {
+//                        locations.add(items[i].name)
+//                        Log.i("Status of the location set",locationSpinner.selectedItems.toString())
+                    }
+                }
+            })
+//--------------------------------------------
+        goalSpinner.isSearchEnabled = false;
+        goalSpinner.isShowSelectAllButton = true;
+
+        val goalOptions = resources.getStringArray(R.array.Goal)
+        goalsArrayList = ArrayList<KeyPairBoolData>()
+        for (i in goalOptions.indices) {
+            val keyPairBoolData = KeyPairBoolData()
+            keyPairBoolData.id = (i + 1).toLong()
+            keyPairBoolData.name = goalOptions[i]
+            keyPairBoolData.isSelected = false
+            goalsArrayList.add(keyPairBoolData)
         }
 
-        var goal = listOf<String>()
-        goal_spinner.setItems(goalArrayMutable) { items ->
-            goal = listOf()
+
+        goalSpinner.setItems(goalsArrayList
+        ) { items ->
             for (i in items.indices) {
                 if (items[i].isSelected) {
-                    Log.i("quali Spinner selected", i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
-                    goal = goal + items[i].name
                 }
             }
         }
+//---------------------------------------------
 
-
-        var district = listOf<String>()
-        location_spinner.setItems(DistrictArrayMutable) { items ->
-            district = listOf()
-            for (i in items.indices) {
-                if (items[i].isSelected) {
-                    Log.i("district Spinner selected", i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
-                    district = district + items[i].name
+        //should be able to select both of them
+        maleButton.setOnClickListener {
+            if (maleCheck == 1) {
+                maleButton.setBackgroundResource(R.drawable.radio_selected)
+                maleButton.setTextColor(Color.parseColor("#ffffff"))
+                maleCheck = 0
+                genders.add("male")
+            } else {
+                maleButton.setBackgroundResource(R.drawable.radio_normal)
+                maleButton.setTextColor(Color.parseColor("#000000"))
+                maleCheck = 1
+                if (genders.contains("male")){
+                    genders.remove("male")
                 }
             }
         }
-
-
-        var gender = ""
-        var male: Button = findViewById(R.id.MaleButton)
-        var female: Button = findViewById(R.id.FemaleButton)
-        male.setOnClickListener {
-            gender = "male"
-            male.setBackgroundResource(R.drawable.radio_selected)
-            male.setTextColor(Color.parseColor("#ffffff"))
-            female.setBackgroundResource(R.drawable.radio_selector)
-            female.setTextColor(Color.parseColor("#000000"))
+        femaleButton.setOnClickListener {
+            if (femaleCheck == 1) {
+                femaleButton.setBackgroundResource(R.drawable.radio_selected)
+                femaleButton.setTextColor(Color.parseColor("#ffffff"))
+                femaleCheck = 0
+                genders.add("female")
+            } else {
+                femaleButton.setBackgroundResource(R.drawable.radio_normal)
+                femaleButton.setTextColor(Color.parseColor("#000000"))
+                femaleCheck = 1
+                if (genders.contains("female")){
+                    genders.remove("female")
+                }
+            }
         }
+//-------------------
+        experienceRangeSeekBar.setIndicatorTextDecimalFormat("0");
+        experienceRangeSeekBar.setProgress(0F, 2F)
 
-        female.setOnClickListener {
-            gender = "female"
-            female.setBackgroundResource(R.drawable.radio_selected)
-            female.setTextColor(Color.parseColor("#ffffff"))
-            male.setBackgroundResource(R.drawable.radio_selector)
-            male.setTextColor(Color.parseColor("#000000"))
-        }
+        payRangeSeekBar.setIndicatorTextDecimalFormat("0");
+        payRangeSeekBar.setProgress(0f, 1000f)
 
-        val Exp_input = findViewById<RangeSeekBar>(R.id.range_seekbar_experience)
+        var intent: Intent = intent
+        val currentUserFirstName = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
+            .getString("first_name", "")
+        header_name.text = currentUserFirstName.toString()
 
+        filterButton.setOnClickListener {
+            val intent =  Intent(this, StudentPoolActivity::class.java)
+            for (item in locationSpinner.selectedItems){
+                locations.add(item.name)
+            }
+            for (item in goalSpinner.selectedItems){
+                goals.add(item.name)
+            }
+            intent.putExtra("filter_gender", genders)
+            intent.putExtra("filter_location", locations)
+            intent.putExtra("filter_goal", goals)
+            intent.putExtra("filter_experience_lower", experienceRangeSeekBar.leftSeekBar.progress)
+            intent.putExtra("filter_experience_upper", experienceRangeSeekBar.rightSeekBar.progress)
+            intent.putExtra("filter_pay_lower", payRangeSeekBar.leftSeekBar.progress)
+            intent.putExtra("filter_pay_upper", payRangeSeekBar.rightSeekBar.progress)
 
-        val RangeSeeker_pay = findViewById<RangeSeekBar>(R.id.range_seekbar_pay)
-        RangeSeeker_pay.setIndicatorTextDecimalFormat("0")
+            Log.i("FILTERS-genders", genders.toString())
+            Log.i("FILTERS-locations", locations.toString())
+            Log.i("FILTERS-goals", goals.toString())
+            Log.i("FILTERS-lower exp", experienceRangeSeekBar.leftSeekBar.progress.toString())
+            Log.i("FILTERS-upper exp", experienceRangeSeekBar.rightSeekBar.progress.toString())
+            Log.i("FILTERS-lower pay", payRangeSeekBar.leftSeekBar.progress.toString())
+            Log.i("FILTERS-upper pay", payRangeSeekBar.rightSeekBar.progress.toString())
 
-        val Filter_button = findViewById<ImageButton>(R.id.filter_button)
-        Filter_button.setOnClickListener{
-            var Exp_low = Exp_array.get(Exp_input.leftSeekBar.progress.toInt())
-            var Exp_high = Exp_array.get(Exp_input.rightSeekBar.progress.toInt())
-
-            var low_pay = RangeSeeker_pay.leftSeekBar.progress.toInt()
-            var high_pay = RangeSeeker_pay.rightSeekBar.progress.toInt()
-
-            val goal_array: Array<String> = goal.map {it.toString()}.toTypedArray()
-            val district_array: Array<String> = goal.map {it.toString()}.toTypedArray()
-            //Gender return "" if nth selected
-            Log.d("filter info", "$Exp_low, $Exp_high, $gender, $low_pay, $high_pay,${goal_array.toString()}, ${district_array.toString()}")
-            //Log.d("ready to send extra", "$user_id, $student_id, $student_first_name, $student_username")
-            intent.putExtra("Exp_low", Exp_low)
-            intent.putExtra("Exp_high", Exp_high)
-            intent.putExtra("Gender", gender)
-            intent.putExtra("low_pay", low_pay)
-            intent.putExtra("high_pay", high_pay)
-            intent.putExtra("goal", goal_array)
-            intent.putExtra("district", district_array)
-            val intent = Intent(this, StudentPoolActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left,
-                R.anim.slide_out_right);
         }
 
     }

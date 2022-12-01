@@ -83,7 +83,7 @@ class Student_reg1 : AppCompatActivity() {
             val ExpseekBar = findViewById<RangeSeekBar>(R.id.range_seekbar_experience)
             val exp_int = ExpseekBar.leftSeekBar.progress.toInt()
 
-            var exp_array = arrayOf("Beginner","Intermediate","advanced")
+            var exp_array = arrayOf("Beginner","Intermediate","Advanced")
             exp = exp_array.elementAt(exp_int).toString()
             Log.d("LOG VALUE", exp!!)
 

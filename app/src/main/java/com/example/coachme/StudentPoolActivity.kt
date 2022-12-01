@@ -28,6 +28,7 @@ class StudentPoolActivity : AppCompatActivity() {
                     // extracting data from each json object
                     val respObj = response.getJSONObject(i)
                     val user_id = respObj.getInt("user_id")
+                    val user_gender = respObj.getString("gender")
                     val student_id = respObj.getInt("student_id")
                     val name = respObj.getString("name")
                     val location = respObj.getString("location")
@@ -37,10 +38,16 @@ class StudentPoolActivity : AppCompatActivity() {
                     val maxPay = respObj.getString("max_pay")
                     val price = "$minPay - $maxPay/Hr"
                     //adding data to the list
-                    students.add(Student(user_id, student_id,name,getDrawable(R.drawable.student2),location,goals,experience,price))
+                    students.add(Student(user_id, student_id,user_gender,name,getDrawable(R.drawable.student2),location,goals,experience,price))
 
                 }
                 Log.d("students list extracted", students.toString())
+                if (students.size > 0 && intent.getStringArrayListExtra("filter_location") != null){
+                    students = filterStudents(intent, students)
+                    Log.i("Filtered Students: ", students.toString())
+                    studentsAdapter.updateData(students)
+                    studentsAdapter.notifyDataSetChanged();
+                }
                 studentsAdapter.notifyDataSetChanged();
             },
             { error ->
@@ -63,15 +70,14 @@ class StudentPoolActivity : AppCompatActivity() {
         var intent: Intent = intent
         val currentUserFirstName = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
             .getString("first_name", "")
-        val user_id: Int? = intent.getIntExtra("user_id", 0)
-        val coach_id: Int? = intent.getIntExtra("coach_id", 0)
+        val user_id: Int = intent.getIntExtra("user_id", 0)
+        val coach_id: Int = intent.getIntExtra("coach_id", 0)
         val username: String? = intent.getStringExtra("username")
 
-        val filter_gender: ArrayList<String>? = intent.getStringArrayListExtra("filter_gender")
 
         header_name.text = currentUserFirstName.toString()
         Log.i("set the header name!", currentUserFirstName.toString())
-        Log.i("got gender filter",filter_gender.toString())
+
         //val dummyStudent1 = Student(image = getDrawable(R.drawable.student3),name = "Freda",location = "Lai Chi Kok",goals = "Reduce Weight",experience = "Intermediate",price = "$100/hr",  user_id = 100, student_id = 100)
 //        val dummyStudent2 = Student(image = getDrawable(R.drawable.student4),name = "Tina",location = "Mong Kok",goals = "Build Muscles, Loss Fat",experience = "Beginner",price = "$300/hr")
 //        val dummyStudent3 = Student(image = getDrawable(R.drawable.student5),name = "Roy",location = "Shum Shui Po",goals = "Participate in IFBB Pro",experience = "Advanced",price = "$500/hr")
@@ -115,6 +121,47 @@ class StudentPoolActivity : AppCompatActivity() {
             startActivity(sortIntent)
         }
 
+
+    }
+
+    private fun filterStudents(intent: Intent, students: ArrayList<Student>): ArrayList<Student> {
+        Log.i("studentPoolActivity","FilterStudents IS TRIGGERED")
+        Log.i("before filtering",students.toString())
+        var filteredStudents: ArrayList<Student> = students
+        val filter_gender: ArrayList<String>? = intent.getStringArrayListExtra("filter_gender")
+        val filter_location = intent.getStringArrayListExtra("filter_location")
+        val filter_goal = intent.getStringArrayListExtra("filter_goal")
+        val filter_experience_lower = intent.getIntExtra("filter_experience_lower",0)
+        val filter_experience_upper = intent.getIntExtra("filter_experience_upper",2)
+        val filter_pay_lower = intent.getIntExtra("filter_pay_lower",0)
+        val filter_pay_upper = intent.getIntExtra("filter_pay_upper",1000)
+
+        if (filter_gender != null && filter_gender.isNotEmpty()) {
+            filteredStudents = filteredStudents.filter { filter_gender.contains(it.gender) } as ArrayList<Student>
+            Log.i("after filtering gender", filteredStudents.toString())
+        }
+        if (filter_goal != null && filter_goal.isNotEmpty()) {
+            filteredStudents = filteredStudents.filter{filter_goal.contains(it.goals)} as ArrayList<Student>
+            Log.i("after filtering goal", filteredStudents.toString())
+        }
+
+        if (filter_location != null && filter_location.isNotEmpty()) {
+            filteredStudents = filteredStudents.filter{filter_location.contains(it.location)} as ArrayList<Student>
+            Log.i("after filtering location", filteredStudents.toString())
+        }
+
+        filteredStudents.filter{ it.price.substringBeforeLast("/").split(" - ")[0].toInt() >= filter_pay_lower }
+        filteredStudents.filter{ it.price.substringBeforeLast("/").split(" - ")[1].toInt() <= filter_pay_upper }
+        Log.i("after filtering pay", students.toString())
+
+        val experienceWordings = arrayListOf("Beginner","Intermediate","Advanced")
+        filteredStudents.filter{ experienceWordings.indexOf(it.experience) >= filter_experience_lower}
+        filteredStudents.filter{ experienceWordings.indexOf(it.experience) <= filter_experience_upper}
+
+        Log.i("after filtering experience", filteredStudents.toString())
+
+
+        return filteredStudents
 
     }
 

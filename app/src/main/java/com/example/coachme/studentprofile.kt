@@ -45,7 +45,7 @@ class studentprofile : AppCompatActivity() {
         }
 
         sendbutton.setOnClickListener{
-            /* val intent = Intent(this, studentpoolActivity::class.java)
+            /* val intent = Intent(this, StudentPoolActivity::class.java)
             startActivity(intent) */
 
             var match_id: Int = 0

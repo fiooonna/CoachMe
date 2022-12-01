@@ -17,300 +17,341 @@
 
         <include layout="@layout/header"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="550dp"
-            android:orientation="vertical"
-            android:paddingLeft="25sp"
-            android:paddingTop="35sp"
-            android:paddingRight="25sp">
 
-            <LinearLayout
+        <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/studentPool_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter"
-                    android:gravity="center"
-                    android:text="Filter"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#BFBFBF" />
-
-            <ScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="403dp"
                 android:orientation="vertical"
-                android:paddingLeft="10dp"
-                android:paddingRight="20dp">
-
+                android:paddingLeft="25sp"
+                android:paddingTop="35sp"
+                android:paddingRight="25sp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/studentPool_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter"
+                        android:gravity="center"
+                        android:text="Filter"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
 
-                    <RadioGroup
-                        android:id="@+id/radiogroup"
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#BFBFBF" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="466dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="20dp">
+
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/Description">
+                        android:orientation="horizontal">
+
+
+                        <!--                    <ImageButton-->
+                        <!--                        android:id="@+id/male_button"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_weight="1"-->
+                        <!--                        android:backgroundTint="#00FFFFFF"-->
+                        <!--                        app:srcCompat="@drawable/male_button" />-->
+
+                        <!--                    <ImageButton-->
+                        <!--                        android:id="@+id/female_button"-->
+                        <!--                        android:layout_width="wrap_content"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:layout_weight="1"-->
+                        <!--                        android:backgroundTint="#00FFFFFF"-->
+                        <!--                        app:srcCompat="@drawable/female_button" />-->
 
                         <RadioButton
-                            android:id="@+id/FemaleButton"
+                            android:id="@+id/female_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="60dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/radio_selector"
                             android:button="@android:color/transparent"
                             android:elevation="4dp"
+                            android:fontFamily="@font/inter"
+                            android:gravity="center"
                             android:padding="16dp"
                             android:text="Female"
                             android:textColor="@drawable/text_color" />
 
                         <RadioButton
-                            android:id="@+id/MaleButton"
+                            android:id="@+id/male_button"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="72dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/radio_selector"
                             android:button="@android:color/transparent"
                             android:elevation="4dp"
+                            android:fontFamily="@font/inter"
+                            android:gravity="center"
                             android:padding="16dp"
                             android:text="Male"
                             android:textColor="@drawable/text_color" />
-                    </RadioGroup>
-                </LinearLayout>
+                    </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="9sp">
-                    <ImageView
-                        android:id="@+id/location_icon"
-                        android:layout_width="40sp"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="20dp"
-                        app:srcCompat="@drawable/creperie" />
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/inter"
-                        android:paddingLeft="7dp"
-                        android:text="Location"
-                        android:textColor="#000000"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/custom_spn_background">
-<!--need decorate spinner with initial text instead of "pre-select"(not sure -->
-<!--                    whether pre-select is done yet-->
-                    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
-                        android:id="@+id/location_spinner"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintText="Select district"/>
-                </FrameLayout>
+                        android:orientation="horizontal"
+                        android:paddingBottom="9sp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="9sp"
-                    android:paddingTop="13sp">
-                    <ImageView
-                        android:id="@+id/goal_icon"
-                        android:layout_width="40sp"
-                        android:layout_height="match_parent"
-                        android:paddingLeft="20dp"
-                        app:srcCompat="@drawable/goal" />
+                        <ImageView
+                            android:id="@+id/location_icon"
+                            android:layout_width="40sp"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            app:srcCompat="@drawable/creperie" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/inter"
-                        android:paddingLeft="7dp"
-                        android:text="Goal"
-                        android:textColor="#000000"
-                        android:textSize="13sp" />
-                </LinearLayout>
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:background="@drawable/custom_spn_background">
-                    <!--need decorate spinner with initial text instead of "pre-select"(not sure -->
-                    <!--                    whether pre-select is done yet-->
-                    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
-                        android:id="@+id/goal_spinner"
+                        <TextView
+                            android:id="@+id/textView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/inter"
+                            android:paddingLeft="7dp"
+                            android:text="Location"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:hintText="Select goal"/>
-                </FrameLayout>
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/custom_spn_background">
+                        <!--need decorate spinner with initial text instead of "pre-select"(not sure -->
+                        <!--                    whether pre-select is done yet-->
+                        <!--                    <Spinner-->
+                        <!--                        android:id="@+id/location_spinner"-->
+                        <!--                        android:layout_width="match_parent"-->
+                        <!--                        android:layout_height="wrap_content"-->
+                        <!--                        android:dropDownSelector="#F9F9F9"-->
+                        <!--                        android:dropDownWidth="200dp"-->
+                        <!--                        android:layout_marginEnd="8dp"-->
+                        <!--                        android:entries="@array/District"-->
+                        <!--                        android:spinnerMode="dropdown"-->
+                        <!--                        android:tooltipText="Select district"/>-->
+                        <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+                            android:id="@+id/location_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            app:hintText="Select district(s)" />
 
-                <LinearLayout
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="13sp"
+                        android:paddingBottom="9sp">
+
+                        <ImageView
+                            android:id="@+id/goal_icon"
+                            android:layout_width="40sp"
+                            android:layout_height="match_parent"
+                            android:paddingLeft="20dp"
+                            app:srcCompat="@drawable/goal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/inter"
+                            android:paddingLeft="7dp"
+                            android:text="Goal"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:background="@drawable/custom_spn_background">
+
+<!--                        <Spinner-->
+<!--                            android:id="@+id/goal_spinner"-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:dropDownWidth="100dp"-->
+<!--                            android:dropDownSelector="#F9F9F9"-->
+<!--                            android:entries="@array/Goal"-->
+<!--                            android:spinnerMode="dropdown"-->
+<!--                            android:tooltipText="Select goal" />-->
+                        <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+                            android:id="@+id/goal_spinner"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            app:hintText="Select goal(s)" />
+                    </FrameLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="15sp"
+                        android:paddingBottom="7sp">
+
+                        <ImageView
+                            android:layout_width="40sp"
+                            android:layout_height="20dp"
+                            android:paddingLeft="20dp"
+                            app:srcCompat="@drawable/dumbbell" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/inter"
+                            android:paddingLeft="7dp"
+                            android:text="Experience"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+
+                    <!--two range seek bar-->
+                    <com.jaygoo.widget.RangeSeekBar
+                        android:id="@+id/range_seekbar_experience"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        app:rsb_gravity="top"
+                        app:rsb_indicator_radius="5dp"
+                        app:rsb_max="2"
+                        app:rsb_min="0"
+                        app:rsb_min_interval="0"
+                        app:rsb_mode="range"
+                        app:rsb_progress_color="#61ffff"
+                        app:rsb_step_auto_bonding="true"
+                        app:rsb_step_height="10dp"
+                        app:rsb_step_width="5dp"
+                        app:rsb_steps="2"
+                        app:rsb_tick_mark_layout_gravity="bottom"
+                        app:rsb_tick_mark_mode="other"
+                        app:rsb_tick_mark_text_array="@array/Experience"
+                        app:rsb_tick_mark_text_color="#3e4344"
+                        app:rsb_tick_mark_text_margin="10dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="15sp"
+                        android:paddingBottom="7sp">
+
+                        <ImageView
+                            android:layout_width="40sp"
+                            android:layout_height="20dp"
+                            android:paddingLeft="20dp"
+                            app:srcCompat="@drawable/money_hand" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:fontFamily="@font/inter"
+                            android:paddingLeft="7dp"
+                            android:text="Expected Pay"
+                            android:textColor="#000000"
+                            android:textSize="13sp" />
+                    </LinearLayout>
+                    <!--                rangeSeekBar.setIndicatorTextDecimalFormat("0");-->
+                    <com.jaygoo.widget.RangeSeekBar
+                        android:id="@+id/range_seekbar_pay"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:rsb_gravity="top"
+                        app:rsb_indicator_background_color="#00F3D8"
+                        app:rsb_indicator_height="23dp"
+                        app:rsb_indicator_radius="5dp"
+                        app:rsb_indicator_show_mode="alwaysShow"
+                        app:rsb_indicator_text_color="@color/white"
+                        app:rsb_indicator_width="40dp"
+                        app:rsb_max="1000"
+                        app:rsb_min="0"
+                        app:rsb_min_interval="200"
+                        app:rsb_mode="range"
+                        app:rsb_progress_color="#61ffff"
+                        app:rsb_step_auto_bonding="true"
+                        app:rsb_step_height="10dp"
+                        app:rsb_step_width="5dp" />
+
+                    <!--                <com.jaygoo.widget.RangeSeekBar-->
+                    <!--                    android:id="@+id/range_seekbar"-->
+                    <!--                    app:rsb_progress_color="#61ffff"-->
+                    <!--                    android:layout_width="wrap_content"-->
+                    <!--                    android:layout_height="wrap_content"-->
+                    <!--                    android:paddingLeft="10dp"-->
+                    <!--                    android:paddingRight="10dp"-->
+                    <!--                    app:rsb_gravity="top"-->
+                    <!--                    app:rsb_indicator_background_color="@color/white"-->
+                    <!--                    app:rsb_indicator_text_color="#332D2B"-->
+                    <!--                    app:rsb_indicator_height="30dp"-->
+                    <!--                    app:rsb_indicator_width="50dp"-->
+                    <!--                    app:rsb_indicator_show_mode = "alwaysShow"-->
+                    <!--                    app:rsb_mode="range"-->
+                    <!--                    app:rsb_min="0"-->
+                    <!--                    app:rsb_max="1000"-->
+                    <!--                    app:rsb_min_interval="100"-->
+                    <!--                    app:rsb_step_auto_bonding="true"-->
+                    <!--                    app:rsb_step_height="10dp"-->
+                    <!--                    app:rsb_step_width="5dp"-->
+                    <!--                    app:rsb_steps="7"-->
+                    <!--                    app:rsb_tick_mark_layout_gravity="bottom"-->
+                    <!--                    app:rsb_tick_mark_mode="number"-->
+                    <!--                    app:rsb_tick_mark_text_margin="10dp" />-->
+
+
+                </LinearLayout>
+            </ScrollView>
+
+                <ImageButton
+                    android:id="@+id/filter_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingBottom="7sp"
-                    android:paddingTop="15sp">
-
-                    <ImageView
-                        android:layout_width="40sp"
-                        android:layout_height="20dp"
-                        android:paddingLeft="20dp"
-                        app:srcCompat="@drawable/dumbbell" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/inter"
-                        android:paddingLeft="7dp"
-                        android:text="Experience"
-                        android:textColor="#000000"
-                        android:textSize="13sp" />
-                </LinearLayout>
-
-<!--two range seek bar-->
-                <com.jaygoo.widget.RangeSeekBar
-                    android:id="@+id/range_seekbar_experience"
-                    app:rsb_progress_color="#61ffff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    app:rsb_gravity="top"
-
-                    app:rsb_mode="range"
-                    app:rsb_indicator_radius="5dp"
-                    app:rsb_min="0"
-                    app:rsb_max="2"
-                    app:rsb_min_interval="0"
-                    app:rsb_step_auto_bonding="true"
-                    app:rsb_step_height="10dp"
-                    app:rsb_step_width="5dp"
-                    app:rsb_steps="2"
-                    app:rsb_tick_mark_layout_gravity="bottom"
-                    app:rsb_tick_mark_mode="other"
-                    app:rsb_tick_mark_text_color="#3e4344"
-                    app:rsb_tick_mark_text_margin="10dp"
-                    app:rsb_tick_mark_text_array="@array/Experience"/>
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:paddingBottom="7sp"
-                                    android:paddingTop="15sp">
-
-                                    <ImageView
-                                        android:layout_width="40sp"
-                                        android:layout_height="20dp"
-                                        android:paddingLeft="20dp"
-                                        app:srcCompat="@drawable/money_hand" />
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="match_parent"
-                                        android:layout_weight="1"
-                                        android:fontFamily="@font/inter"
-                                        android:paddingLeft="7dp"
-                                        android:text="Expected Pay"
-                                        android:textColor="#000000"
-                                        android:textSize="13sp" />
-                                </LinearLayout>
-                <!--                rangeSeekBar.setIndicatorTextDecimalFormat("0");-->
-                <com.jaygoo.widget.RangeSeekBar
-                    android:id="@+id/range_seekbar_pay"
-                    app:rsb_progress_color="#61ffff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    app:rsb_gravity="top"
-                    app:rsb_indicator_background_color="#00F3D8"
-                    app:rsb_indicator_text_color="@color/white"
-                    app:rsb_indicator_height="23dp"
-                    app:rsb_indicator_width="40dp"
-                    app:rsb_indicator_show_mode = "alwaysShow"
-                    app:rsb_mode="range"
-                    app:rsb_indicator_radius="5dp"
-                    app:rsb_min="0"
-                    app:rsb_max="1000"
-                    app:rsb_min_interval="200"
-                    app:rsb_step_auto_bonding="true"
-                    app:rsb_step_height="10dp"
-                    app:rsb_step_width="5dp" />
-
-<!--                <com.jaygoo.widget.RangeSeekBar-->
-<!--                    android:id="@+id/range_seekbar"-->
-<!--                    app:rsb_progress_color="#61ffff"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:paddingLeft="10dp"-->
-<!--                    android:paddingRight="10dp"-->
-<!--                    app:rsb_gravity="top"-->
-<!--                    app:rsb_indicator_background_color="@color/white"-->
-<!--                    app:rsb_indicator_text_color="#332D2B"-->
-<!--                    app:rsb_indicator_height="30dp"-->
-<!--                    app:rsb_indicator_width="50dp"-->
-<!--                    app:rsb_indicator_show_mode = "alwaysShow"-->
-<!--                    app:rsb_mode="range"-->
-<!--                    app:rsb_min="0"-->
-<!--                    app:rsb_max="1000"-->
-<!--                    app:rsb_min_interval="100"-->
-<!--                    app:rsb_step_auto_bonding="true"-->
-<!--                    app:rsb_step_height="10dp"-->
-<!--                    app:rsb_step_width="5dp"-->
-<!--                    app:rsb_steps="7"-->
-<!--                    app:rsb_tick_mark_layout_gravity="bottom"-->
-<!--                    app:rsb_tick_mark_mode="number"-->
-<!--                    app:rsb_tick_mark_text_margin="10dp" />-->
+                    android:backgroundTint="#00FFFFFF"
+                    app:srcCompat="@drawable/filter_buttom" />
 
 
             </LinearLayout>
-            </ScrollView>
-
-        </LinearLayout>
-
-        <ImageButton
-            android:id="@+id/filter_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#00FFFFFF"
-            app:srcCompat="@drawable/filter_buttom" />
 
         <!--        <include layout="@layout/toolbar" />-->
-
     </LinearLayout>
+
 </layout>

@@ -2,9 +2,7 @@ package com.example.coachme
 
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coachme.databinding.ItemStudentpoolBinding
 
@@ -33,6 +31,11 @@ class StudentPoolAdaptor (private var studentsList: ArrayList<Student>, private 
     class OnClickListener(val clickListener: (student: Student) -> Unit) {
         fun onClick(student: Student) = clickListener(student)
 
+    }
+
+    fun updateData(students: ArrayList<Student>) {
+        studentsList = ArrayList()
+        studentsList.addAll(students)
     }
 
 

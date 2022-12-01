@@ -34,7 +34,7 @@ class main_student : AppCompatActivity() {
         val age: String? = intent.getStringExtra("age")
         var student_id: Int = -1
         var user_id: Int = -1
-        val url:String = "http://10.0.2.2:5000/get_student?username=$username"
+        val url:String = Coach_reg3.FLASK_URL +"get_student?username=$username"
         /*val url:String = "http://192.168.31.127:5000/project"*/
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,

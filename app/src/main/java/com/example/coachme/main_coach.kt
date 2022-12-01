@@ -12,6 +12,7 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.example.coachme.Coach_reg3.Companion.FLASK_URL
 import org.json.JSONArray
 
 class main_coach : AppCompatActivity() {
@@ -52,7 +53,7 @@ class main_coach : AppCompatActivity() {
             overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_left);
         })
-        val url:String = "http://10.0.2.2:5000/get_coach?username=$username"
+        val url:String = FLASK_URL+"get_coach?username=$username"
         val jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             Response.Listener { response ->
