@@ -58,8 +58,7 @@ class CoachPoolActivity : AppCompatActivity() {
         val user_id: Int? = intent.getIntExtra("user_id", 0)
         val student_id: Int? = intent.getIntExtra("student_id", 0)
         val username: String? = intent.getStringExtra("username")
-        val currentUserFirstName = intent.getStringExtra("first_name")
-        Log.d("received extra coach pool", "$currentUserFirstName, $user_id, $student_id")
+        Log.d("received extra coach pool", "$user_id, $student_id")
 
 //        binding and setting the content of coach pool page
         binding = DataBindingUtil.setContentView(this, R.layout.coachpool)
@@ -67,6 +66,9 @@ class CoachPoolActivity : AppCompatActivity() {
         val profile_image = findViewById<CircleImageView>(R.id.profile_image)
         val header_name = findViewById<TextView>(R.id.header_name)
         var intent: Intent = intent
+
+        val currentUserFirstName = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
+            .getString("first_name", "")
 
         header_name.text = currentUserFirstName.toString()
         Log.i("set the header name!", currentUserFirstName.toString())
