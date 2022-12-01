@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
@@ -12,6 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.androidbuts.multispinnerfilter.KeyPairBoolData
+import com.androidbuts.multispinnerfilter.SingleSpinnerListener
+import com.androidbuts.multispinnerfilter.SingleSpinnerSearch
 import com.example.coachme.databinding.ActivityStudentpoolBinding
 
 
@@ -114,12 +118,57 @@ class StudentPoolActivity : AppCompatActivity() {
             startActivity(filterIntent)
         }
 
-    // TODO: Implement sort! now ASSUME SORT button onClickListener, onClick goes to coachpool layout!!!!!
-        val sortButton = findViewById<Button>(R.id.sortbutton_studentpool)
-        sortButton.setOnClickListener {
-            val sortIntent = Intent(this, CoachPoolActivity::class.java)
-            startActivity(sortIntent)
+    // Implementing sort (max pay desc, name ascd, goal ascd)
+        val sortButton = findViewById<SingleSpinnerSearch>(R.id.sortbutton_studentpool)
+        sortButton.isSearchEnabled = false
+
+        val sort_options = arrayOf("Max Pay","Name","Goal")
+        var sortArray = ArrayList<KeyPairBoolData>()
+        for (i in sort_options.indices) {
+            val keyPairBoolData = KeyPairBoolData()
+            keyPairBoolData.id = (i + 1).toLong()
+            keyPairBoolData.name = sort_options[i]
+            keyPairBoolData.isSelected = false
+            sortArray.add(keyPairBoolData)
         }
+
+        sortButton.setItems(sortArray, object : SingleSpinnerListener {
+            override fun onItemsSelected(selectedItem: KeyPairBoolData) {
+                Log.i("Selected Item in Sorting: ",  selectedItem.name + selectedItem.id)
+//                if (selectedItem.name == "Max Pay" && selectedItem.id.equals(1) && students.size>0){
+//                    students =
+//                        students.sortedWith(compareByDescending {
+//                            it.price.substringBeforeLast("/").split(" - ")[1].toInt()
+//                        }) as ArrayList<Student>
+//                    studentsAdapter.updateData(students)
+//                    studentsAdapter.notifyDataSetChanged()
+//                }
+//                else if (selectedItem.name == "Name" && students.size>0){
+//                    Log.i("name sorting is triggered", students.toString())
+//                    students =
+//                        students.sortedWith(compareBy {
+//                            it.name
+//                        }) as ArrayList<Student>
+//                    Log.i("after sorting name",students.toString())
+//                    studentsAdapter.updateData(students)
+//                    studentsAdapter.notifyDataSetChanged()
+//                }
+//                else if (selectedItem.name == "Goal" &&  selectedItem.id.equals(3) && students.size>0){
+//                    students =
+//                        students.sortedWith(compareBy {
+//                            it.goals
+//                        }) as ArrayList<Student>
+//                    studentsAdapter.updateData(students)
+//                    studentsAdapter.notifyDataSetChanged()
+//                }
+
+            }
+
+            override fun onClear() {
+                Toast.makeText(this@StudentPoolActivity, "Returned to default sorting", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        })
 
 
     }
