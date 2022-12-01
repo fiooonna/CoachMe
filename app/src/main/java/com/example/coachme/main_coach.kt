@@ -43,7 +43,7 @@ class main_coach : AppCompatActivity() {
 
         var button_find_student = findViewById<ImageButton>(R.id.button_find_students)
         button_find_student.setOnClickListener(View.OnClickListener() {
-            val intent =  Intent(this, studentpoolActivity::class.java)
+            val intent =  Intent(this, StudentPoolActivity::class.java)
             intent.putExtra("username", username)
             intent.putExtra("first_name", first_name)
             intent.putExtra("user_id", user_id)

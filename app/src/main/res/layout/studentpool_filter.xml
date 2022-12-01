@@ -47,6 +47,9 @@
                 android:layout_height="1dp"
                 android:background="#BFBFBF" />
 
+            <ScrollView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,21 +65,41 @@
                     android:orientation="horizontal">
 
 
-                    <ImageButton
-                        android:id="@+id/male_button"
-                        android:layout_width="wrap_content"
+                    <RadioGroup
+                        android:id="@+id/radiogroup"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#00FFFFFF"
-                        app:srcCompat="@drawable/male_button" />
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/Description">
 
-                    <ImageButton
-                        android:id="@+id/female_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:backgroundTint="#00FFFFFF"
-                        app:srcCompat="@drawable/female_button" />
+                        <RadioButton
+                            android:id="@+id/FemaleButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="60dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/radio_selector"
+                            android:button="@android:color/transparent"
+                            android:elevation="4dp"
+                            android:padding="16dp"
+                            android:text="Female"
+                            android:textColor="@drawable/text_color" />
+
+                        <RadioButton
+                            android:id="@+id/MaleButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="72dp"
+                            android:layout_marginTop="8dp"
+                            android:background="@drawable/radio_selector"
+                            android:button="@android:color/transparent"
+                            android:elevation="4dp"
+                            android:padding="16dp"
+                            android:text="Male"
+                            android:textColor="@drawable/text_color" />
+                    </RadioGroup>
                 </LinearLayout>
 
                 <LinearLayout
@@ -110,15 +133,11 @@
                     android:background="@drawable/custom_spn_background">
 <!--need decorate spinner with initial text instead of "pre-select"(not sure -->
 <!--                    whether pre-select is done yet-->
-                    <Spinner
+                    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
                         android:id="@+id/location_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:dropDownSelector="#F9F9F9"
-                        android:dropDownWidth="100dp"
-                        android:entries="@array/District"
-                        android:spinnerMode="dropdown"
-                        android:tooltipText="Select district"/>
+                        app:hintText="Select district"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -151,15 +170,11 @@
                     android:background="@drawable/custom_spn_background">
                     <!--need decorate spinner with initial text instead of "pre-select"(not sure -->
                     <!--                    whether pre-select is done yet-->
-                    <Spinner
+                    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
                         android:id="@+id/goal_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:dropDownSelector="#F9F9F9"
-                        android:dropDownWidth="100dp"
-                        android:entries="@array/Goal"
-                        android:spinnerMode="dropdown"
-                        android:tooltipText="Select goal"/>
+                        app:hintText="Select goal"/>
                 </FrameLayout>
 
                 <LinearLayout
@@ -284,16 +299,16 @@
 
 
             </LinearLayout>
-
-            <ImageButton
-                android:id="@+id/filter_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="#00FFFFFF"
-                app:srcCompat="@drawable/filter_buttom" />
-
+            </ScrollView>
 
         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/filter_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#00FFFFFF"
+            app:srcCompat="@drawable/filter_buttom" />
 
         <!--        <include layout="@layout/toolbar" />-->
 

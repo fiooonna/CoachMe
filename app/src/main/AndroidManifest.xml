@@ -129,7 +129,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".studentpoolActivity"
+            android:name=".StudentPoolActivity"
             android:exported="true" >
             <meta-data
                 android:name="android.app.lib_name"
