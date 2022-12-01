@@ -11,7 +11,7 @@ data class Coach(
     var coach_id: Int,
     var name: String,
     var image: Drawable?,
-    var yearExp: String,
+    var yearExp: String, //this includes the string " years" now
     var qualification: String,
     var rating: String,
     var bookmark: String,

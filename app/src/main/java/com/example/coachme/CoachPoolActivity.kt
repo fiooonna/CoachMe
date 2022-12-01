@@ -6,6 +6,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
@@ -13,6 +14,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
+import com.androidbuts.multispinnerfilter.KeyPairBoolData
+import com.androidbuts.multispinnerfilter.SingleSpinnerListener
+import com.androidbuts.multispinnerfilter.SingleSpinnerSearch
 import com.example.coachme.databinding.CoachpoolBinding
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -40,7 +44,8 @@ class CoachPoolActivity : AppCompatActivity() {
                     val rated_ppl = respObj.getInt("rated_ppl")
 
 //                   //adding data to the list
-                    coaches.add(Coach(user_id = user_id,coach_id =  coach_id, name,image = getDrawable(R.drawable.coach2),yearExp,qualification,rating,bookmark, rated_ppl))
+                    coaches.add(Coach(user_id = user_id,coach_id =  coach_id, name,image = getDrawable(R.drawable.coach2),
+                        "$yearExp years",qualification,rating,bookmark, rated_ppl))
 
 
                 }
@@ -138,6 +143,62 @@ class CoachPoolActivity : AppCompatActivity() {
         recyclerViewCoaches.adapter = coachesAdapter
         recyclerViewCoaches.layoutManager = LinearLayoutManager(this)
         recyclerViewCoaches.setHasFixedSize(true)
+
+        // Implementing sort (popularity (bookmark) desc, rating desc, yearExp desc, name ascd)
+        val sortButton = findViewById<SingleSpinnerSearch>(R.id.sortbutton_coachpool)
+        sortButton.isSearchEnabled = false
+
+        val sort_options = arrayOf("Popularity","Rating","Experience","Name")
+        var sortArray = ArrayList<KeyPairBoolData>()
+        for (i in sort_options.indices) {
+            val keyPairBoolData = KeyPairBoolData()
+            keyPairBoolData.id = (i + 1).toLong()
+            keyPairBoolData.name = sort_options[i]
+            keyPairBoolData.isSelected = false
+            sortArray.add(keyPairBoolData)
+        }
+
+        sortButton.setItems(sortArray, object : SingleSpinnerListener {
+            override fun onItemsSelected(selectedItem: KeyPairBoolData) {
+                Log.i("Selected Item in Sorting: ",  selectedItem.name + selectedItem.id)
+                var sortedCoaches: List<Coach> = coaches
+
+                if (selectedItem.name == "Popularity" && coaches.size>0){
+                    sortedCoaches =
+                        sortedCoaches.sortedWith(compareByDescending {
+                            it.bookmark.toInt()
+                        })
+                }
+                else if (selectedItem.name == "Rating" && coaches.size>0){
+                    sortedCoaches =
+                        sortedCoaches.sortedWith(compareByDescending {
+                            it.rating.toFloat()
+                        })
+
+                }
+                else if (selectedItem.name == "Experience" && coaches.size>0){
+                    sortedCoaches =
+                        sortedCoaches.sortedWith(compareByDescending {
+                            it.yearExp.split(" ")[0].toInt()
+                        })
+                }
+                else if (selectedItem.name == "Name" && coaches.size>0){
+                    sortedCoaches =
+                        sortedCoaches.sortedWith(compareBy {
+                            it.name
+                        })
+                }
+                val sortedCoaches_arrayList:ArrayList<Coach> = ArrayList(sortedCoaches)
+                coachesAdapter.updateData(sortedCoaches_arrayList)
+                coachesAdapter.notifyDataSetChanged()
+            }
+
+            override fun onClear() {
+                Toast.makeText(this@CoachPoolActivity, "Returned to default sorting", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+            )
 
         val filter_button = findViewById<Button>(R.id.filter_button)
         filter_button.setOnClickListener {

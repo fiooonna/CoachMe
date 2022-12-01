@@ -120,7 +120,7 @@ class coachprofile : AppCompatActivity() {
 
                 coach_name_text.text = coach_name
                 age_text.text = age.toString()
-                yearExp_text.text = yearExp.toString() + "years"
+                yearExp_text.text = yearExp.toString()
                 intro_text.text = intro
                 qua_text.text = qua
                 if (gender.equals("female")) {
