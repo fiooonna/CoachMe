@@ -183,6 +183,7 @@ class StudentPoolActivity : AppCompatActivity() {
         val filter_experience_upper = intent.getIntExtra("filter_experience_upper",2)
         val filter_pay_lower = intent.getIntExtra("filter_pay_lower",0)
         val filter_pay_upper = intent.getIntExtra("filter_pay_upper",1000)
+        Log.d("Filter Condition", "$filter_pay_lower, $filter_pay_upper, $filter_goal, $filter_experience_lower, $filter_experience_upper")
 
         if (filter_gender != null && filter_gender.isNotEmpty()) {
             filteredStudents = filteredStudents.filter { filter_gender.contains(it.gender) } as ArrayList<Student>
@@ -197,14 +198,14 @@ class StudentPoolActivity : AppCompatActivity() {
             filteredStudents = filteredStudents.filter{filter_location.contains(it.location)} as ArrayList<Student>
             Log.i("after filtering location", filteredStudents.toString())
         }
-
-        filteredStudents.filter{ it.price.substringBeforeLast("/").split(" - ")[0].toInt() >= filter_pay_lower }
-        filteredStudents.filter{ it.price.substringBeforeLast("/").split(" - ")[1].toInt() <= filter_pay_upper }
+        Log.d("Price", students.get(0).price.substringBeforeLast("/").split(" - ")[1].toString())
+        filteredStudents = filteredStudents.filter{ it.price.substringBeforeLast("/").split(" - ")[0].toInt() <= filter_pay_upper } as ArrayList<Student>
+        filteredStudents = filteredStudents.filter{ it.price.substringBeforeLast("/").split(" - ")[1].toInt() >= filter_pay_lower } as ArrayList<Student>
         Log.i("after filtering pay", students.toString())
 
         val experienceWordings = arrayListOf("Beginner","Intermediate","Advanced")
-        filteredStudents.filter{ experienceWordings.indexOf(it.experience) >= filter_experience_lower}
-        filteredStudents.filter{ experienceWordings.indexOf(it.experience) <= filter_experience_upper}
+        filteredStudents = filteredStudents.filter{ experienceWordings.indexOf(it.experience) <= filter_experience_upper} as ArrayList<Student>
+        filteredStudents = filteredStudents.filter{ experienceWordings.indexOf(it.experience) >= filter_experience_lower} as ArrayList<Student>
 
         Log.i("after filtering experience", filteredStudents.toString())
 
