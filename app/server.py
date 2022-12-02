@@ -351,6 +351,17 @@ def get_user():
 def matched():
     con = sqlite3.connect('my-db.db')
     
+    match_id = request.args.get('match_id', '')
+    student_id = request.args.get('student_id', '')
+    coach_id = request.args.get('coach_id', '')
+    Matched = request.args.get('Matched', '')
+    Invited = request.args.get('Invited', '')
+    Rating = request.args.get('Rating', '')
+
+    insertQuery = "INSERT INTO Match (match_id, student_id, coach_id, Matched, Invited, Rating) VALUES (?, ?, ?, ?, ?, ?);"
+    con.execute(insertQuery, (match_id, student_id, coach_id, Matched, Invited, Rating))
+    con.commit()
+    
     con.close()
     return 
 
