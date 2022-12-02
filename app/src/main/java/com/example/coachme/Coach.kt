@@ -19,5 +19,6 @@ data class Coach(
     var bookmark: String,
     var accum_rating: Int,
     var rated_ppl: Int,
-    var location: String
+    var location: String,
+    var age:Int
 )

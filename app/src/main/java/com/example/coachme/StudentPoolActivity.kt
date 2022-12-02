@@ -43,8 +43,9 @@ class StudentPoolActivity : AppCompatActivity() {
                     val minPay = respObj.getString("min_pay")
                     val maxPay = respObj.getString("max_pay")
                     val price = "$minPay - $maxPay/Hr"
+                    val age = respObj.getString("age").toInt()
                     //adding data to the list
-                    students.add(Student(user_id, student_id,user_gender,name,getDrawable(R.drawable.student2),location,goals,experience,price))
+                    students.add(Student(user_id, student_id,user_gender,name,getDrawable(R.drawable.student2),location,goals,experience,price,age))
 
                 }
                 Log.d("students list extracted", students.toString())
@@ -124,7 +125,7 @@ class StudentPoolActivity : AppCompatActivity() {
         val sortButton = findViewById<SingleSpinnerSearch>(R.id.sortbutton_studentpool)
         sortButton.isSearchEnabled = false
 
-        val sort_options = arrayOf("Max Pay","Name","Goal")
+        val sort_options = arrayOf("Max Pay","Name","Goal","Age")
         var sortArray = ArrayList<KeyPairBoolData>()
         for (i in sort_options.indices) {
             val keyPairBoolData = KeyPairBoolData()
@@ -156,6 +157,12 @@ class StudentPoolActivity : AppCompatActivity() {
                     sortedStudents =
                         sortedStudents.sortedWith(compareBy {
                             it.goals
+                        })
+                }
+                else if (selectedItem.name == "Age" && students.size>0){
+                    sortedStudents =
+                        sortedStudents.sortedWith(compareBy {
+                            it.age
                         })
                 }
                 val sortedStudents_arrayList:ArrayList<Student> = ArrayList(sortedStudents)

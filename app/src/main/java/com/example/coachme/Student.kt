@@ -11,5 +11,6 @@ data class Student(
     var location: String,
     var goals: String,
     var experience: String,
-    var price: String
+    var price: String,
+    var age: Int
 )

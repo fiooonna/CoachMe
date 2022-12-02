@@ -144,6 +144,7 @@ def get_objects_student():
         d['experience'] = row[13]
         d['min_pay'] = row[14]
         d['max_pay'] = row[15]
+        d['age'] = row[9]
         objects_list.append(d)
     con.close()
     return jsonify(objects_list)
@@ -236,6 +237,7 @@ def get_objects_coach():
         d['rating'] = row[16]
         d['bookmark'] = row[17]
         d['rated_ppl'] = row[18]
+        d['age'] = row[9]
         objects_list.append(d)
     con.close()
     return jsonify(objects_list)

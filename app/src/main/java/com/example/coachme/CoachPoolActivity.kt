@@ -46,6 +46,7 @@ class CoachPoolActivity : AppCompatActivity() {
                     val bookmark = respObj.getInt("bookmark").toString()
                     val rated_ppl = respObj.getInt("rated_ppl")
                     val expertise = respObj.getString("expertise")
+                    val age = respObj.getString("age").toInt()
 
                     if (rated_ppl != 0) {
                         avg_rating = rating.toFloat() / rated_ppl.toFloat()
@@ -53,7 +54,7 @@ class CoachPoolActivity : AppCompatActivity() {
                         avg_rating = 0.0F
                     }
 //                   //adding data to the list
-                    coaches.add(Coach(user_id = user_id,coach_id =  coach_id, gender, name,image = getDrawable(R.drawable.coach2),yearExp,qualification,expertise, avg_rating.toString(), bookmark, rating,rated_ppl, location))
+                    coaches.add(Coach(user_id = user_id,coach_id =  coach_id, gender, name,image = getDrawable(R.drawable.coach2),yearExp,qualification,expertise, avg_rating.toString(), bookmark, rating,rated_ppl, location,age))
 
 
                 }
@@ -63,7 +64,7 @@ class CoachPoolActivity : AppCompatActivity() {
                 Log.i("filter_YearExp", intent.getIntExtra("filter_YearExp", 0).toString())
                 if (coaches.size > 0 && intent.getBooleanExtra("Filtering", false) == true){
                     coaches = filterCoaches(intent, coaches)
-                    Log.i("Filtered Students: ", coaches.toString())
+                    Log.i("Filtered Coaches: ", coaches.toString())
                     coachesAdapter.updateData(coaches)
 
                     coachesAdapter.notifyDataSetChanged();
@@ -165,7 +166,7 @@ class CoachPoolActivity : AppCompatActivity() {
         val sortButton = findViewById<SingleSpinnerSearch>(R.id.sortbutton_coachpool)
         sortButton.isSearchEnabled = false
 
-        val sort_options = arrayOf("Popularity","Rating","Experience","Name")
+        val sort_options = arrayOf("Popularity","Rating","Experience","Name","Age")
         var sortArray = ArrayList<KeyPairBoolData>()
         for (i in sort_options.indices) {
             val keyPairBoolData = KeyPairBoolData()
@@ -203,6 +204,12 @@ class CoachPoolActivity : AppCompatActivity() {
                     sortedCoaches =
                         sortedCoaches.sortedWith(compareBy {
                             it.name
+                        })
+                }
+                else if (selectedItem.name == "Age" && coaches.size>0){
+                    sortedCoaches =
+                        sortedCoaches.sortedWith(compareBy {
+                            it.age
                         })
                 }
                 val sortedCoaches_arrayList:ArrayList<Coach> = ArrayList(sortedCoaches)
