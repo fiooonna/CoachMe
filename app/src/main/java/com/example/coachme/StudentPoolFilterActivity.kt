@@ -125,6 +125,7 @@ class StudentPoolFilterActivity : AppCompatActivity()  {
             }
         }
 //-------------------
+
         experienceRangeSeekBar.setIndicatorTextDecimalFormat("0");
         experienceRangeSeekBar.setProgress(0F, 2F)
 
@@ -144,6 +145,7 @@ class StudentPoolFilterActivity : AppCompatActivity()  {
             for (item in goalSpinner.selectedItems){
                 goals.add(item.name)
             }
+            Log.i("filter_info", "${locations.toString()}, ${goals.toString()}")
             intent.putExtra("filter_gender", genders)
             intent.putExtra("filter_location", locations)
             intent.putExtra("filter_goal", goals)

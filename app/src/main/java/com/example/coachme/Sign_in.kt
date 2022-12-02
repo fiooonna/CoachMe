@@ -99,6 +99,7 @@ class Sign_in : AppCompatActivity() {
                         .putString("first_name", first_name.get(i).toString())
                         .putString("last_name", last_name.get(i).toString())
                         .commit()
+                    Log.i("SharedPreference saved", "$username, ${first_name.get(i).toString()}" )
                     startActivity(intent)
                 }
                 else if (id.get(i).toString().equals("student")) {
@@ -112,7 +113,13 @@ class Sign_in : AppCompatActivity() {
                     intent.putExtra("address", address.get(i).toString())
                     intent.putExtra("gender", gender.get(i).toString())
                     intent.putExtra("age", age.get(i).toString())
-
+                    val userSharedPreference = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
+                    userSharedPreference.edit()
+                        .putString("USERNAME", username)
+                        .putString("first_name", first_name.get(i).toString())
+                        .putString("last_name", last_name.get(i).toString())
+                        .commit()
+                    Log.i("SharedPreference saved", "$username, ${first_name.get(i).toString()}" )
                     startActivity(intent)
                 }
 

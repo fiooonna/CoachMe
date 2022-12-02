@@ -111,6 +111,7 @@
                         android:layout_weight="8"
                         android:fontFamily="@font/inter"
                         android:textColor="@color/black"
+                        android:scrollbars="horizontal"
                         android:textSize="13sp"
                         android:text="@{coach.qualification}"
                         />

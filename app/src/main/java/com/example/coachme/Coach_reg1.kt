@@ -10,6 +10,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import com.androidbuts.multispinnerfilter.KeyPairBoolData
+import com.androidbuts.multispinnerfilter.MultiSpinnerSearch
 import com.google.android.material.slider.Slider
 
 class Coach_reg1 : AppCompatActivity() {
@@ -56,11 +58,41 @@ class Coach_reg1 : AppCompatActivity() {
             male.setTextColor(Color.parseColor("#000000"))
         }
 
+        val expertise_multispinner =
+            findViewById<MultiSpinnerSearch>(R.id.expertise_multispinner)
+        val expertiseArray = arrayOf<String>("Powerlifting", "Strength Training", "Crossfit", "TRX", "Olympic Lifting", "Mobility & Flexibility")
+        expertise_multispinner.setSearchEnabled(true);
+        expertise_multispinner.setSearchHint("Select the expertise");
+        expertise_multispinner.setEmptyTitle("Not Data Found!");
+        expertise_multispinner.setShowSelectAllButton(true);
+        expertise_multispinner.setClearText("Close & Clear");
+
+        val ExpertiseArrayMutable: MutableList<KeyPairBoolData> = ArrayList()
+        for (i in 0 until expertiseArray.size) {
+            val h = KeyPairBoolData()
+            h.id = (i + 1).toLong()
+            h.name = expertiseArray.get(i)
+            h.isSelected = false
+            ExpertiseArrayMutable.add(h)
+        }
+
+        var expertise = ""
+        expertise_multispinner.setItems(ExpertiseArrayMutable) { items ->
+            expertise = ""
+            for (i in items.indices) {
+                if (items[i].isSelected) {
+                    Log.i("expertise Spinner selected", i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
+                    expertise = expertise + items[i].name + ","
+                }
+            }
+            expertise = expertise.substring(0, expertise.length - 1)
+        }
+
         var con: Button = findViewById(R.id.contd)
         con.setOnClickListener(View.OnClickListener() {
             age = findViewById<Slider>(R.id.AgeInput).value.toInt().toString()
             exp = findViewById<EditText>(R.id.ExperienceInput)!!.text.toString()
-            expertise = findViewById<EditText>(R.id.ExpertiseInput)!!.text.toString()
+            Log.i("expertise got", expertise)
             var intent = Intent(this, Coach_reg2::class.java)
             if (gender!!.isNotEmpty() && age!!.isNotEmpty() && exp!!.isNotEmpty() && expertise!!.isNotEmpty()) {
                 intent.putExtra("email", email)

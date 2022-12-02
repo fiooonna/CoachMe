@@ -10,6 +10,8 @@ import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.androidbuts.multispinnerfilter.KeyPairBoolData
+import com.androidbuts.multispinnerfilter.MultiSpinnerSearch
 import org.json.JSONArray
 import org.json.JSONObject
 
@@ -51,6 +53,38 @@ class Coach_reg3 : AppCompatActivity() {
         val expertise: String? = intent.getStringExtra("expertise")
         val intro: String? = intent.getStringExtra("intro")
 
+        val quali_multispinner =
+            findViewById<MultiSpinnerSearch>(R.id.quali_multispinner)
+
+        quali_multispinner.setSearchEnabled(true);
+        quali_multispinner.setSearchHint("Select the qualification");
+        quali_multispinner.setEmptyTitle("Not Data Found!");
+        quali_multispinner.setShowSelectAllButton(true);
+        quali_multispinner.setClearText("Close & Clear");
+
+        val qualiArray = arrayOf<String>("NASM", "CPT", "CIAR", "NSCA-CC", "AFPA", "AFAA")
+
+        val qualiArrayMutable: MutableList<KeyPairBoolData> = ArrayList()
+        for (i in 0 until qualiArray.size) {
+            val h = KeyPairBoolData()
+            h.id = (i + 1).toLong()
+            h.name = qualiArray.get(i)
+            h.isSelected = false
+            qualiArrayMutable.add(h)
+        }
+
+        var quali = ""
+        quali_multispinner.setItems(qualiArrayMutable) { items ->
+            quali = ""
+            for (i in items.indices) {
+                if (items[i].isSelected) {
+                    Log.i("quali Spinner selected", i.toString() + " : " + items[i].name + " : " + items[i].isSelected)
+                    quali = quali + items[i].name + ","
+                }
+            }
+            quali = quali.substring(0, quali.length - 1)
+        }
+
         val back = findViewById<ImageButton>(R.id.back_btn)
         back.setOnClickListener(View.OnClickListener() {
             val intent = Intent(this, Coach_reg2::class.java)
@@ -59,11 +93,11 @@ class Coach_reg3 : AppCompatActivity() {
 
         val cont = findViewById<Button>(R.id.contd)
         cont.setOnClickListener(View.OnClickListener() {
-            qua = findViewById<EditText>(R.id.SelectQualification)!!.text.toString()
 
-            if (qua!!.isNotEmpty() ) {
+
+            if (quali!!.isNotEmpty() ) {
                 var intent = Intent(this, Coach_reg4::class.java)
-                sendInfo(FLASK_URL+"coach?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&expertise=$expertise&intro=$intro&qua=$qua")
+                sendInfo(FLASK_URL+"coach?email=$email&pw=$pw&ids=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&expertise=$expertise&intro=$intro&qua=$quali")
                 /*sendInfo("http://192.168.31.127:5000/project?email=$email&pw=$pw&id=$id&first_name=$first_name&last_name=$last_name&username=$username&address=$address&gender=$gender&age=$age&exp=$exp&expertise=$expertise&intro=$intro&qua=$qua")*/
                 startActivity(intent)
             } else {

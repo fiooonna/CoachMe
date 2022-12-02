@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coachme.databinding.ItemCoachpoolBinding
 
 
-class CoachPoolAdaptor(private var coachesList: List<Coach>, private val onSelect: (Coach?) -> Unit) :
+class CoachPoolAdaptor(private var coachesList: ArrayList<Coach>, private val onSelect: (Coach?) -> Unit) :
     RecyclerView.Adapter<CoachPoolViewHolder>() {
     private lateinit var binding: ItemCoachpoolBinding
 
@@ -31,6 +31,11 @@ class CoachPoolAdaptor(private var coachesList: List<Coach>, private val onSelec
 
     class OnClickListener(val clickListener: (coach: Coach) -> Unit) {
         fun onClick(coach: Coach) = clickListener(coach)
+    }
+
+    fun updateData(coaches: ArrayList<Coach>) {
+        coachesList = ArrayList()
+        coachesList.addAll(coaches)
     }
 
 }

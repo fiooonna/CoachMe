@@ -223,10 +223,14 @@ def get_objects_coach():
 
     objects_list = []
     for row in rows:
+        print(row)
         d = collections.OrderedDict()
         d['user_id'] = row[0]
         d['coach_id'] = row[10]
         d['name'] = row[4]
+        d['location'] = row[7]
+        d['gender'] = row[8]
+        d['expertise'] = row[13]
         d['qualification'] = row[15]
         d['yearExp'] = row[11]
         d['rating'] = row[16]
@@ -288,7 +292,7 @@ def get_coach():
         "first_name": first_name,
         "last_name": last_name,
         "username": username,
-        "address": address,
+        "location": address,
         "gender": gender,
         "age": age,
         "coach_id":coach_ids,

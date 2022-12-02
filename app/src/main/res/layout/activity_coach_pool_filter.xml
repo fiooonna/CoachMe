@@ -65,25 +65,21 @@
                     android:orientation="horizontal">
 
 
-                    <RadioGroup
-                        android:id="@+id/radiogroup"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/Description">
 
                         <RadioButton
                             android:id="@+id/FemaleButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="60dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
                             android:background="@drawable/radio_selector"
                             android:button="@android:color/transparent"
                             android:elevation="4dp"
+                            android:layout_weight="1"
                             android:padding="16dp"
+                            android:gravity="center"
                             android:text="Female"
                             android:textColor="@drawable/text_color" />
 
@@ -91,15 +87,19 @@
                             android:id="@+id/MaleButton"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="72dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:layout_weight="1"
                             android:background="@drawable/radio_selector"
                             android:button="@android:color/transparent"
                             android:elevation="4dp"
                             android:padding="16dp"
+                            android:gravity="center"
                             android:text="Male"
                             android:textColor="@drawable/text_color" />
-                    </RadioGroup>
+
                 </LinearLayout>
 
                 <LinearLayout

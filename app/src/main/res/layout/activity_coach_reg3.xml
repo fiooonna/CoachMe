@@ -55,18 +55,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Description" />
 
-    <EditText
-        android:id="@+id/SelectQualification"
-        android:layout_width="150dp"
-        android:layout_height="0dp"
-        android:ems="10"
-        android:hint="e.g. NASM, CPT"
-        android:inputType="textPersonName"
-        android:minWidth="50dp"
-        android:minHeight="50dp"
-        android:text=""
+    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+        android:id="@+id/quali_multispinner"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:hintText="Select the Qualification"
         app:layout_constraintStart_toStartOf="@+id/Qualification"
-        app:layout_constraintTop_toBottomOf="@+id/Qualification" />
+        app:layout_constraintTop_toBottomOf="@+id/Qualification"/>
 
     <TextView
         android:id="@+id/Proof"
@@ -76,7 +72,7 @@
         android:layout_marginTop="34dp"
         android:text="Upload documents of proof"
         app:layout_constraintStart_toStartOf="@+id/Qualification"
-        app:layout_constraintTop_toBottomOf="@+id/SelectQualification" />
+        app:layout_constraintTop_toBottomOf="@+id/quali_multispinner" />
 
 
     <ImageView

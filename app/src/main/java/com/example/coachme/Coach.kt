@@ -9,11 +9,15 @@ import android.graphics.drawable.Drawable
 data class Coach(
     var user_id: Int,
     var coach_id: Int,
+    var gender: String,
     var name: String,
     var image: Drawable?,
     var yearExp: String,
     var qualification: String,
+    var expertise: String,
     var rating: String,
     var bookmark: String,
+    var accum_rating: Int,
     var rated_ppl: Int,
+    var location: String
 )

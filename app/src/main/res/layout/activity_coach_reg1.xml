@@ -145,17 +145,15 @@
         app:layout_constraintStart_toStartOf="@+id/Experience"
         app:layout_constraintTop_toBottomOf="@+id/ExperienceInput" />
 
-    <EditText
-        android:id="@+id/ExpertiseInput"
-        android:layout_width="wrap_content"
+    <com.androidbuts.multispinnerfilter.MultiSpinnerSearch
+        android:id="@+id/expertise_multispinner"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Powerlifting"
-        android:inputType="textPostalAddress"
-        android:minWidth="50dp"
-        android:minHeight="50dp"
+        android:layout_margin="10dp"
+
+        app:hintText="Select the Expertise"
         app:layout_constraintStart_toStartOf="@+id/Expertise"
-        app:layout_constraintTop_toBottomOf="@+id/Expertise" />
+        app:layout_constraintTop_toBottomOf="@+id/Expertise"/>
 
     <Button
         android:id="@+id/contd"

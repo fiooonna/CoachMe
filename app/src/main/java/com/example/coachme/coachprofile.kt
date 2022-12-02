@@ -31,6 +31,7 @@ class coachprofile : AppCompatActivity() {
         val coach_name: String? = intent.getStringExtra("coach_name")
         val student_username: String? = intent.getStringExtra("student_username")
         val qua: String? = intent.getStringExtra("qua")
+        val expertise: String? = intent.getStringExtra("expertise")
         val yearExp: String? = intent.getStringExtra("yearExp")
         val rating: Int? = intent.getIntExtra("rating", 0)
         val rated_ppl: Int? = intent.getIntExtra("rated_ppl", 0)
@@ -39,7 +40,7 @@ class coachprofile : AppCompatActivity() {
 // TODO: display bookmark button according to the user history, and update both the coach and student database
         val sendbutton = findViewById<Button>(R.id.send_button)
         val dumbbellhome = findViewById<ImageButton>(R.id.dumbbell_button)
-
+        val BookMark_button = findViewById<ImageButton>(R.id.Bookmark_button)
 
         //this send button text is tengible to change, if the student has matched with the coach, it is a rating button,
         //else, it is send request
@@ -99,6 +100,7 @@ class coachprofile : AppCompatActivity() {
                 val bookmarks = response.get("bookmark") as JSONArray
                 val first_names = response.get("first_name") as JSONArray
                 val ages = response.get("age") as JSONArray
+                val locations = response.get("location") as JSONArray
                 val rated_ppls = response.get("rated_ppl") as JSONArray
                 val intros = response.get("intro") as JSONArray
 
@@ -109,6 +111,7 @@ class coachprofile : AppCompatActivity() {
                 val gender = genders.getString(0)
                 val rating = ratings.getInt(0)
                 val rated_ppl = rated_ppls.getInt(0)
+                val location = locations.getString(0)
 
                 val coach_name_text = findViewById<TextView>(R.id.coach_name)
                 val age_text = findViewById<TextView>(R.id.age_text)
@@ -117,12 +120,17 @@ class coachprofile : AppCompatActivity() {
                 val intro_text = findViewById<TextView>(R.id.intro_text)
                 val gender_view = findViewById<ImageView>(R.id.gender)
                 val rating_bar = findViewById<RatingBar>(R.id.listitemrating)
+                val expertise_text = findViewById<TextView>(R.id.expertise_text)
+                val location_text = findViewById<TextView>(R.id.location_text)
 
                 coach_name_text.text = coach_name
                 age_text.text = age.toString()
-                yearExp_text.text = yearExp.toString() + "years"
+                yearExp_text.text = yearExp.toString() + " years"
                 intro_text.text = intro
                 qua_text.text = qua
+                location_text.text = location
+                expertise_text.text = expertise
+
                 if (gender.equals("female")) {
                     gender_view.setImageResource(R.drawable.female)
                 } else if (gender.equals("male")) {
