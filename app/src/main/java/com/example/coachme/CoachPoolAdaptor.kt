@@ -37,10 +37,10 @@ class CoachPoolAdaptor(private var coachesList: ArrayList<Coach>, private val on
         (coachesList as ArrayList<Coach>).addAll(coaches)
     }
 
-    fun updateData(coaches: ArrayList<Coach>) {
+/*    fun updateData(coaches: ArrayList<Coach>) {
         coachesList = ArrayList()
         coachesList.addAll(coaches)
-    }
+    } */
 
 }
 
