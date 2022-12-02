@@ -32,6 +32,10 @@ class CoachPoolAdaptor(private var coachesList: ArrayList<Coach>, private val on
     class OnClickListener(val clickListener: (coach: Coach) -> Unit) {
         fun onClick(coach: Coach) = clickListener(coach)
     }
+    fun updateData(coaches: ArrayList<Coach>) {
+        coachesList = ArrayList()
+        (coachesList as ArrayList<Coach>).addAll(coaches)
+    }
 
     fun updateData(coaches: ArrayList<Coach>) {
         coachesList = ArrayList()

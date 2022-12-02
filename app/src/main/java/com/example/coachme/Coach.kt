@@ -12,7 +12,7 @@ data class Coach(
     var gender: String,
     var name: String,
     var image: Drawable?,
-    var yearExp: String,
+    var yearExp: String, //this includes the string " years" now
     var qualification: String,
     var expertise: String,
     var rating: String,

@@ -37,7 +37,7 @@
                 android:gravity="center"
                 android:text="Students Pool"
                 android:textColor="@color/black"
-                android:textSize="16sp" />
+                android:textSize="18sp" />
 
             <View
                 android:layout_width="0dp"
@@ -67,7 +67,7 @@
                 <com.androidbuts.multispinnerfilter.SingleSpinnerSearch
                     android:id="@+id/sortbutton_studentpool"
                     android:layout_width="wrap_content"
-                    android:layout_height="35dp"
+                    android:layout_height="wrap_content"
                     android:textSize="9sp"
                     app:hintText="Sort by" />
             </FrameLayout>
@@ -96,7 +96,6 @@
             android:orientation="vertical"
             android:paddingLeft="25dp"
             android:paddingRight="25dp"
-            android:layout_marginTop="20dp"
             app:layout_constraintBottom_toTopOf="@+id/footer_border"
             app:layout_constraintTop_toBottomOf="@+id/studentPool_header">
 

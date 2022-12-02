@@ -17,6 +17,8 @@ import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.androidbuts.multispinnerfilter.SingleSpinnerListener
 import com.androidbuts.multispinnerfilter.SingleSpinnerSearch
 import com.example.coachme.databinding.ActivityStudentpoolBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 class StudentPoolActivity : AppCompatActivity() {
@@ -135,33 +137,30 @@ class StudentPoolActivity : AppCompatActivity() {
         sortButton.setItems(sortArray, object : SingleSpinnerListener {
             override fun onItemsSelected(selectedItem: KeyPairBoolData) {
                 Log.i("Selected Item in Sorting: ",  selectedItem.name + selectedItem.id)
-//                if (selectedItem.name == "Max Pay" && selectedItem.id.equals(1) && students.size>0){
-//                    students =
-//                        students.sortedWith(compareByDescending {
-//                            it.price.substringBeforeLast("/").split(" - ")[1].toInt()
-//                        }) as ArrayList<Student>
-//                    studentsAdapter.updateData(students)
-//                    studentsAdapter.notifyDataSetChanged()
-//                }
-//                else if (selectedItem.name == "Name" && students.size>0){
-//                    Log.i("name sorting is triggered", students.toString())
-//                    students =
-//                        students.sortedWith(compareBy {
-//                            it.name
-//                        }) as ArrayList<Student>
-//                    Log.i("after sorting name",students.toString())
-//                    studentsAdapter.updateData(students)
-//                    studentsAdapter.notifyDataSetChanged()
-//                }
-//                else if (selectedItem.name == "Goal" &&  selectedItem.id.equals(3) && students.size>0){
-//                    students =
-//                        students.sortedWith(compareBy {
-//                            it.goals
-//                        }) as ArrayList<Student>
-//                    studentsAdapter.updateData(students)
-//                    studentsAdapter.notifyDataSetChanged()
-//                }
+                var sortedStudents: List<Student> = students
 
+                if (selectedItem.name == "Max Pay" && students.size>0){
+                    sortedStudents =
+                        sortedStudents.sortedWith(compareByDescending {
+                            it.price.substringBeforeLast("/").split(" - ")[1].toInt()
+                        })
+                }
+                else if (selectedItem.name == "Name" && students.size>0){
+                    sortedStudents =
+                        sortedStudents.sortedWith(compareBy {
+                            it.name
+                        })
+
+                }
+                else if (selectedItem.name == "Goal" && students.size>0){
+                    sortedStudents =
+                        sortedStudents.sortedWith(compareBy {
+                            it.goals
+                        })
+                }
+                val sortedStudents_arrayList:ArrayList<Student> = ArrayList(sortedStudents)
+                studentsAdapter.updateData(sortedStudents_arrayList)
+                studentsAdapter.notifyDataSetChanged()
             }
 
             override fun onClear() {
