@@ -84,6 +84,8 @@ class coachprofile : AppCompatActivity() {
             Toast.makeText(this@coachprofile, "Great, You have submitted the request!", Toast.LENGTH_SHORT).show()
         }
 
+        var bookmark: Int = 0
+
         val url:String = Coach_reg3.FLASK_URL +"get_coach?user_id=$coach_user_id"
         val jsonObjRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -109,9 +111,10 @@ class coachprofile : AppCompatActivity() {
                 val intro = intros.getString(0)
                 val age = ages.getInt(0)
                 val gender = genders.getString(0)
-                val rating = ratings.getInt(0)
-                val rated_ppl = rated_ppls.getInt(0)
+                var rating = ratings.getInt(0).toFloat()
+                var rated_ppl = rated_ppls.getInt(0)
                 val location = locations.getString(0)
+                bookmark = bookmarks.getInt(0)
 
                 val coach_name_text = findViewById<TextView>(R.id.coach_name)
                 val age_text = findViewById<TextView>(R.id.age_text)
@@ -139,14 +142,24 @@ class coachprofile : AppCompatActivity() {
 
                 rating_bar.rating = (rating.toFloat()/ rated_ppl.toFloat())
 
-
-
             },
             { error ->
                 //Handle error
                 Log.d("error of getting coach objects", error.toString())
             })
         Volley.newRequestQueue(this).add(jsonObjRequest)
+
+        BookMark_button.setOnClickListener {
+            if (BookMark_button.drawable.equals("bookmark_mark")) {
+                bookmark = bookmark + 1
+                BookMark_button.setBackgroundResource(R.drawable.bookmark)
+            } else if (BookMark_button.drawable.equals("bookmark")) {
+                bookmark = bookmark - 1
+                BookMark_button.setBackgroundResource(R.drawable.bookmark_mark)
+            }
+            //update the table
+        }
+
     }
 
 

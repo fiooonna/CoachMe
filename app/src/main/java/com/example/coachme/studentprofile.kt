@@ -68,6 +68,9 @@ class studentprofile : AppCompatActivity() {
             var rating: String = "/"
             sendInfo(FLASK_URL +"match?match_id=$match_id&student_id=$student_id&coach_id=$coach_id&Matched=$Matched&Invited=$Invited&Rating=$rating")
 
+            sendbutton.setText("Invitation sent")
+            sendbutton.isEnabled = false
+
             Toast.makeText(getApplicationContext(),"Great! You have sent the Request", Toast.LENGTH_SHORT).show();
             overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_left);
