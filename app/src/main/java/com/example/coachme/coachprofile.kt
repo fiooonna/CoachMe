@@ -30,9 +30,24 @@ class coachprofile : AppCompatActivity() {
         R.layout.activity_coach_pool_filter
         val student_user_id: Int? = intent.getIntExtra("student_user_id", 0)
         val student_first_name: Int? = intent.getIntExtra("student_first_name", 0)
-        val coach_user_id: Int? = intent.getIntExtra("coach_user_id", 0)
+        var coach_user_id: Int = intent.getIntExtra("coach_user_id", 0)
+        if (coach_user_id != 0) {
+            val userSharedPreference = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
+            userSharedPreference.edit()
+                .putInt("coach_user_id", coach_user_id)
+                .commit()
+        }
+        coach_user_id = getSharedPreferences("userSharedPreference", MODE_PRIVATE).getInt("coach_user_id", 0)
         var student_id: Int = 0
-        val coach_id: Int? = intent.getIntExtra("coach_id", 0)
+        var coach_id: Int = intent.getIntExtra("coach_id", 0)
+        if (coach_id != 0) {
+            val userSharedPreference = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
+            userSharedPreference.edit()
+                .putInt("coach_id", coach_id)
+                .commit()
+        }
+        coach_id = getSharedPreferences("userSharedPreference", MODE_PRIVATE).getInt("coach_id", 0)
+        Log.d("coach_id in coach profile", coach_id.toString())
         val coach_name: String? = intent.getStringExtra("coach_name")
         val username: String? = getSharedPreferences("userSharedPreference", MODE_PRIVATE).getString("USERNAME", "")
         val qua: String? = intent.getStringExtra("qua")
@@ -72,7 +87,13 @@ class coachprofile : AppCompatActivity() {
             startActivity(studentintent) */
 
             if (to_be_rated == 1) {
-                Toast.makeText(this@coachprofile, "Please rate", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, activityrating::class.java)
+                intent.putExtra("coach_id", coach_id)
+                intent.putExtra("coach_name", coach_name)
+                intent.putExtra("student_id", student_id)
+                startActivity(intent)
+                overridePendingTransition(R.anim.slide_in_right,
+                    R.anim.slide_out_left);
 
             } else if (invited == 1) {
                 // update the match table to Matched == 1
@@ -117,6 +138,7 @@ class coachprofile : AppCompatActivity() {
         }
 
         var bookmark: Int = 0
+        var bookmark_now: Int = 0
 
         url = Coach_reg3.FLASK_URL +"get_coach?user_id=$coach_user_id"
         val jsonObjRequest = JsonObjectRequest(
@@ -134,6 +156,7 @@ class coachprofile : AppCompatActivity() {
                 val bookmarks = response.get("bookmark") as JSONArray
                 val first_names = response.get("first_name") as JSONArray
                 val ages = response.get("age") as JSONArray
+                val expertises = response.get("expertise") as JSONArray
                 val locations = response.get("location") as JSONArray
                 val rated_ppls = response.get("rated_ppl") as JSONArray
                 val intros = response.get("intro") as JSONArray
@@ -142,6 +165,9 @@ class coachprofile : AppCompatActivity() {
                 val first_name = first_names.getString(0)
                 val intro = intros.getString(0)
                 val age = ages.getInt(0)
+                val expertise = expertises.getString(0)
+                val qua = qualifications.getString(0)
+                val yearExp = yearExps.getInt(0)
                 val gender = genders.getString(0)
                 var rating = ratings.getInt(0).toFloat()
                 var rated_ppl = rated_ppls.getInt(0)
@@ -158,11 +184,14 @@ class coachprofile : AppCompatActivity() {
                 val expertise_text = findViewById<TextView>(R.id.expertise_text)
                 val location_text = findViewById<TextView>(R.id.location_text)
 
-                coach_name_text.text = coach_name
+                coach_name_text.text = first_name
+
                 age_text.text = age.toString()
                 yearExp_text.text = yearExp.toString() + " years"
                 intro_text.text = intro
                 qua_text.text = qua
+                expertise_text.text = expertise
+
                 location_text.text = location
                 expertise_text.text = expertise
 
@@ -181,6 +210,7 @@ class coachprofile : AppCompatActivity() {
             })
         Volley.newRequestQueue(this).add(jsonObjRequest)
 
+
         url = FLASK_URL + "get_matched"
         jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
@@ -195,7 +225,7 @@ class coachprofile : AppCompatActivity() {
                 val Bookmarks: JSONArray = response.get("Bookmarks") as JSONArray
                 Log.d("sc pair", "$coach_id, $student_id")
                 for (i in 0 .. match_ids.length() - 1) {
-                    if (student_id == student_ids.get(i) && coach_id == coach_ids.get(i)) {
+                    if (student_id == student_ids.get(i) && coach_id == coach_ids.get(i) && Inviteds.get(i) != 0) {
                         if (matcheds.get(i) == 1) {
                             if (Ratings.get(i) == -1) {
                                 sendbutton.setText("Rate the Coach")
@@ -216,8 +246,10 @@ class coachprofile : AppCompatActivity() {
 
                         if (Bookmarks.get(i) == 1) {
                             BookMark_button.setBackgroundResource(R.drawable.bookmark)
+                            bookmark_now = 1
                         } else if (Bookmarks.get(i) == 0) {
                             BookMark_button.setBackgroundResource(R.drawable.bookmark_mark)
+                            bookmark_now = 0
                         }
 
                     }
@@ -235,18 +267,23 @@ class coachprofile : AppCompatActivity() {
 
         BookMark_button.setOnClickListener {
             var bm_update = 0
-            if (BookMark_button.drawable.equals("bookmark_mark")) {
+            Log.d("current bookMark", bookmark_now.toString())
+            if (bookmark_now == 0) {
+
+                Log.d("bookmark", "+1")
                 bookmark = bookmark + 1
                 bm_update = 1
+                bookmark_now = 1
                 BookMark_button.setBackgroundResource(R.drawable.bookmark)
-            } else if (BookMark_button.drawable.equals("bookmark")) {
-                if (bookmark > 0) {
-                    bookmark = bookmark - 1
-                    bm_update = 0
-                }
+            } else if (bookmark_now == 1) {
+                Log.d("bookmark", "-1")
+                bookmark = bookmark - 1
+                bm_update = 0
+                bookmark_now = 0
                 BookMark_button.setBackgroundResource(R.drawable.bookmark_mark)
             }
             //update the table (both the match and Coach table)
+
             url = FLASK_URL + "update_bookmark?&student_id=$student_id&coach_id=$coach_id&bm_update=$bm_update&bookmark=$bookmark"
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, url, null,

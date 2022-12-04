@@ -357,11 +357,20 @@ def invite():
     Matched = request.args.get('Matched', '')
     Invited = request.args.get('Invited', '')
     Rating = request.args.get('Rating', '')
-    print("inserting:", student_id, coach_id, Matched, Invited, Rating)
-    insertQuery = "INSERT INTO Match (student_id, coach_id, Matched, Invited, Rating) VALUES (?, ?, ?, ?, ?);"
-    con.execute(insertQuery, (student_id, coach_id, Matched, Invited, Rating))
-    con.commit()
-    
+
+    Query = "SELECT count(*) FROM Match WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+    cursor = con.execute(Query, {"student_id": student_id, "coach_id": coach_id})
+    for row in cursor:
+        count = row[0]
+    if count == 0:
+        print("inserting:", student_id, coach_id, Matched, Invited, Rating)
+        insertQuery = "INSERT INTO Match (student_id, coach_id, Matched, Invited, Rating) VALUES (?, ?, ?, ?, ?);"
+        con.execute(insertQuery, (student_id, coach_id, Matched, Invited, Rating))
+        con.commit()
+    else:
+        updateQuery = "UPDATE Match SET Invited = :Invited WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+        con.execute(updateQuery, {"Invited": Invited, "student_id": student_id, "coach_id": coach_id})
+        con.commit()
     con.close()
     return {200: "added match"}
 
@@ -394,6 +403,24 @@ def get_matched():
     con.close()
     return jsonify(data)
 
+@app.route('/check_if_match', methods = ['GET'])
+def check_if_match():
+    con = sqlite3.connect('my-db.db')
+    student_id = request.args.get('student_id', '')
+    coach_id = request.args.get('coach_id', '')
+    bm_update = request.args.get('bm_update', '')
+    bookmark = request.args.get('bookmark', '')
+
+    Query = "SELECT * FROM Match WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+    cursor = con.execute(Query, {"student_id": student_id, "coach_id": coach_id})
+    if len(cursor) == 0:
+
+        return False
+    else:
+        return True
+
+
+
 @app.route('/update_bookmark', methods = ['GET'])
 def update_bookmark():
     con = sqlite3.connect('my-db.db')
@@ -401,12 +428,25 @@ def update_bookmark():
     coach_id = request.args.get('coach_id', '')
     bm_update = request.args.get('bm_update', '')
     bookmark = request.args.get('bookmark', '')
+    print("bookmark now:", bookmark)
+    print("bm_update", bm_update)
+    Query = "SELECT COUNT(*) FROM Match WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+    cursor = con.execute(Query, {"student_id": student_id, "coach_id": coach_id})
+    for row in cursor:
+        print(row)
+        count = row[0]
+    if count == 0:
+        insertQuery = "INSERT INTO Match (student_id, coach_id, Matched, Invited, Rating, Bookmark) VALUES (?, ?, ?, ?, ?, ?);"
+        con.execute(insertQuery, (student_id, coach_id, 0, 0, -1, bm_update))
+        con.commit()
 
-    updateQuery = "UPDATE Match SET Bookmark = :bm_update WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
-    cursor = con.execute(updateQuery, {"student_id": student_id, "coach_id": coach_id, "bm_update": bm_update})
-    con.commit()
 
-    updateQuery = "UPDATE Coach SET Bookmark = :bookmark WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+    else:
+        updateQuery = "UPDATE Match SET Bookmark = :bm_update WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+        cursor = con.execute(updateQuery, {"student_id": student_id, "coach_id": coach_id, "bm_update": bm_update})
+        con.commit()
+
+    updateQuery = "UPDATE Coach SET Bookmark = :bookmark WHERE (coach_id = :coach_id)"
     cursor = con.execute(updateQuery, {"student_id": student_id, "coach_id": coach_id, "bookmark": bookmark})
     con.commit()
 
@@ -426,6 +466,24 @@ def match():
     con.close()
     return {200: "success"}
 
+@app.route('/rate', methods = ['GET'])
+def rate():
+    con = sqlite3.connect('my-db.db')
+    student_id = request.args.get('student_id', '')
+    coach_id = request.args.get('coach_id', '')
+    rating= request.args.get('rating', '')
+
+    updateQuery = "UPDATE Match SET Rating = :rating WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+    con.execute(updateQuery, {"student_id": student_id, "coach_id": coach_id, 'rating': rating})
+    con.commit()
+
+    updateQuery = "UPDATE Coach SET rating = :rating, rated_ppl = rated_ppl + 1 WHERE (coach_id = :coach_id)"
+    con.execute(updateQuery, {"coach_id": coach_id, 'rating': rating})
+    con.commit()
+
+    con.close()
+
+    return{200:"success"}
 
 # adds host="0.0.0.0" to make the server publicly available
 app.run(host="0.0.0.0")
