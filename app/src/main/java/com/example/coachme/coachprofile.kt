@@ -3,7 +3,9 @@ package com.example.coachme
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
+import android.view.ViewDebug.FlagToString
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
@@ -19,6 +21,9 @@ import org.json.JSONArray
 import org.w3c.dom.Text
 
 class coachprofile : AppCompatActivity() {
+
+    private var invited = 0
+    private var to_be_rated = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coachprofile)
@@ -26,16 +31,31 @@ class coachprofile : AppCompatActivity() {
         val student_user_id: Int? = intent.getIntExtra("student_user_id", 0)
         val student_first_name: Int? = intent.getIntExtra("student_first_name", 0)
         val coach_user_id: Int? = intent.getIntExtra("coach_user_id", 0)
-        val student_id: Int? = intent.getIntExtra("student_id", 0)
+        var student_id: Int = 0
         val coach_id: Int? = intent.getIntExtra("coach_id", 0)
         val coach_name: String? = intent.getStringExtra("coach_name")
-        val student_username: String? = intent.getStringExtra("student_username")
+        val username: String? = getSharedPreferences("userSharedPreference", MODE_PRIVATE).getString("USERNAME", "")
         val qua: String? = intent.getStringExtra("qua")
         val expertise: String? = intent.getStringExtra("expertise")
         val yearExp: String? = intent.getStringExtra("yearExp")
         val rating: Int? = intent.getIntExtra("rating", 0)
         val rated_ppl: Int? = intent.getIntExtra("rated_ppl", 0)
         var current_coach: Coach
+
+        var url:String = FLASK_URL+"get_student?&username=$username"
+        /*val url:String = "http://192.168.31.127:5000/project"*/
+        var jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                val student_ids: JSONArray = response.get("student_id") as JSONArray
+                student_id = student_ids.get(0).toString().toInt()
+                Log.d("Retrived student_id from db",coach_id.toString())
+            },
+            { error ->
+                Log.e("MyActivity",error.toString())
+            }
+        )
+        Volley.newRequestQueue(this).add(jsonObjectRequest)
 
 // TODO: display bookmark button according to the user history, and update both the coach and student database
         val sendbutton = findViewById<Button>(R.id.send_button)
@@ -51,46 +71,54 @@ class coachprofile : AppCompatActivity() {
             studentintent.putExtra("student_id", student_id)
             startActivity(studentintent) */
 
-            var match_id: Int = 0
+            if (to_be_rated == 1) {
+                Toast.makeText(this@coachprofile, "Please rate", Toast.LENGTH_SHORT).show()
 
-            val url:String = FLASK_URL+"get_matched"
-            val jsonObjectRequest = JsonObjectRequest(
-                Request.Method.GET, url, null,
-                { response ->
-                    val match_ids: JSONArray = response.get("match_id") as JSONArray
-                    match_id = match_ids.get(match_ids.length() - 1).toString().toInt() + 1
-                    Log.d("going to insert match_id", match_id.toString())
-                },
-                { error ->
-                    Log.e("MyActivity",error.toString())
-                }
-            )
-            Volley.newRequestQueue(this).add(jsonObjectRequest)
+            } else if (invited == 1) {
+                // update the match table to Matched == 1
+                var url:String = FLASK_URL+"match?&student_id=$student_id&coach_id=$coach_id"
+                /*val url:String = "http://192.168.31.127:5000/project"*/
+                var jsonObjectRequest = JsonObjectRequest(
+                    Request.Method.GET, url, null,
+                    { response ->
+                        print("send request")
+                    },
+                    { error ->
+                        Log.e("MyActivity",error.toString())
+                    }
+                )
+                Volley.newRequestQueue(this).add(jsonObjectRequest)
+                sendbutton.setText("Matched_succesfully")
+                sendbutton.isEnabled = false
+            } else if (invited == 0){
+                var Matched: Int = 0
+                var Invited: Int = 1
+                var Rating: Int = -1
+                sendInfo(FLASK_URL +"invite?&student_id=$student_id&coach_id=$coach_id&Matched=$Matched&Invited=$Invited&Rating=$Rating")
 
-            var Matched: Int = 0
-            var Invited: Int = 1
-            sendInfo(FLASK_URL +"match?match_id=$match_id&student_id=$student_id&coach_id=$coach_id&Matched=$Matched&Invited=$Invited&Rating=$rating")
+                sendbutton.setText("Invitation sent")
+                sendbutton.isEnabled = false
 
-            sendbutton.setText("Invitation sent")
-            sendbutton.isEnabled = false
+                overridePendingTransition(R.anim.slide_in_left,
+                    R.anim.slide_out_right);
+                Toast.makeText(this@coachprofile, "Great, You have submitted the request!", Toast.LENGTH_SHORT).show()
+            }
 
-            overridePendingTransition(R.anim.slide_in_left,
-                R.anim.slide_out_right);
-            Toast.makeText(this@coachprofile, "Great, You have submitted the request!", Toast.LENGTH_SHORT).show()
         }
 
         dumbbellhome.setOnClickListener {
-            val studentintent = Intent(this, CoachPoolActivity::class.java)
+
+            /* val studentintent = Intent(this, CoachPoolActivity::class.java)
             intent.putExtra("first_name", student_first_name)
             startActivity(studentintent)
             overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
-            Toast.makeText(this@coachprofile, "Great, You have submitted the request!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@coachprofile, "Great, You have submitted the request!", Toast.LENGTH_SHORT).show() */
         }
 
         var bookmark: Int = 0
 
-        val url:String = Coach_reg3.FLASK_URL +"get_coach?user_id=$coach_user_id"
+        url = Coach_reg3.FLASK_URL +"get_coach?user_id=$coach_user_id"
         val jsonObjRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
@@ -153,15 +181,84 @@ class coachprofile : AppCompatActivity() {
             })
         Volley.newRequestQueue(this).add(jsonObjRequest)
 
+        url = FLASK_URL + "get_matched"
+        jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                println("send request")
+                val match_ids: JSONArray = response.get("match_id") as JSONArray
+                val student_ids: JSONArray = response.get("student_id") as JSONArray
+                val coach_ids: JSONArray = response.get("coach_id") as JSONArray
+                val matcheds: JSONArray = response.get("matched") as JSONArray
+                val Inviteds: JSONArray = response.get("Invited") as JSONArray
+                val Ratings: JSONArray = response.get("Rating") as JSONArray
+                val Bookmarks: JSONArray = response.get("Bookmarks") as JSONArray
+                Log.d("sc pair", "$coach_id, $student_id")
+                for (i in 0 .. match_ids.length() - 1) {
+                    if (student_id == student_ids.get(i) && coach_id == coach_ids.get(i)) {
+                        if (matcheds.get(i) == 1) {
+                            if (Ratings.get(i) == -1) {
+                                sendbutton.setText("Rate the Coach")
+                                to_be_rated = 1
+                            } else {
+                                sendbutton.setText("Rated")
+                                sendbutton.isEnabled = false
+                            }
+
+                        } else if (Inviteds.get(i) == -1){
+                            sendbutton.setText("Match Coach")
+                            invited = 1
+                        } else if (Inviteds.get(i) == 1) {
+                            sendbutton.setText("Invitation Sent")
+                            sendbutton.isEnabled = false
+
+                        }
+
+                        if (Bookmarks.get(i) == 1) {
+                            BookMark_button.setBackgroundResource(R.drawable.bookmark)
+                        } else if (Bookmarks.get(i) == 0) {
+                            BookMark_button.setBackgroundResource(R.drawable.bookmark_mark)
+                        }
+
+                    }
+                }
+
+            },
+            { error ->
+                Log.e("MyActivity",error.toString())
+            }
+        )
+        //force the system to sleep to wait for response
+        SystemClock.sleep(100);
+        Volley.newRequestQueue(this).add(jsonObjectRequest)
+
+
         BookMark_button.setOnClickListener {
+            var bm_update = 0
             if (BookMark_button.drawable.equals("bookmark_mark")) {
                 bookmark = bookmark + 1
+                bm_update = 1
                 BookMark_button.setBackgroundResource(R.drawable.bookmark)
             } else if (BookMark_button.drawable.equals("bookmark")) {
-                bookmark = bookmark - 1
+                if (bookmark > 0) {
+                    bookmark = bookmark - 1
+                    bm_update = 0
+                }
                 BookMark_button.setBackgroundResource(R.drawable.bookmark_mark)
             }
-            //update the table
+            //update the table (both the match and Coach table)
+            url = FLASK_URL + "update_bookmark?&student_id=$student_id&coach_id=$coach_id&bm_update=$bm_update&bookmark=$bookmark"
+            val jsonObjectRequest = JsonObjectRequest(
+                Request.Method.GET, url, null,
+                { response ->
+                    println("send request")
+                },
+                { error ->
+                    Log.e("MyActivity",error.toString())
+                }
+            )
+            Volley.newRequestQueue(this).add(jsonObjectRequest)
+
         }
 
     }

@@ -3,6 +3,7 @@ package com.example.coachme
 import android.content.Intent
 import android.media.Image
 import android.os.Bundle
+import android.os.SystemClock
 import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -28,10 +29,10 @@ class studentprofile : AppCompatActivity() {
         val coach_first_name: Int? = intent.getIntExtra("coach_first_name", 0)
         val student_user_id: Int? = intent.getIntExtra("student_user_id", 0)
         val student_id: Int? = intent.getIntExtra("student_id", 0)
-        val coach_id: Int? = intent.getIntExtra("coach_id", 0)
+        var coach_id: Int? = intent.getIntExtra("coach_id", 0)
         val student_name: String? = intent.getStringExtra("student_name")
         val coach_username: String? = intent.getStringExtra("coach_username")
-
+        val username: String? = getSharedPreferences("userSharedPreference", MODE_PRIVATE).getString("USERNAME", "")
         val address: String? = intent.getStringExtra("address")
         val gender: String? = intent.getStringExtra("gender")
         val age:Int = intent.getIntExtra("age", 0)
@@ -41,6 +42,22 @@ class studentprofile : AppCompatActivity() {
         val num_lesson: String? = intent.getStringExtra("num_lesson")
         val remark: String? = intent.getStringExtra("remark")
         var current_student: Student
+
+        var url:String = FLASK_URL+"get_coach?&username=$username"
+        /*val url:String = "http://192.168.31.127:5000/project"*/
+        var jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                val coach_ids: JSONArray = response.get("coach_id") as JSONArray
+                coach_id = coach_ids.get(0).toString().toInt()
+                Log.d("Retrived coach_id from db",coach_id.toString())
+            },
+            { error ->
+                Log.e("MyActivity",error.toString())
+            }
+        )
+
+        Volley.newRequestQueue(this).add(jsonObjectRequest)
 
         val name_text = findViewById<TextView>(R.id.name_text)
         val gender_view = findViewById<ImageView>(R.id.gender)
@@ -75,8 +92,8 @@ class studentprofile : AppCompatActivity() {
 
         dumbbellhome.setOnClickListener {
         }
-        var url = FLASK_URL + "get_matched"
-        val jsonObjectRequest = JsonObjectRequest(
+        url = FLASK_URL + "get_matched"
+        jsonObjectRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             { response ->
                 println("send request")
@@ -108,13 +125,29 @@ class studentprofile : AppCompatActivity() {
                 Log.e("MyActivity",error.toString())
             }
         )
+        //force the system to sleep to wait for response
+        SystemClock.sleep(100);
         Volley.newRequestQueue(this).add(jsonObjectRequest)
 
         sendbutton.setOnClickListener{
             /* val intent = Intent(this, StudentPoolActivity::class.java)
             startActivity(intent) */
             if (invited == 1) {
-
+                //update the match table to Matched == 1
+                var url:String = FLASK_URL+"match?&student_id=$student_id&coach_id=$coach_id"
+                /*val url:String = "http://192.168.31.127:5000/project"*/
+                var jsonObjectRequest = JsonObjectRequest(
+                    Request.Method.GET, url, null,
+                    { response ->
+                        print("send request")
+                    },
+                    { error ->
+                        Log.e("MyActivity",error.toString())
+                    }
+                )
+                Volley.newRequestQueue(this).add(jsonObjectRequest)
+                sendbutton.setText("Matched_succesfully")
+                sendbutton.isEnabled = false
             } else if (invited == 0) {
                 var Matched: Int = 0
                 var Invited: Int = -1
@@ -122,7 +155,7 @@ class studentprofile : AppCompatActivity() {
                 var rating: Int = -1
 
                 Log.d("matching", "$student_id, $coach_id, $Matched, $Invited")
-                sendInfo(FLASK_URL +"match?&student_id=$student_id&coach_id=$coach_id&Matched=$Matched&Invited=$Invited&Rating=$rating")
+                sendInfo(FLASK_URL +"invite?&student_id=$student_id&coach_id=$coach_id&Matched=$Matched&Invited=$Invited&Rating=$rating")
 
 
                 sendbutton.setText("Invitation sent")

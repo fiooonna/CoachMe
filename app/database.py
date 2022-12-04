@@ -1,7 +1,8 @@
 import sqlite3
 
 # Connects to database
-# The .db file is created automatically if it does not exist
+# The .db file is created automatically if it d
+# oes not exist
 con = sqlite3.connect('my-db.db')
 
 
@@ -55,13 +56,15 @@ con.execute("""CREATE TABLE IF NOT EXISTS Coach (
 
 # For the Invited, -1 means Coach invite Student, 1 means Student invited Coach, but invited
 # doesn't mean matched, need the other side to confirm (0 = not yet matched, 1 = matched)
+# Bookmark, 1 means student has bookmarked the coach, 0 means not
 con.execute("""CREATE TABLE IF NOT EXISTS Match (
     match_id INTEGER PRIMARY KEY AUTOINCREMENT,
     student_id INT,
     coach_id INT,
     Matched INT,
     Invited INT,
-    Rating INT
+    Rating INT DEFAULT -1, 
+    Bookmark INT DEFAULT 0
 );""")
 
 #FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION,

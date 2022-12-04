@@ -63,7 +63,7 @@ class main_coach : AppCompatActivity() {
                 val user_ids: JSONArray = response.get("user_id") as JSONArray
                 coach_id = coach_ids.get(0).toString().toInt()
                 user_id = user_ids.get(0).toString().toInt()
-                Log.d("student_id", coach_id.toString())
+                Log.d("coach_id", coach_id.toString())
                 Log.d("user_id", user_id.toString())
 
             },

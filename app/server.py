@@ -316,7 +316,6 @@ def get_user():
     con = sqlite3.connect('my-db.db')
 
     cursor = con.execute("SELECT * from Users;")
-    print(cursor)
     user_ids, ids, email, pw, first_name, last_name, username, address, gender, age = [], [], [], [], [], [], [], [], [], []
 
     for row in cursor:
@@ -349,8 +348,8 @@ def get_user():
 
     return jsonify(data)
 
-@app.route('/match', methods=['GET'])
-def match():
+@app.route('/invite', methods=['GET'])
+def invite():
     con = sqlite3.connect('my-db.db')
     
     student_id = request.args.get('student_id', '')
@@ -371,7 +370,7 @@ def get_matched():
     con = sqlite3.connect('my-db.db')
 
     cursor = con.execute("SELECT * from Match;")
-    match_ids, student_ids, coach_ids, Matcheds, Inviteds, Ratings = [], [], [], [], [], [] 
+    match_ids, student_ids, coach_ids, Matcheds, Inviteds, Ratings, Bookmarks = [], [], [], [], [], [], []
 
     for row in cursor:
         print(row)
@@ -381,6 +380,7 @@ def get_matched():
         Matcheds.append(row[3])
         Inviteds.append(row[4])
         Ratings.append(row[5])
+        Bookmarks.append(row[6])
     
     data ={
         "match_id": match_ids,
@@ -388,10 +388,44 @@ def get_matched():
         "coach_id": coach_ids,
         "matched": Matcheds,
         "Invited": Inviteds,
-        "Rating": Ratings
+        "Rating": Ratings,
+        "Bookmarks": Bookmarks
     }
     con.close()
     return jsonify(data)
+
+@app.route('/update_bookmark', methods = ['GET'])
+def update_bookmark():
+    con = sqlite3.connect('my-db.db')
+    student_id = request.args.get('student_id', '')
+    coach_id = request.args.get('coach_id', '')
+    bm_update = request.args.get('bm_update', '')
+    bookmark = request.args.get('bookmark', '')
+
+    updateQuery = "UPDATE Match SET Bookmark = :bm_update WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+    cursor = con.execute(updateQuery, {"student_id": student_id, "coach_id": coach_id, "bm_update": bm_update})
+    con.commit()
+
+    updateQuery = "UPDATE Coach SET Bookmark = :bookmark WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+    cursor = con.execute(updateQuery, {"student_id": student_id, "coach_id": coach_id, "bookmark": bookmark})
+    con.commit()
+
+    con.close()
+    return {200: "success"}
+
+@app.route('/match', methods = ['GET'])
+def match():
+    con = sqlite3.connect('my-db.db')
+    student_id = request.args.get('student_id', '')
+    coach_id = request.args.get('coach_id', '')
+
+    updateQuery = "UPDATE Match SET Matched = 1 WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+    con.execute(updateQuery, {"student_id": student_id, "coach_id": coach_id})
+    con.commit()
+
+    con.close()
+    return {200: "success"}
+
 
 # adds host="0.0.0.0" to make the server publicly available
 app.run(host="0.0.0.0")

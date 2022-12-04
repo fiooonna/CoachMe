@@ -17,6 +17,7 @@ class Sign_in : AppCompatActivity() {
     private lateinit var username: String
     private lateinit var pw: String
     private var human: String? = null
+    private var coach_id = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,13 +94,16 @@ class Sign_in : AppCompatActivity() {
                     intent.putExtra("address", address.get(i).toString())
                     intent.putExtra("gender", gender.get(i).toString())
                     intent.putExtra("age", age.get(i).toString())
+
+
+                    Log.d("coach_id", coach_id.toString())
                     val userSharedPreference = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
                     userSharedPreference.edit()
                         .putString("USERNAME", username)
                         .putString("first_name", first_name.get(i).toString())
                         .putString("last_name", last_name.get(i).toString())
                         .commit()
-                    Log.i("SharedPreference saved", "$username, ${first_name.get(i).toString()}" )
+                    Log.i("SharedPreference saved", "$username, ${first_name.get(i).toString()}, $coach_id" )
                     startActivity(intent)
                 }
                 else if (id.get(i).toString().equals("student")) {
