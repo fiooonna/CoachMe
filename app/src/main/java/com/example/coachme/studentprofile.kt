@@ -91,6 +91,10 @@ class studentprofile : AppCompatActivity() {
 
 
         dumbbellhome.setOnClickListener {
+            val coachintent = Intent(this, main_coach::class.java)
+            startActivity(coachintent)
+            overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         }
         url = FLASK_URL + "get_matched"
         jsonObjectRequest = JsonObjectRequest(

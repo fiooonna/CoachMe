@@ -24,9 +24,9 @@ class main_coach : AppCompatActivity() {
         val email: String? = intent.getStringExtra("email")
         val pw: String? = intent.getStringExtra("pw")
         val id: String? = intent.getStringExtra("id")
-        val first_name: String? = intent.getStringExtra("first_name")
-        val last_name: String? = intent.getStringExtra("last_name")
-        val username: String? = intent.getStringExtra("username")
+        var first_name: String? = intent.getStringExtra("first_name")
+        var last_name: String? = intent.getStringExtra("last_name")
+        val username = getSharedPreferences("userSharedPreference", MODE_PRIVATE).getString("USERNAME", "")
         val address: String? = intent.getStringExtra("address")
         val gender: String? = intent.getStringExtra("gender")
         val age: String? = intent.getStringExtra("age")
@@ -37,10 +37,7 @@ class main_coach : AppCompatActivity() {
         var coach_id: Int = -1
         var user_id: Int = -1
 
-        var hello_name = findViewById<TextView>(R.id.hello_name)
-        hello_name.text = "Hello! $first_name"
-        var name = findViewById<Button>(R.id.name)
-        name.text = "$first_name $last_name"
+
 
         var button_find_student = findViewById<ImageButton>(R.id.button_find_students)
         button_find_student.setOnClickListener(View.OnClickListener() {
@@ -61,11 +58,18 @@ class main_coach : AppCompatActivity() {
                 val usernames: JSONArray = response.get("username") as JSONArray
                 val coach_ids: JSONArray = response.get("coach_id") as JSONArray
                 val user_ids: JSONArray = response.get("user_id") as JSONArray
+                val first_names: JSONArray = response.get("first_name") as JSONArray
+                val last_names: JSONArray = response.get("last_name") as JSONArray
                 coach_id = coach_ids.get(0).toString().toInt()
                 user_id = user_ids.get(0).toString().toInt()
+                first_name = first_names.get(0).toString()
+                last_name = last_names.get(0).toString()
                 Log.d("coach_id", coach_id.toString())
                 Log.d("user_id", user_id.toString())
-
+                var hello_name = findViewById<TextView>(R.id.hello_name)
+                hello_name.text = "Hello! $first_name"
+                var name = findViewById<Button>(R.id.name)
+                name.text = "$first_name $last_name"
             },
             Response.ErrorListener { error ->
                 Log.e("MyActivity",error.toString())

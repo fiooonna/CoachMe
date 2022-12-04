@@ -48,7 +48,7 @@ class activityrating : AppCompatActivity() {
                 }
             )
             Volley.newRequestQueue(this).add(jsonObjectRequest)
-            Toast.makeText(getApplicationContext(),"Thank you! You have rated Bob $rating stars", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Thank you! You have rated $coach_name $rating stars", Toast.LENGTH_SHORT).show();
             intent.putExtra("coach_name", coach_name)
             intent.putExtra("coach_id", coach_id)
             intent.putExtra("student_id", student_id)

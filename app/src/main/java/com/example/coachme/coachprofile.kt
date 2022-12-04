@@ -129,12 +129,13 @@ class coachprofile : AppCompatActivity() {
 
         dumbbellhome.setOnClickListener {
 
-            /* val studentintent = Intent(this, CoachPoolActivity::class.java)
+            val studentintent = Intent(this, main_student::class.java)
             intent.putExtra("first_name", student_first_name)
+            intent.putExtra("username", username)
+            intent.putExtra("user_id", student_user_id)
             startActivity(studentintent)
             overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);
-            Toast.makeText(this@coachprofile, "Great, You have submitted the request!", Toast.LENGTH_SHORT).show() */
         }
 
         var bookmark: Int = 0
