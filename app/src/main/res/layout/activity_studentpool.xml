@@ -108,7 +108,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvStudent"
                 android:layout_width="match_parent"
-                android:layout_height="499dp"
+                android:layout_height="535dp"
                 android:orientation="vertical"
                 tools:listitem="@layout/item_studentpool" />
 

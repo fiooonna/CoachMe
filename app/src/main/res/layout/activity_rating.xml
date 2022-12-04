@@ -96,7 +96,7 @@
             android:layout_height="fill_parent"
 
 
-            android:src="@drawable/student3"
+            android:src="@drawable/student108_male"
             app:civ_border_color="#FF000000"
             app:civ_border_width="2dp"
             app:layout_constraintBottom_toBottomOf="parent"

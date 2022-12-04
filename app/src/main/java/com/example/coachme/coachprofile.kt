@@ -17,6 +17,7 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.coachme.Coach_reg3.Companion.FLASK_URL
+import de.hdodenhof.circleimageview.CircleImageView
 import org.json.JSONArray
 import org.w3c.dom.Text
 
@@ -31,6 +32,8 @@ class coachprofile : AppCompatActivity() {
         val student_user_id: Int? = intent.getIntExtra("student_user_id", 0)
         val student_first_name: Int? = intent.getIntExtra("student_first_name", 0)
         var coach_user_id: Int = intent.getIntExtra("coach_user_id", 0)
+        val coach_gender: String? = intent.getStringExtra("gender")
+
         if (coach_user_id != 0) {
             val userSharedPreference = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
             userSharedPreference.edit()
@@ -91,6 +94,9 @@ class coachprofile : AppCompatActivity() {
                 intent.putExtra("coach_id", coach_id)
                 intent.putExtra("coach_name", coach_name)
                 intent.putExtra("student_id", student_id)
+                intent.putExtra("coach_user_id",coach_user_id)
+                intent.putExtra("gender",coach_gender)
+
                 startActivity(intent)
                 overridePendingTransition(R.anim.slide_in_right,
                     R.anim.slide_out_left);
@@ -184,6 +190,13 @@ class coachprofile : AppCompatActivity() {
                 val rating_bar = findViewById<RatingBar>(R.id.listitemrating)
                 val expertise_text = findViewById<TextView>(R.id.expertise_text)
                 val location_text = findViewById<TextView>(R.id.location_text)
+                val profile_image = findViewById<CircleImageView>(R.id.profile_image)
+
+                val resID = resources.getIdentifier("coach"+coach_user_id+"_"+gender, "drawable",
+                    packageName
+                )
+                Log.i("resID","coach"+coach_user_id+"_"+gender)
+                profile_image.setImageResource(resID)
 
                 coach_name_text.text = first_name
 

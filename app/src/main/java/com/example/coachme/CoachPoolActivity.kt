@@ -1,13 +1,15 @@
 package com.example.coachme
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +21,8 @@ import com.androidbuts.multispinnerfilter.SingleSpinnerListener
 import com.androidbuts.multispinnerfilter.SingleSpinnerSearch
 import com.example.coachme.databinding.CoachpoolBinding
 import de.hdodenhof.circleimageview.CircleImageView
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 
 class CoachPoolActivity : AppCompatActivity() {
@@ -47,14 +51,24 @@ class CoachPoolActivity : AppCompatActivity() {
                     val rated_ppl = respObj.getInt("rated_ppl")
                     val expertise = respObj.getString("expertise")
                     val age = respObj.getString("age").toInt()
+                    val resID = resources.getIdentifier("coach"+user_id+"_"+gender, "drawable",
+                        packageName
+                    )
+                    Log.i("resID and string","coach"+user_id+"_"+gender)
+                    Log.i("resID",resID.toString())
+                    val image: Drawable? = ResourcesCompat.getDrawable(resources, resID, null)
 
                     if (rated_ppl != 0) {
-                        avg_rating = rating.toFloat() / rated_ppl.toFloat()
+                        val random = rating.toFloat() / rated_ppl.toFloat()
+                        val df = DecimalFormat("#.##")
+                        df.roundingMode = RoundingMode.DOWN
+                        val roundoff = df.format(random)
+                        avg_rating = roundoff.toFloat()
                     } else {
                         avg_rating = 0.0F
                     }
 //                   //adding data to the list
-                    coaches.add(Coach(user_id = user_id,coach_id =  coach_id, gender, name,image = getDrawable(R.drawable.coach2),yearExp,qualification,expertise, avg_rating.toString(), bookmark, rating,rated_ppl, location,age))
+                    coaches.add(Coach(user_id = user_id,coach_id =  coach_id, gender, name,image = image,yearExp,qualification,expertise, avg_rating.toString(), bookmark, rating,rated_ppl, location,age))
 
 
                 }
@@ -149,6 +163,7 @@ class CoachPoolActivity : AppCompatActivity() {
             intent.putExtra("expertise", Coach.expertise)
             intent.putExtra("student_first_name", currentUserFirstName)
             intent.putExtra("student_username", username)
+            intent.putExtra("gender", Coach.gender)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right,
                 R.anim.slide_out_left);
