@@ -191,6 +191,11 @@ class coachprofile : AppCompatActivity() {
                 val expertise_text = findViewById<TextView>(R.id.expertise_text)
                 val location_text = findViewById<TextView>(R.id.location_text)
                 val profile_image = findViewById<CircleImageView>(R.id.profile_image)
+                if (gender == "male" ) {
+                    gender_view.setImageResource(R.drawable.male)
+                } else if (gender == "female") {
+                    gender_view.setImageResource(R.drawable.female)
+                }
 
                 val resID = resources.getIdentifier("coach"+coach_user_id+"_"+gender, "drawable",
                     packageName

@@ -61,6 +61,7 @@ class studentprofile : AppCompatActivity() {
 
         Volley.newRequestQueue(this).add(jsonObjectRequest)
 
+
         val name_text = findViewById<TextView>(R.id.name_text)
         val gender_view = findViewById<ImageView>(R.id.gender)
         val goal_text = findViewById<TextView>(R.id.goal_text)
@@ -72,6 +73,11 @@ class studentprofile : AppCompatActivity() {
         val profile_image = findViewById<CircleImageView>(R.id.profile_image)
         val location_text = findViewById<TextView>(R.id.location_text)
 
+        if (gender == "male" ) {
+            gender_view.setImageResource(R.drawable.male)
+        } else if (gender == "female") {
+            gender_view.setImageResource(R.drawable.female)
+        }
         name_text.text = student_name
         location_text.text = address
         //Dynamic student image
