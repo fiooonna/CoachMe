@@ -278,7 +278,7 @@ class CoachPoolActivity : AppCompatActivity() {
         }
         if (filter_YearExp != null) {
             filteredCoaches =
-                filteredCoaches.filter { it.yearExp.toInt() >= filter_YearExp } as ArrayList<Coach>
+                filteredCoaches.filter { it.yearExp.split(" ")[0].toInt() >= filter_YearExp } as ArrayList<Coach>
             Log.i("after filtering yearexp", filteredCoaches.toString())
         }
 

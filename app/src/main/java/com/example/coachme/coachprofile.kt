@@ -174,7 +174,7 @@ class coachprofile : AppCompatActivity() {
                 val age = ages.getInt(0)
                 val expertise = expertises.getString(0)
                 val qua = qualifications.getString(0)
-                val yearExp = yearExps.getInt(0)
+                val yearExp = yearExps.getString(0).split(" ")[0].toInt()
                 val gender = genders.getString(0)
                 var rating = ratings.getInt(0).toFloat()
                 var rated_ppl = rated_ppls.getInt(0)
