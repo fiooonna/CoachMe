@@ -403,21 +403,7 @@ def get_matched():
     con.close()
     return jsonify(data)
 
-@app.route('/check_if_match', methods = ['GET'])
-def check_if_match():
-    con = sqlite3.connect('my-db.db')
-    student_id = request.args.get('student_id', '')
-    coach_id = request.args.get('coach_id', '')
-    bm_update = request.args.get('bm_update', '')
-    bookmark = request.args.get('bookmark', '')
 
-    Query = "SELECT * FROM Match WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
-    cursor = con.execute(Query, {"student_id": student_id, "coach_id": coach_id})
-    if len(cursor) == 0:
-
-        return False
-    else:
-        return True
 
 
 
@@ -473,14 +459,18 @@ def rate():
     coach_id = request.args.get('coach_id', '')
     rating= request.args.get('rating', '')
 
-    updateQuery = "UPDATE Match SET Rating = :rating WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
-    con.execute(updateQuery, {"student_id": student_id, "coach_id": coach_id, 'rating': rating})
+    query = "SELECT rating FROM Coach WHERE (coach_id = :coach_id)"
+    cursor = con.execute(query, {"coach_id": coach_id})
     con.commit()
-
-    updateQuery = "UPDATE Coach SET rating = :rating, rated_ppl = rated_ppl + 1 WHERE (coach_id = :coach_id)"
+    
+    
+    updateQuery = "UPDATE Coach SET rating = rating + :rating, rated_ppl = rated_ppl + 1 WHERE (coach_id = :coach_id)"
     con.execute(updateQuery, {"coach_id": coach_id, 'rating': rating})
     con.commit()
 
+    updateQuery = "UPDATE Match SET Rating = :rating WHERE (student_id = :student_id) AND (coach_id = :coach_id)"
+    con.execute(updateQuery, {"student_id": student_id, "coach_id": coach_id, 'rating': rating})
+    con.commit()
     con.close()
 
     return{200:"success"}

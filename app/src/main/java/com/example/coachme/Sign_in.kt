@@ -55,7 +55,7 @@ class Sign_in : AppCompatActivity() {
         var done: Boolean = false
         robot.setOnClickListener(View.OnClickListener() {
             if (robot.isChecked == true && done == false) {
-                robot.setChecked(false)
+                //robot.setChecked(false)
                 SafetyNet.getClient(this)
                     .verifyWithRecaptcha(sitekey)
                     .addOnSuccessListener { response ->
@@ -85,6 +85,7 @@ class Sign_in : AppCompatActivity() {
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, url, null,
                 { response ->
+                    switchActivity(response, username, pw)
                     if (human.equals("true")) {
                         switchActivity(response, username, pw)
                     } else {
