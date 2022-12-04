@@ -1,5 +1,6 @@
 package com.example.coachme
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,14 +11,32 @@ import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.coachme.Coach_reg3.Companion.FLASK_URL
+import com.example.coachme.Model.MyResponse
+import com.example.coachme.Retrofit.IreCAPTCHA
+import com.example.coachme.Retrofit.RetrofitClient
+import com.google.android.gms.common.api.*
+import com.google.android.gms.safetynet.SafetyNet
+import com.google.android.gms.safetynet.SafetyNetApi
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import dmax.dialog.SpotsDialog
 import org.json.JSONArray
 import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import java.util.concurrent.Executor
 
 class Sign_in : AppCompatActivity() {
     private lateinit var username: String
     private lateinit var pw: String
     private var human: String? = null
-    private var coach_id = 0
+
+    private var sitekey: String = "6LfmAVQjAAAAANphERSr95w1sxlznU7m8FoHh9xp" //only local? if yes need to find a way to make it global (also for the secret key in recaptcha.php)
+    private val api: IreCAPTCHA
+        //local path containing the recaptcha.php, need to find a way to make it global
+        get() = RetrofitClient.getClient("http://localhost/Users/yozora/Desktop/CoachMe-main/app/").create(IreCAPTCHA::class.java)
+    lateinit var mService: IreCAPTCHA
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +50,36 @@ class Sign_in : AppCompatActivity() {
                 R.anim.slide_out_right)
         })
 
+        //CAPTCHA part
+        mService = api
+        var robot: CheckBox = findViewById(R.id.checkBox)
+        var done: Boolean = false
+        robot.setOnClickListener(View.OnClickListener() {
+            if (robot.isChecked == true && done == false) {
+                robot.setChecked(false)
+                SafetyNet.getClient(this)
+                    .verifyWithRecaptcha(sitekey)
+                    .addOnSuccessListener { response ->
+                        if (!response.tokenResult!!.isEmpty()) {
+                            done = verifyTokenOnServer(response.tokenResult!!)
+                            if (done) {
+                                robot.setChecked(true)
+                            }
+                        }
+                    }
+                    .addOnFailureListener { e ->
+                        if (e is ApiException) {
+                            Log.d(TAG, "Error: ${e.message}")
+                        }
+                    }
+            }
+        })
+
         var sign_in: Button = findViewById(R.id.button5)
         sign_in.setOnClickListener {
             username = findViewById<EditText>(R.id.Username)!!.text.toString()
             pw = findViewById<EditText>(R.id.Password)!!.text.toString()
-            human = findViewById<CheckBox>(R.id.checkBox)!!.isChecked().toString()
+            human = findViewById<CheckBox>(R.id.checkBox)!!.isChecked.toString()
 
             val url:String = FLASK_URL+"get_user"
             /*val url:String = "http://192.168.31.127:5000/project"*/
@@ -67,6 +111,36 @@ class Sign_in : AppCompatActivity() {
         }
     }
 
+    private fun verifyTokenOnServer(response: String): Boolean {
+        val dialog = SpotsDialog(this@Sign_in)
+        dialog.show()
+        dialog.setMessage("Please wait")
+
+        mService.validate(response)
+                .enqueue(object:Callback<MyResponse>{
+                    override fun onResponse(call: Call<MyResponse>?, response: Response<MyResponse>?) {
+
+                        dialog.dismiss()
+
+                        if (response!!.body()!!.success) {
+                            Toast.makeText(this@Sign_in, "Posted", Toast.LENGTH_SHORT).show()
+                        } else {
+                            Toast.makeText(this@Sign_in, response.body()!!.message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    override fun onFailure(call: Call<MyResponse>?, t: Throwable?) {
+                        dialog.dismiss()
+
+                        if (t != null) {
+                            Log.d("EMDTERROR", t.message!!)
+                        }
+                    }
+
+                })
+
+        return true
+    }
+
     fun switchActivity(jsonObj: JSONObject, username: String, pw: String?){
         val user_ids: JSONArray = jsonObj.get("user_id") as JSONArray
         val usernames: JSONArray = jsonObj.get("username") as JSONArray
@@ -94,16 +168,13 @@ class Sign_in : AppCompatActivity() {
                     intent.putExtra("address", address.get(i).toString())
                     intent.putExtra("gender", gender.get(i).toString())
                     intent.putExtra("age", age.get(i).toString())
-
-
-                    Log.d("coach_id", coach_id.toString())
                     val userSharedPreference = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
                     userSharedPreference.edit()
                         .putString("USERNAME", username)
                         .putString("first_name", first_name.get(i).toString())
                         .putString("last_name", last_name.get(i).toString())
                         .commit()
-                    Log.i("SharedPreference saved", "$username, ${first_name.get(i).toString()}, $coach_id" )
+                    Log.i("SharedPreference saved", "$username, ${first_name.get(i).toString()}" )
                     startActivity(intent)
                 }
                 else if (id.get(i).toString().equals("student")) {
@@ -138,4 +209,26 @@ class Sign_in : AppCompatActivity() {
         Toast.makeText(this@Sign_in, "Username or password incorrect.", Toast.LENGTH_SHORT).show()
     }
 
+/*    private fun onClick(*//*view: View*//*) {
+        SafetyNet.getClient(this).verifyWithRecaptcha(sitekey)
+            .addOnSuccessListener(this) { response ->
+                // Indicates communication with reCAPTCHA service was
+                // successful.
+                val userResponseToken = response.tokenResult
+                if (response.tokenResult?.isNotEmpty() == true) {
+                    Log.i(TAG, "onSuccess: " + response.tokenResult)
+                }
+            }
+            .addOnFailureListener(this as Executor, OnFailureListener { e ->
+                if (e is ApiException) {
+                    // An error occurred when communicating with the
+                    // reCAPTCHA service. Refer to the status code to
+                    // handle the error appropriately.
+                    Log.d(TAG, "Error: ${CommonStatusCodes.getStatusCodeString(e.statusCode)}")
+                } else {
+                    // A different, unknown type of error occurred.
+                    Log.d(TAG, "Error: ${e.message}")
+                }
+            })
+    }*/
 }
