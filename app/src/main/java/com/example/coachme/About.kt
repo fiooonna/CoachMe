@@ -17,6 +17,8 @@ class About : AppCompatActivity() {
         back.setOnClickListener(View.OnClickListener() {
             val intent = Intent(this, Landing_page::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         })
     }
 }

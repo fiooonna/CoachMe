@@ -53,12 +53,13 @@ class coachprofile : AppCompatActivity() {
 
             var match_id: Int = 0
 
-            val url:String = FLASK_URL+"matched"
+            val url:String = FLASK_URL+"get_matched"
             val jsonObjectRequest = JsonObjectRequest(
                 Request.Method.GET, url, null,
                 { response ->
                     val match_ids: JSONArray = response.get("match_id") as JSONArray
                     match_id = match_ids.get(match_ids.length() - 1).toString().toInt() + 1
+                    Log.d("going to insert match_id", match_id.toString())
                 },
                 { error ->
                     Log.e("MyActivity",error.toString())
@@ -69,6 +70,9 @@ class coachprofile : AppCompatActivity() {
             var Matched: Int = 0
             var Invited: Int = 1
             sendInfo(FLASK_URL +"match?match_id=$match_id&student_id=$student_id&coach_id=$coach_id&Matched=$Matched&Invited=$Invited&Rating=$rating")
+
+            sendbutton.setText("Invitation sent")
+            sendbutton.isEnabled = false
 
             overridePendingTransition(R.anim.slide_in_left,
                 R.anim.slide_out_right);

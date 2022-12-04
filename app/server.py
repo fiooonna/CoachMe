@@ -349,24 +349,49 @@ def get_user():
 
     return jsonify(data)
 
-@app.route('/get_matched', methods=['GET'])
-def matched():
+@app.route('/match', methods=['GET'])
+def match():
     con = sqlite3.connect('my-db.db')
     
-    match_id = request.args.get('match_id', '')
     student_id = request.args.get('student_id', '')
     coach_id = request.args.get('coach_id', '')
     Matched = request.args.get('Matched', '')
     Invited = request.args.get('Invited', '')
     Rating = request.args.get('Rating', '')
-
-    insertQuery = "INSERT INTO Match (match_id, student_id, coach_id, Matched, Invited, Rating) VALUES (?, ?, ?, ?, ?, ?);"
-    con.execute(insertQuery, (match_id, student_id, coach_id, Matched, Invited, Rating))
+    print("inserting:", student_id, coach_id, Matched, Invited, Rating)
+    insertQuery = "INSERT INTO Match (student_id, coach_id, Matched, Invited, Rating) VALUES (?, ?, ?, ?, ?);"
+    con.execute(insertQuery, (student_id, coach_id, Matched, Invited, Rating))
     con.commit()
     
     con.close()
-    return 
+    return {200: "added match"}
 
+@app.route('/get_matched', methods = ['GET'])
+def get_matched():
+    con = sqlite3.connect('my-db.db')
+
+    cursor = con.execute("SELECT * from Match;")
+    match_ids, student_ids, coach_ids, Matcheds, Inviteds, Ratings = [], [], [], [], [], [] 
+
+    for row in cursor:
+        print(row)
+        match_ids.append(row[0])
+        student_ids.append(row[1])
+        coach_ids.append(row[2])
+        Matcheds.append(row[3])
+        Inviteds.append(row[4])
+        Ratings.append(row[5])
+    
+    data ={
+        "match_id": match_ids,
+        "student_id": student_ids,
+        "coach_id": coach_ids,
+        "matched": Matcheds,
+        "Invited": Inviteds,
+        "Rating": Ratings
+    }
+    con.close()
+    return jsonify(data)
 
 # adds host="0.0.0.0" to make the server publicly available
 app.run(host="0.0.0.0")

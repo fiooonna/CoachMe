@@ -5,9 +5,9 @@ import sqlite3
 con = sqlite3.connect('my-db.db')
 
 
-con.execute("""DROP TABLE Users;""")
-con.execute("""DROP TABLE Student;""")
-con.execute("""DROP TABLE Coach;""")
+#con.execute("""DROP TABLE Users;""")
+#con.execute("""DROP TABLE Student;""")
+#con.execute("""DROP TABLE Coach;""")
 con.execute("""DROP TABLE Match;""")
 
 con.execute("""CREATE TABLE IF NOT EXISTS Users (
@@ -57,11 +57,11 @@ con.execute("""CREATE TABLE IF NOT EXISTS Coach (
 # doesn't mean matched, need the other side to confirm (0 = not yet matched, 1 = matched)
 con.execute("""CREATE TABLE IF NOT EXISTS Match (
     match_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    student_id INTEGER,
-    coach_id INTEGER,
-    Matched INTEGER,
-    Invited INTEGER,
-    Rating INTEGER
+    student_id INT,
+    coach_id INT,
+    Matched INT,
+    Invited INT,
+    Rating INT
 );""")
 
 #FOREIGN KEY(user_id) REFERENCES User(user_id) ON DELETE CASCADE ON UPDATE NO ACTION,

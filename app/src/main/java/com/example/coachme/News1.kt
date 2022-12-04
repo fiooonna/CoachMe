@@ -15,6 +15,8 @@ class News1 : AppCompatActivity() {
         back.setOnClickListener(View.OnClickListener() {
             val intent = Intent(this, News::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         })
     }
 }

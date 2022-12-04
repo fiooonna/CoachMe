@@ -16,6 +16,11 @@ import org.w3c.dom.Text
 
 
 class studentprofile : AppCompatActivity() {
+
+    private var mathced = 0
+    //invited means whether the coach received invitation from this student
+    private var invited = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_studentprofile)
@@ -63,44 +68,70 @@ class studentprofile : AppCompatActivity() {
         exp_text.text = exp
         remark_text.text = remark
         age_text.text = age.toString()
-
+        checkMatched(FLASK_URL+"get_matched", student_id!!.toInt(), coach_id!!.toInt())
         val dumbbellhome = findViewById<ImageButton>(R.id.dumbbell_button)
         val sendbutton = findViewById<Button>(R.id.send_button)
 
 
         dumbbellhome.setOnClickListener {
         }
+        var url = FLASK_URL + "get_matched"
+        val jsonObjectRequest = JsonObjectRequest(
+            Request.Method.GET, url, null,
+            { response ->
+                println("send request")
+                val match_ids: JSONArray = response.get("match_id") as JSONArray
+                val student_ids: JSONArray = response.get("student_id") as JSONArray
+                val coach_ids: JSONArray = response.get("coach_id") as JSONArray
+                val matcheds: JSONArray = response.get("matched") as JSONArray
+                val Inviteds: JSONArray = response.get("Invited") as JSONArray
+                val Ratings: JSONArray = response.get("Rating") as JSONArray
+
+                for (i in 0 .. match_ids.length() - 1) {
+                    if (student_id == student_ids.get(i) && coach_id == coach_ids.get(i)) {
+                        if (matcheds.get(i) == 1) {
+                            sendbutton.setText("Matched")
+                            sendbutton.isEnabled = false
+                        } else if (Inviteds.get(i) == -1){
+                            sendbutton.setText("Invitation Sent")
+                            sendbutton.isEnabled = false
+                        } else if (Inviteds.get(i) == 1) {
+                            sendbutton.setText("Match Student")
+                            invited = 1
+                        }
+
+                    }
+                }
+
+            },
+            { error ->
+                Log.e("MyActivity",error.toString())
+            }
+        )
+        Volley.newRequestQueue(this).add(jsonObjectRequest)
 
         sendbutton.setOnClickListener{
             /* val intent = Intent(this, StudentPoolActivity::class.java)
             startActivity(intent) */
+            if (invited == 1) {
 
-            var match_id: Int = 0
+            } else if (invited == 0) {
+                var Matched: Int = 0
+                var Invited: Int = -1
+                // temporarily rating is -1, because still unrated
+                var rating: Int = -1
 
-            val url:String = Coach_reg3.FLASK_URL +"matched"
-            val jsonObjectRequest = JsonObjectRequest(
-                Request.Method.GET, url, null,
-                { response ->
-                    val match_ids: JSONArray = response.get("match_id") as JSONArray
-                    match_id = match_ids.get(match_ids.length() - 1).toString().toInt() + 1
-                },
-                { error ->
-                    Log.e("MyActivity",error.toString())
-                }
-            )
-            Volley.newRequestQueue(this).add(jsonObjectRequest)
+                Log.d("matching", "$student_id, $coach_id, $Matched, $Invited")
+                sendInfo(FLASK_URL +"match?&student_id=$student_id&coach_id=$coach_id&Matched=$Matched&Invited=$Invited&Rating=$rating")
 
-            var Matched: Int = 0
-            var Invited: Int = -1
-            var rating: String = "/"
-            sendInfo(FLASK_URL +"match?match_id=$match_id&student_id=$student_id&coach_id=$coach_id&Matched=$Matched&Invited=$Invited&Rating=$rating")
 
-            sendbutton.setText("Invitation sent")
-            sendbutton.isEnabled = false
+                sendbutton.setText("Invitation sent")
+                sendbutton.isEnabled = false
 
-            Toast.makeText(getApplicationContext(),"Great! You have sent the Request", Toast.LENGTH_SHORT).show();
-            overridePendingTransition(R.anim.slide_in_right,
-                R.anim.slide_out_left);
+                Toast.makeText(getApplicationContext(),"Great! You have sent the Request", Toast.LENGTH_SHORT).show();
+
+            }
+
         }
     }
 
@@ -115,5 +146,10 @@ class studentprofile : AppCompatActivity() {
             }
         )
         Volley.newRequestQueue(this).add(jsonObjectRequest)
+    }
+
+    // if the two users are matched already, then the coach cannot send the button again
+    fun checkMatched(url: String, student_id: Int, coach_id: Int) {
+
     }
 }

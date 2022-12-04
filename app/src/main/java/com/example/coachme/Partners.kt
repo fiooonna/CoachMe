@@ -16,6 +16,8 @@ class Partners : AppCompatActivity() {
         back.setOnClickListener(View.OnClickListener() {
             val intent = Intent(this, Landing_page::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left,
+                R.anim.slide_out_right);
         })
 
         var p1 = findViewById<ImageButton>(R.id.partner1)
