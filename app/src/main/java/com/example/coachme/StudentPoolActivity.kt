@@ -39,13 +39,17 @@ class StudentPoolActivity : AppCompatActivity() {
                     val name = respObj.getString("name")
                     val location = respObj.getString("location")
                     val goals = respObj.getString("goals")
+                    val gender = respObj.getString("gender")
                     val experience = respObj.getString("experience")
                     val minPay = respObj.getString("min_pay")
                     val maxPay = respObj.getString("max_pay")
                     val price = "$minPay - $maxPay/Hr"
                     val age = respObj.getString("age").toInt()
+                    val num_lesson = respObj.getString("num_lesson") + " lessons/week"
+                    val remark = respObj.getString("remark")
+
                     //adding data to the list
-                    students.add(Student(user_id, student_id,user_gender,name,getDrawable(R.drawable.student2),location,goals,experience,price,age))
+                    students.add(Student(user_id, student_id,gender,name,getDrawable(R.drawable.student2),location,goals,experience,price,age, num_lesson, remark))
 
                 }
                 Log.d("students list extracted", students.toString())
@@ -102,8 +106,18 @@ class StudentPoolActivity : AppCompatActivity() {
             intent.putExtra("student_user_id", Student!!.user_id)
             intent.putExtra("student_id", Student!!.student_id)
             intent.putExtra("coach_user_id", user_id)
-            intent.putExtra("student_id", coach_id)
+            intent.putExtra("coach_id", coach_id)
+            intent.putExtra("student_name", Student!!.name)
             intent.putExtra("student_username", username)
+            intent.putExtra("address", Student!!.location)
+            intent.putExtra("age", Student!!.age)
+            intent.putExtra("exp", Student!!.experience)
+            intent.putExtra("target", Student!!.goals)
+            intent.putExtra("pay", Student!!.price)
+            intent.putExtra("num_lesson", Student!!.num_lesson)
+            intent.putExtra("remark", Student.remark)
+            intent.putExtra("gender", Student!!.gender)
+
 
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_right,

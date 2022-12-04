@@ -145,6 +145,8 @@ def get_objects_student():
         d['min_pay'] = row[14]
         d['max_pay'] = row[15]
         d['age'] = row[9]
+        d["num_lesson"] = row[16]
+        d['remark'] = row[17]
         objects_list.append(d)
     con.close()
     return jsonify(objects_list)
