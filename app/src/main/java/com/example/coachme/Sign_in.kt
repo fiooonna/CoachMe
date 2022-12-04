@@ -34,8 +34,7 @@ class Sign_in : AppCompatActivity() {
 
     private var sitekey: String = "6LfmAVQjAAAAANphERSr95w1sxlznU7m8FoHh9xp" //only local? if yes need to find a way to make it global (also for the secret key in recaptcha.php)
     private val api: IreCAPTCHA
-        //local path containing the recaptcha.php, need to find a way to make it global
-        get() = RetrofitClient.getClient("http://localhost/Users/yozora/Desktop/CoachMe-main/app/").create(IreCAPTCHA::class.java)
+        get() = RetrofitClient.getClient("http://localhost/../CoachMe-main/app/src/main/java/com/example/coachme/recaptcha.php/").create(IreCAPTCHA::class.java)
     lateinit var mService: IreCAPTCHA
 
     override fun onCreate(savedInstanceState: Bundle?) {
