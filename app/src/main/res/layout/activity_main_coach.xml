@@ -32,7 +32,7 @@ tools:context=".main_coach">
         android:layout_height="58dp"
         android:layout_marginStart="326dp"
         android:layout_marginTop="52dp"
-        android:src="@drawable/coach7"
+        android:src="@drawable/coach19_female"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -112,7 +112,7 @@ tools:context=".main_coach">
                 android:layout_height="42dp"
                 android:layout_marginLeft="64dp"
                 android:layout_marginTop="13dp"
-                android:src="@drawable/dumpbell"
+                android:src="@drawable/coach19_female"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

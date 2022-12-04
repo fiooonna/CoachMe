@@ -12,6 +12,7 @@ import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.androidbuts.multispinnerfilter.MultiSpinnerListener
 import com.androidbuts.multispinnerfilter.MultiSpinnerSearch
 import com.jaygoo.widget.RangeSeekBar
+import de.hdodenhof.circleimageview.CircleImageView
 
 
 class StudentPoolFilterActivity : AppCompatActivity()  {
@@ -35,6 +36,8 @@ class StudentPoolFilterActivity : AppCompatActivity()  {
         val payRangeSeekBar = findViewById<RangeSeekBar>(R.id.range_seekbar_pay)
         val filterButton: ImageButton = findViewById(R.id.filter_button)
         val header_name = findViewById<TextView>(R.id.header_name)
+        val header_image = findViewById<CircleImageView>(R.id.profile_image)
+        header_image.setImageResource(R.drawable.coach19_female)
 
         // Pass true If you want searchView above the list. Otherwise false. default = true.
         locationSpinner.isSearchEnabled = true;

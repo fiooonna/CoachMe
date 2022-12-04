@@ -1,10 +1,12 @@
 package com.example.coachme
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.media.Image
 import android.os.Bundle
 import android.os.SystemClock
 import android.util.Log
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Request
@@ -72,13 +74,13 @@ class studentprofile : AppCompatActivity() {
 
         name_text.text = student_name
         location_text.text = address
-        //Todo: Dynamic student image
-        profile_image.setImageResource(R.drawable.student2)
-        if (gender == "male") {
-            gender_view.setImageResource(R.drawable.male)
-        } else if (gender == "female"){
-            gender_view.setImageResource(R.drawable.female)
-        }
+        //Dynamic student image
+        val resID = resources.getIdentifier("student"+student_user_id+"_"+gender, "drawable",
+            packageName
+        )
+        Log.i("resID","student"+student_user_id+"_"+gender)
+        profile_image.setImageResource(resID)
+
         goal_text.text = target
         pay_text.text = pay
         num_lesson_text.text = num_lesson

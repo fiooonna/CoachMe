@@ -33,7 +33,7 @@
                     android:id="@+id/profile_image"
                     android:layout_width="78sp"
                     android:layout_height="78sp"
-                    android:src = '@{student.image != null ? student.image : @drawable/coach1}'
+                    android:src = "@{student.image != null ? student.image : @drawable/coach1_male}"
                     />
 <!--                &lt;!&ndash;            @tools:sample/avatars&ndash;&gt;-->
                 <TextView

@@ -142,7 +142,7 @@ class Sign_in : AppCompatActivity() {
     }
 
     fun switchActivity(jsonObj: JSONObject, username: String, pw: String?){
-        val user_ids: JSONArray = jsonObj.get("user_id") as JSONArray
+        val user_id: JSONArray = jsonObj.get("user_id") as JSONArray
         val usernames: JSONArray = jsonObj.get("username") as JSONArray
         val pws: JSONArray = jsonObj.get("pw") as JSONArray
         val email: JSONArray = jsonObj.get("email") as JSONArray
@@ -173,6 +173,8 @@ class Sign_in : AppCompatActivity() {
                         .putString("USERNAME", username)
                         .putString("first_name", first_name.get(i).toString())
                         .putString("last_name", last_name.get(i).toString())
+                        .putString("user_id",user_id.get(i).toString())
+                        .putString("photo_name","student"+user_id.get(i).toString()+"_"+gender.get(i).toString())
                         .commit()
                     Log.i("SharedPreference saved", "$username, ${first_name.get(i).toString()}" )
                     startActivity(intent)
@@ -193,6 +195,7 @@ class Sign_in : AppCompatActivity() {
                         .putString("USERNAME", username)
                         .putString("first_name", first_name.get(i).toString())
                         .putString("last_name", last_name.get(i).toString())
+                        .putString("photo_name","coach"+user_id.get(i).toString()+"_"+gender.get(i).toString())
                         .commit()
                     Log.i("SharedPreference saved", "$username, ${first_name.get(i).toString()}" )
                     startActivity(intent)

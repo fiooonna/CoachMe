@@ -1,12 +1,16 @@
 package com.example.coachme
 
 import android.content.Intent
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.view.doOnPreDraw
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,8 +21,8 @@ import com.androidbuts.multispinnerfilter.KeyPairBoolData
 import com.androidbuts.multispinnerfilter.SingleSpinnerListener
 import com.androidbuts.multispinnerfilter.SingleSpinnerSearch
 import com.example.coachme.databinding.ActivityStudentpoolBinding
+import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class StudentPoolActivity : AppCompatActivity() {
@@ -47,9 +51,13 @@ class StudentPoolActivity : AppCompatActivity() {
                     val age = respObj.getString("age").toInt()
                     val num_lesson = respObj.getString("num_lesson") + " lessons/week"
                     val remark = respObj.getString("remark")
+                    val resID = resources.getIdentifier("student"+user_id+"_"+gender, "drawable",
+                        packageName
+                    )
+                    val image: Drawable? = ResourcesCompat.getDrawable(resources, resID, null)
 
                     //adding data to the list
-                    students.add(Student(user_id, student_id,gender,name,getDrawable(R.drawable.student2),location,goals,experience,price,age, num_lesson, remark))
+                    students.add(Student(user_id, student_id,gender,name,image,location,goals,experience,price,age, num_lesson, remark))
 
                 }
                 Log.d("students list extracted", students.toString())
@@ -76,7 +84,6 @@ class StudentPoolActivity : AppCompatActivity() {
             startPostponedEnterTransition()
         }
         val header_name = findViewById<TextView>(R.id.header_name)
-        //TODO: ADD DYNAMIC PROFILE PIC!!!!
         //get the extras set up during login, to retrieve the current user info
         var intent: Intent = intent
         val currentUserFirstName = getSharedPreferences("userSharedPreference", MODE_PRIVATE)
@@ -84,6 +91,10 @@ class StudentPoolActivity : AppCompatActivity() {
         val user_id: Int = intent.getIntExtra("user_id", 0)
         val coach_id: Int = intent.getIntExtra("coach_id", 0)
         val username: String? = intent.getStringExtra("username")
+
+        val header_image = findViewById<CircleImageView>(R.id.profile_image)
+        header_image.setImageResource(R.drawable.coach19_female)
+
 
 
         header_name.text = currentUserFirstName.toString()
